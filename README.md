@@ -3,7 +3,7 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 
 - API version: 10
 - Package version: 10
-- Build date: 2025-07-01T06:33:02.994204459Z[Etc/UTC]
+- Build date: 2025-07-01T10:17:20.817322704Z[Etc/UTC]
 
 ## Requirements.
 
