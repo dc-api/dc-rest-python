@@ -11,12 +11,14 @@ Name | Type | Description | Notes
 **permissions** | **str** |  | 
 **position** | **int** |  | 
 **color** | **int** |  | 
+**colors** | [**GuildRoleColorsResponse**](GuildRoleColorsResponse.md) |  | [optional] 
 **hoist** | **bool** |  | 
 **managed** | **bool** |  | 
 **mentionable** | **bool** |  | 
 **icon** | **str** |  | [optional] 
 **unicode_emoji** | **str** |  | [optional] 
 **tags** | [**GuildRoleTagsResponse**](GuildRoleTagsResponse.md) |  | [optional] 
+**flags** | **int** |  | 
 
 ## Example
 

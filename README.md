@@ -3,7 +3,7 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 
 - API version: 10
 - Package version: 10
-- Build date: 2025-07-01T10:17:20.817322704Z[Etc/UTC]
+- Build date: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
 
 ## Requirements.
 
@@ -526,6 +526,7 @@ Class | Method | HTTP request | Description
  - [GuildProductPurchaseResponse](docs/GuildProductPurchaseResponse.md)
  - [GuildPruneResponse](docs/GuildPruneResponse.md)
  - [GuildResponse](docs/GuildResponse.md)
+ - [GuildRoleColorsResponse](docs/GuildRoleColorsResponse.md)
  - [GuildRoleResponse](docs/GuildRoleResponse.md)
  - [GuildRoleTagsResponse](docs/GuildRoleTagsResponse.md)
  - [GuildStickerResponse](docs/GuildStickerResponse.md)

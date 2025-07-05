@@ -9,7 +9,7 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-01T10:17:20.817322704Z[Etc/UTC]
+- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
 - **Generator Version**: 7.14.0
 
 <details>
@@ -54,6 +54,7 @@ import json
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
+from dc_rest.models.guild_role_colors_response import GuildRoleColorsResponse
 from dc_rest.models.guild_role_tags_response import GuildRoleTagsResponse
 from typing import Optional, Set
 from typing_extensions import Self
@@ -68,13 +69,15 @@ class GuildRoleResponse(BaseModel):
     permissions: StrictStr
     position: StrictInt
     color: StrictInt
+    colors: Optional[GuildRoleColorsResponse] = None
     hoist: StrictBool
     managed: StrictBool
     mentionable: StrictBool
     icon: Optional[StrictStr] = None
     unicode_emoji: Optional[StrictStr] = None
     tags: Optional[GuildRoleTagsResponse] = None
-    __properties: ClassVar[List[str]] = ["id", "name", "description", "permissions", "position", "color", "hoist", "managed", "mentionable", "icon", "unicode_emoji", "tags"]
+    flags: StrictInt
+    __properties: ClassVar[List[str]] = ["id", "name", "description", "permissions", "position", "color", "colors", "hoist", "managed", "mentionable", "icon", "unicode_emoji", "tags", "flags"]
 
     @field_validator('id')
     def id_validate_regular_expression(cls, value):
@@ -122,6 +125,9 @@ class GuildRoleResponse(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of colors
+        if self.colors:
+            _dict['colors'] = self.colors.to_dict()
         # override the default output from pydantic by calling `to_dict()` of tags
         if self.tags:
             _dict['tags'] = self.tags.to_dict()
@@ -129,6 +135,11 @@ class GuildRoleResponse(BaseModel):
         # and model_fields_set contains the field
         if self.description is None and "description" in self.model_fields_set:
             _dict['description'] = None
+
+        # set to None if colors (nullable) is None
+        # and model_fields_set contains the field
+        if self.colors is None and "colors" in self.model_fields_set:
+            _dict['colors'] = None
 
         # set to None if icon (nullable) is None
         # and model_fields_set contains the field
@@ -168,12 +179,14 @@ class GuildRoleResponse(BaseModel):
             "permissions": obj.get("permissions"),
             "position": obj.get("position"),
             "color": obj.get("color"),
+            "colors": GuildRoleColorsResponse.from_dict(obj["colors"]) if obj.get("colors") is not None else None,
             "hoist": obj.get("hoist"),
             "managed": obj.get("managed"),
             "mentionable": obj.get("mentionable"),
             "icon": obj.get("icon"),
             "unicode_emoji": obj.get("unicode_emoji"),
-            "tags": GuildRoleTagsResponse.from_dict(obj["tags"]) if obj.get("tags") is not None else None
+            "tags": GuildRoleTagsResponse.from_dict(obj["tags"]) if obj.get("tags") is not None else None,
+            "flags": obj.get("flags")
         })
         return _obj
 
