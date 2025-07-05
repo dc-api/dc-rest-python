@@ -11,7 +11,7 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-01T10:17:20.817322704Z[Etc/UTC]
+- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
 - **Generator Version**: 7.14.0
 
 <details>
@@ -269,6 +269,7 @@ __all__ = [
     "GuildProductPurchaseResponse",
     "GuildPruneResponse",
     "GuildResponse",
+    "GuildRoleColorsResponse",
     "GuildRoleResponse",
     "GuildRoleTagsResponse",
     "GuildStickerResponse",
@@ -745,6 +746,7 @@ from dc_rest.models.guild_preview_response import GuildPreviewResponse as GuildP
 from dc_rest.models.guild_product_purchase_response import GuildProductPurchaseResponse as GuildProductPurchaseResponse
 from dc_rest.models.guild_prune_response import GuildPruneResponse as GuildPruneResponse
 from dc_rest.models.guild_response import GuildResponse as GuildResponse
+from dc_rest.models.guild_role_colors_response import GuildRoleColorsResponse as GuildRoleColorsResponse
 from dc_rest.models.guild_role_response import GuildRoleResponse as GuildRoleResponse
 from dc_rest.models.guild_role_tags_response import GuildRoleTagsResponse as GuildRoleTagsResponse
 from dc_rest.models.guild_sticker_response import GuildStickerResponse as GuildStickerResponse
