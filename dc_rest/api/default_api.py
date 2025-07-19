@@ -9,7 +9,7 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
+- **Modified**: 2025-07-19T09:30:54.227061557Z[Etc/UTC]
 - **Generator Version**: 7.14.0
 
 <details>
@@ -57,7 +57,6 @@ from typing_extensions import Annotated
 from dc_rest.models.activities_attachment_response import ActivitiesAttachmentResponse
 from dc_rest.models.add_group_dm_user201_response import AddGroupDmUser201Response
 from dc_rest.models.add_group_dm_user_request import AddGroupDmUserRequest
-from dc_rest.models.add_guild_member_request import AddGuildMemberRequest
 from dc_rest.models.add_lobby_member_request import AddLobbyMemberRequest
 from dc_rest.models.application_command_create_request import ApplicationCommandCreateRequest
 from dc_rest.models.application_command_patch_request_partial import ApplicationCommandPatchRequestPartial
@@ -69,6 +68,8 @@ from dc_rest.models.application_role_connections_metadata_item_response import A
 from dc_rest.models.application_user_role_connection_response import ApplicationUserRoleConnectionResponse
 from dc_rest.models.ban_user_from_guild_request import BanUserFromGuildRequest
 from dc_rest.models.bot_account_patch_request import BotAccountPatchRequest
+from dc_rest.models.bot_add_guild_member_request import BotAddGuildMemberRequest
+from dc_rest.models.bot_partner_sdk_token_request import BotPartnerSdkTokenRequest
 from dc_rest.models.bulk_ban_users_from_guild_request import BulkBanUsersFromGuildRequest
 from dc_rest.models.bulk_ban_users_response import BulkBanUsersResponse
 from dc_rest.models.bulk_delete_messages_request import BulkDeleteMessagesRequest
@@ -136,6 +137,7 @@ from dc_rest.models.list_channel_webhooks200_response_inner import ListChannelWe
 from dc_rest.models.list_guild_integrations200_response_inner import ListGuildIntegrations200ResponseInner
 from dc_rest.models.list_guild_scheduled_events200_response_inner import ListGuildScheduledEvents200ResponseInner
 from dc_rest.models.list_guild_soundboard_sounds_response import ListGuildSoundboardSoundsResponse
+from dc_rest.models.lobby_guild_invite_response import LobbyGuildInviteResponse
 from dc_rest.models.lobby_member_response import LobbyMemberResponse
 from dc_rest.models.lobby_message_response import LobbyMessageResponse
 from dc_rest.models.lobby_response import LobbyResponse
@@ -273,6 +275,7 @@ class DefaultApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "AddGroupDmUser201Response",
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -349,6 +352,7 @@ class DefaultApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "AddGroupDmUser201Response",
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -425,6 +429,7 @@ class DefaultApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "AddGroupDmUser201Response",
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -522,7 +527,7 @@ class DefaultApi:
         self,
         guild_id: Annotated[str, Field(strict=True)],
         user_id: Annotated[str, Field(strict=True)],
-        add_guild_member_request: AddGuildMemberRequest,
+        bot_add_guild_member_request: BotAddGuildMemberRequest,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -543,8 +548,8 @@ class DefaultApi:
         :type guild_id: str
         :param user_id: (required)
         :type user_id: str
-        :param add_guild_member_request: (required)
-        :type add_guild_member_request: AddGuildMemberRequest
+        :param bot_add_guild_member_request: (required)
+        :type bot_add_guild_member_request: BotAddGuildMemberRequest
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -570,7 +575,7 @@ class DefaultApi:
         _param = self._add_guild_member_serialize(
             guild_id=guild_id,
             user_id=user_id,
-            add_guild_member_request=add_guild_member_request,
+            bot_add_guild_member_request=bot_add_guild_member_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -580,6 +585,7 @@ class DefaultApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "GuildMemberResponse",
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -598,7 +604,7 @@ class DefaultApi:
         self,
         guild_id: Annotated[str, Field(strict=True)],
         user_id: Annotated[str, Field(strict=True)],
-        add_guild_member_request: AddGuildMemberRequest,
+        bot_add_guild_member_request: BotAddGuildMemberRequest,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -619,8 +625,8 @@ class DefaultApi:
         :type guild_id: str
         :param user_id: (required)
         :type user_id: str
-        :param add_guild_member_request: (required)
-        :type add_guild_member_request: AddGuildMemberRequest
+        :param bot_add_guild_member_request: (required)
+        :type bot_add_guild_member_request: BotAddGuildMemberRequest
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -646,7 +652,7 @@ class DefaultApi:
         _param = self._add_guild_member_serialize(
             guild_id=guild_id,
             user_id=user_id,
-            add_guild_member_request=add_guild_member_request,
+            bot_add_guild_member_request=bot_add_guild_member_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -656,6 +662,7 @@ class DefaultApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "GuildMemberResponse",
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -674,7 +681,7 @@ class DefaultApi:
         self,
         guild_id: Annotated[str, Field(strict=True)],
         user_id: Annotated[str, Field(strict=True)],
-        add_guild_member_request: AddGuildMemberRequest,
+        bot_add_guild_member_request: BotAddGuildMemberRequest,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -695,8 +702,8 @@ class DefaultApi:
         :type guild_id: str
         :param user_id: (required)
         :type user_id: str
-        :param add_guild_member_request: (required)
-        :type add_guild_member_request: AddGuildMemberRequest
+        :param bot_add_guild_member_request: (required)
+        :type bot_add_guild_member_request: BotAddGuildMemberRequest
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -722,7 +729,7 @@ class DefaultApi:
         _param = self._add_guild_member_serialize(
             guild_id=guild_id,
             user_id=user_id,
-            add_guild_member_request=add_guild_member_request,
+            bot_add_guild_member_request=bot_add_guild_member_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -732,6 +739,7 @@ class DefaultApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "GuildMemberResponse",
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -745,7 +753,7 @@ class DefaultApi:
         self,
         guild_id,
         user_id,
-        add_guild_member_request,
+        bot_add_guild_member_request,
         _request_auth,
         _content_type,
         _headers,
@@ -775,8 +783,8 @@ class DefaultApi:
         # process the header parameters
         # process the form parameters
         # process the body parameter
-        if add_guild_member_request is not None:
-            _body_params = add_guild_member_request
+        if bot_add_guild_member_request is not None:
+            _body_params = bot_add_guild_member_request
 
 
         # set the HTTP header `Accept`
@@ -886,6 +894,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -961,6 +970,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -1036,6 +1046,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -1177,6 +1188,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "LobbyMemberResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -1252,6 +1264,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "LobbyMemberResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -1327,6 +1340,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "LobbyMemberResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -1481,6 +1495,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -1556,6 +1571,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -1631,6 +1647,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -1768,6 +1785,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -1839,6 +1857,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -1910,6 +1929,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -2044,6 +2064,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "EmbeddedActivityInstance",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -2115,6 +2136,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "EmbeddedActivityInstance",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -2186,6 +2208,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "EmbeddedActivityInstance",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -2324,6 +2347,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -2399,6 +2423,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -2474,6 +2499,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -2567,6 +2593,283 @@ class DefaultApi:
 
 
     @validate_call
+    async def bot_partner_sdk_token(
+        self,
+        bot_partner_sdk_token_request: BotPartnerSdkTokenRequest,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ProvisionalTokenResponse:
+        """bot_partner_sdk_token
+
+
+        :param bot_partner_sdk_token_request: (required)
+        :type bot_partner_sdk_token_request: BotPartnerSdkTokenRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._bot_partner_sdk_token_serialize(
+            bot_partner_sdk_token_request=bot_partner_sdk_token_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "ProvisionalTokenResponse",
+            '429': "RatelimitedResponse",
+            '4XX': "ErrorResponse",
+        }
+        response_data = await self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        await response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    async def bot_partner_sdk_token_with_http_info(
+        self,
+        bot_partner_sdk_token_request: BotPartnerSdkTokenRequest,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[ProvisionalTokenResponse]:
+        """bot_partner_sdk_token
+
+
+        :param bot_partner_sdk_token_request: (required)
+        :type bot_partner_sdk_token_request: BotPartnerSdkTokenRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._bot_partner_sdk_token_serialize(
+            bot_partner_sdk_token_request=bot_partner_sdk_token_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "ProvisionalTokenResponse",
+            '429': "RatelimitedResponse",
+            '4XX': "ErrorResponse",
+        }
+        response_data = await self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        await response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    async def bot_partner_sdk_token_without_preload_content(
+        self,
+        bot_partner_sdk_token_request: BotPartnerSdkTokenRequest,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """bot_partner_sdk_token
+
+
+        :param bot_partner_sdk_token_request: (required)
+        :type bot_partner_sdk_token_request: BotPartnerSdkTokenRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._bot_partner_sdk_token_serialize(
+            bot_partner_sdk_token_request=bot_partner_sdk_token_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "ProvisionalTokenResponse",
+            '429': "RatelimitedResponse",
+            '4XX': "ErrorResponse",
+        }
+        response_data = await self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _bot_partner_sdk_token_serialize(
+        self,
+        bot_partner_sdk_token_request,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        # process the query parameters
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+        if bot_partner_sdk_token_request is not None:
+            _body_params = bot_partner_sdk_token_request
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'BotToken'
+        ]
+
+        return self.api_client.param_serialize(
+            method='POST',
+            resource_path='/partner-sdk/token/bot',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
     async def bulk_ban_users_from_guild(
         self,
         guild_id: Annotated[str, Field(strict=True)],
@@ -2624,6 +2927,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "BulkBanUsersResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -2695,6 +2999,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "BulkBanUsersResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -2766,6 +3071,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "BulkBanUsersResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -2913,6 +3219,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -2984,6 +3291,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -3055,6 +3363,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -3202,6 +3511,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[ApplicationCommandResponse]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -3273,6 +3583,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[ApplicationCommandResponse]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -3344,6 +3655,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[ApplicationCommandResponse]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -3499,6 +3811,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[ApplicationCommandResponse]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -3574,6 +3887,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[ApplicationCommandResponse]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -3649,6 +3963,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[ApplicationCommandResponse]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -3803,6 +4118,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -3874,6 +4190,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -3945,6 +4262,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -4093,6 +4411,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[GuildRoleResponse]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -4164,6 +4483,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[GuildRoleResponse]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -4235,6 +4555,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[GuildRoleResponse]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -4383,6 +4704,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[LobbyMemberResponse]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -4454,6 +4776,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[LobbyMemberResponse]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -4525,6 +4848,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[LobbyMemberResponse]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -4673,6 +4997,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -4744,6 +5069,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -4815,6 +5141,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -4953,6 +5280,7 @@ class DefaultApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ApplicationCommandResponse",
             '201': "ApplicationCommandResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -5025,6 +5353,7 @@ class DefaultApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ApplicationCommandResponse",
             '201': "ApplicationCommandResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -5097,6 +5426,7 @@ class DefaultApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ApplicationCommandResponse",
             '201': "ApplicationCommandResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -5247,6 +5577,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "EmojiResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -5318,6 +5649,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "EmojiResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -5389,6 +5721,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "EmojiResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -5536,6 +5869,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "CreateAutoModerationRule200Response",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -5607,6 +5941,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "CreateAutoModerationRule200Response",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -5678,6 +6013,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "CreateAutoModerationRule200Response",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -5826,6 +6162,7 @@ class DefaultApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ListChannelInvites200ResponseInner",
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -5898,6 +6235,7 @@ class DefaultApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ListChannelInvites200ResponseInner",
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -5970,6 +6308,7 @@ class DefaultApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ListChannelInvites200ResponseInner",
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -6113,6 +6452,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "AddGroupDmUser201Response",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -6180,6 +6520,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "AddGroupDmUser201Response",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -6247,6 +6588,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "AddGroupDmUser201Response",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -6391,6 +6733,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "EntitlementResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -6462,6 +6805,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "EntitlementResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -6533,6 +6877,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "EntitlementResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -6676,6 +7021,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "GuildResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -6743,6 +7089,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "GuildResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -6810,6 +7157,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "GuildResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -6959,6 +7307,7 @@ class DefaultApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ApplicationCommandResponse",
             '201': "ApplicationCommandResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -7035,6 +7384,7 @@ class DefaultApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ApplicationCommandResponse",
             '201': "ApplicationCommandResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -7111,6 +7461,7 @@ class DefaultApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ApplicationCommandResponse",
             '201': "ApplicationCommandResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -7264,6 +7615,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "GuildChannelResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -7335,6 +7687,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "GuildChannelResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -7406,6 +7759,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "GuildChannelResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -7553,6 +7907,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "EmojiResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -7624,6 +7979,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "EmojiResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -7695,6 +8051,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "EmojiResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -7842,6 +8199,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "GuildResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -7913,6 +8271,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "GuildResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -7984,6 +8343,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "GuildResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -8131,6 +8491,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GuildRoleResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -8202,6 +8563,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GuildRoleResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -8273,6 +8635,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GuildRoleResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -8420,6 +8783,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ListGuildScheduledEvents200ResponseInner",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -8491,6 +8855,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ListGuildScheduledEvents200ResponseInner",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -8562,6 +8927,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ListGuildScheduledEvents200ResponseInner",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -8709,6 +9075,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "SoundboardSoundResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -8780,6 +9147,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "SoundboardSoundResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -8851,6 +9219,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "SoundboardSoundResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -9010,6 +9379,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "GuildStickerResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -9093,6 +9463,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "GuildStickerResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -9176,6 +9547,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "GuildStickerResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -9332,6 +9704,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GuildTemplateResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -9403,6 +9776,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GuildTemplateResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -9474,6 +9848,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GuildTemplateResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -9630,6 +10005,7 @@ class DefaultApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "InteractionCallbackResponse",
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -9710,6 +10086,7 @@ class DefaultApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "InteractionCallbackResponse",
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -9790,6 +10167,7 @@ class DefaultApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "InteractionCallbackResponse",
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -9890,6 +10268,552 @@ class DefaultApi:
 
 
     @validate_call
+    async def create_linked_lobby_guild_invite_for_self(
+        self,
+        lobby_id: Annotated[str, Field(strict=True)],
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> LobbyGuildInviteResponse:
+        """create_linked_lobby_guild_invite_for_self
+
+
+        :param lobby_id: (required)
+        :type lobby_id: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._create_linked_lobby_guild_invite_for_self_serialize(
+            lobby_id=lobby_id,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "LobbyGuildInviteResponse",
+            '429': "RatelimitedResponse",
+            '4XX': "ErrorResponse",
+        }
+        response_data = await self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        await response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    async def create_linked_lobby_guild_invite_for_self_with_http_info(
+        self,
+        lobby_id: Annotated[str, Field(strict=True)],
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[LobbyGuildInviteResponse]:
+        """create_linked_lobby_guild_invite_for_self
+
+
+        :param lobby_id: (required)
+        :type lobby_id: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._create_linked_lobby_guild_invite_for_self_serialize(
+            lobby_id=lobby_id,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "LobbyGuildInviteResponse",
+            '429': "RatelimitedResponse",
+            '4XX': "ErrorResponse",
+        }
+        response_data = await self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        await response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    async def create_linked_lobby_guild_invite_for_self_without_preload_content(
+        self,
+        lobby_id: Annotated[str, Field(strict=True)],
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """create_linked_lobby_guild_invite_for_self
+
+
+        :param lobby_id: (required)
+        :type lobby_id: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._create_linked_lobby_guild_invite_for_self_serialize(
+            lobby_id=lobby_id,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "LobbyGuildInviteResponse",
+            '429': "RatelimitedResponse",
+            '4XX': "ErrorResponse",
+        }
+        response_data = await self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _create_linked_lobby_guild_invite_for_self_serialize(
+        self,
+        lobby_id,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if lobby_id is not None:
+            _path_params['lobby_id'] = lobby_id
+        # process the query parameters
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'OAuth2', 
+            'OAuth2', 
+            'OAuth2', 
+            'BotToken'
+        ]
+
+        return self.api_client.param_serialize(
+            method='POST',
+            resource_path='/lobbies/{lobby_id}/members/@me/invites',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    async def create_linked_lobby_guild_invite_for_user(
+        self,
+        lobby_id: Annotated[str, Field(strict=True)],
+        user_id: Annotated[str, Field(strict=True)],
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> LobbyGuildInviteResponse:
+        """create_linked_lobby_guild_invite_for_user
+
+
+        :param lobby_id: (required)
+        :type lobby_id: str
+        :param user_id: (required)
+        :type user_id: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._create_linked_lobby_guild_invite_for_user_serialize(
+            lobby_id=lobby_id,
+            user_id=user_id,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "LobbyGuildInviteResponse",
+            '429': "RatelimitedResponse",
+            '4XX': "ErrorResponse",
+        }
+        response_data = await self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        await response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    async def create_linked_lobby_guild_invite_for_user_with_http_info(
+        self,
+        lobby_id: Annotated[str, Field(strict=True)],
+        user_id: Annotated[str, Field(strict=True)],
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[LobbyGuildInviteResponse]:
+        """create_linked_lobby_guild_invite_for_user
+
+
+        :param lobby_id: (required)
+        :type lobby_id: str
+        :param user_id: (required)
+        :type user_id: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._create_linked_lobby_guild_invite_for_user_serialize(
+            lobby_id=lobby_id,
+            user_id=user_id,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "LobbyGuildInviteResponse",
+            '429': "RatelimitedResponse",
+            '4XX': "ErrorResponse",
+        }
+        response_data = await self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        await response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    async def create_linked_lobby_guild_invite_for_user_without_preload_content(
+        self,
+        lobby_id: Annotated[str, Field(strict=True)],
+        user_id: Annotated[str, Field(strict=True)],
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """create_linked_lobby_guild_invite_for_user
+
+
+        :param lobby_id: (required)
+        :type lobby_id: str
+        :param user_id: (required)
+        :type user_id: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._create_linked_lobby_guild_invite_for_user_serialize(
+            lobby_id=lobby_id,
+            user_id=user_id,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "LobbyGuildInviteResponse",
+            '429': "RatelimitedResponse",
+            '4XX': "ErrorResponse",
+        }
+        response_data = await self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _create_linked_lobby_guild_invite_for_user_serialize(
+        self,
+        lobby_id,
+        user_id,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if lobby_id is not None:
+            _path_params['lobby_id'] = lobby_id
+        if user_id is not None:
+            _path_params['user_id'] = user_id
+        # process the query parameters
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'BotToken'
+        ]
+
+        return self.api_client.param_serialize(
+            method='POST',
+            resource_path='/lobbies/{lobby_id}/members/{user_id}/invites',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
     async def create_lobby(
         self,
         create_lobby_request: CreateLobbyRequest,
@@ -9943,6 +10867,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "LobbyResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -10010,6 +10935,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "LobbyResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -10077,6 +11003,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "LobbyResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -10221,6 +11148,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "LobbyMessageResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -10292,6 +11220,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "LobbyMessageResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -10363,6 +11292,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "LobbyMessageResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -10515,6 +11445,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "MessageResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -10586,6 +11517,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "MessageResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -10657,6 +11589,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "MessageResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -10802,6 +11735,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "LobbyResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -10869,6 +11803,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "LobbyResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -10936,6 +11871,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "LobbyResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -11083,6 +12019,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -11154,6 +12091,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -11225,6 +12163,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -11355,6 +12294,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "StageInstanceResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -11422,6 +12362,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "StageInstanceResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -11489,6 +12430,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "StageInstanceResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -11633,6 +12575,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "CreatedThreadResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -11704,6 +12647,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "CreatedThreadResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -11775,6 +12719,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "CreatedThreadResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -11928,6 +12873,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "ThreadResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -12003,6 +12949,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "ThreadResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -12078,6 +13025,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': "ThreadResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -12228,6 +13176,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GuildIncomingWebhookResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -12299,6 +13248,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GuildIncomingWebhookResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -12370,6 +13320,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GuildIncomingWebhookResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -12517,6 +13468,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "MessageResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -12588,6 +13540,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "MessageResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -12659,6 +13612,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "MessageResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -12793,6 +13747,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -12864,6 +13819,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -12935,6 +13891,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -13073,6 +14030,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -13148,6 +14106,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -13223,6 +14182,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -13360,6 +14320,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -13431,6 +14392,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -13502,6 +14464,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -13639,6 +14602,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -13710,6 +14674,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -13781,6 +14746,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -13911,6 +14877,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -13978,6 +14945,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -14045,6 +15013,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -14178,6 +15147,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -14249,6 +15219,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -14320,6 +15291,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -14450,6 +15422,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GetChannel200Response",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -14517,6 +15490,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GetChannel200Response",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -14584,6 +15558,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GetChannel200Response",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -14715,6 +15690,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -14786,6 +15762,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -14857,6 +15834,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -14991,6 +15969,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -15062,6 +16041,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -15133,6 +16113,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -15270,6 +16251,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -15341,6 +16323,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -15412,6 +16395,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -15542,6 +16526,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -15609,6 +16594,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -15676,6 +16662,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -15811,6 +16798,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -15886,6 +16874,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -15961,6 +16950,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -16101,6 +17091,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -16172,6 +17163,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -16243,6 +17235,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -16377,6 +17370,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -16448,6 +17442,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -16519,6 +17514,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -16653,6 +17649,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -16724,6 +17721,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -16795,6 +17793,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -16933,6 +17932,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -17008,6 +18008,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -17083,6 +18084,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -17220,6 +18222,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -17291,6 +18294,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -17362,6 +18366,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -17496,6 +18501,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -17567,6 +18573,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -17638,6 +18645,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -17772,6 +18780,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -17843,6 +18852,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -17914,6 +18924,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -18048,6 +19059,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -18119,6 +19131,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -18190,6 +19203,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -18324,6 +19338,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GuildTemplateResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -18395,6 +19410,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GuildTemplateResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -18466,6 +19482,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GuildTemplateResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -18600,6 +19617,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -18671,6 +19689,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -18742,6 +19761,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -18876,6 +19896,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -18947,6 +19968,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -19018,6 +20040,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -19156,6 +20179,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -19231,6 +20255,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -19306,6 +20331,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -19447,6 +20473,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -19522,6 +20549,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -19597,6 +20625,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -19736,6 +20765,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -19807,6 +20837,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -19878,6 +20909,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -20008,6 +21040,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -20075,6 +21108,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -20142,6 +21176,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -20273,6 +21308,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -20344,6 +21380,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -20415,6 +21452,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -20557,6 +21595,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -20636,6 +21675,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -20715,6 +21755,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -20851,6 +21892,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -20918,6 +21960,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -20985,6 +22028,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -21116,6 +22160,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -21187,6 +22232,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -21258,6 +22304,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -21400,6 +22447,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -21479,6 +22527,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -21558,6 +22607,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -21700,6 +22750,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -21771,6 +22822,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -21842,6 +22894,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -21976,6 +23029,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -22047,6 +23101,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -22118,6 +23173,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -22248,6 +23304,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[MessageResponse]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -22315,6 +23372,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[MessageResponse]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -22382,6 +23440,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[MessageResponse]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -22513,6 +23572,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "LobbyResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -22584,6 +23644,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "LobbyResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -22655,6 +23716,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "LobbyResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -22802,6 +23864,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "LobbyResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -22873,6 +23936,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "LobbyResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -22944,6 +24008,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "LobbyResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -23106,6 +24171,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -23189,6 +24255,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -23272,6 +24339,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -23444,6 +24512,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "str",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -23527,6 +24596,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "str",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -23610,6 +24680,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "str",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -23789,6 +24860,7 @@ class DefaultApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "MessageResponse",
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -23877,6 +24949,7 @@ class DefaultApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "MessageResponse",
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -23965,6 +25038,7 @@ class DefaultApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "MessageResponse",
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -24132,6 +25206,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ChannelFollowerResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -24203,6 +25278,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ChannelFollowerResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -24274,6 +25350,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ChannelFollowerResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -24417,6 +25494,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ThreadsResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -24484,6 +25562,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ThreadsResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -24551,6 +25630,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ThreadsResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -24694,6 +25774,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "PollAnswerDetailsResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -24777,6 +25858,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "PollAnswerDetailsResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -24860,6 +25942,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "PollAnswerDetailsResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -25003,6 +26086,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "PrivateApplicationResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -25070,6 +26154,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "PrivateApplicationResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -25137,6 +26222,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "PrivateApplicationResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -25268,6 +26354,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ApplicationCommandResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -25339,6 +26426,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ApplicationCommandResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -25410,6 +26498,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ApplicationCommandResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -25547,6 +26636,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "EmojiResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -25618,6 +26708,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "EmojiResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -25689,6 +26780,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "EmojiResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -25819,6 +26911,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[ApplicationRoleConnectionsMetadataItemResponse]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -25886,6 +26979,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[ApplicationRoleConnectionsMetadataItemResponse]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -25953,6 +27047,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[ApplicationRoleConnectionsMetadataItemResponse]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -26080,6 +27175,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ApplicationUserRoleConnectionResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -26147,6 +27243,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ApplicationUserRoleConnectionResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -26214,6 +27311,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ApplicationUserRoleConnectionResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -26347,6 +27445,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "CreateAutoModerationRule200Response",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -26418,6 +27517,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "CreateAutoModerationRule200Response",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -26489,6 +27589,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "CreateAutoModerationRule200Response",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -26615,6 +27716,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GatewayBotResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -26678,6 +27780,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GatewayBotResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -26741,6 +27844,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GatewayBotResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -26865,6 +27969,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GetChannel200Response",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -26932,6 +28037,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GetChannel200Response",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -26999,6 +28105,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GetChannel200Response",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -27130,6 +28237,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "EntitlementResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -27201,6 +28309,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "EntitlementResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -27272,6 +28381,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "EntitlementResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -27441,6 +28551,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[Optional[EntitlementResponse]]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -27544,6 +28655,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[Optional[EntitlementResponse]]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -27647,6 +28759,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[Optional[EntitlementResponse]]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -27818,6 +28931,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GatewayResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -27881,6 +28995,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GatewayResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -27944,6 +29059,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GatewayResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -28072,6 +29188,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GuildWithCountsResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -28143,6 +29260,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GuildWithCountsResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -28214,6 +29332,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GuildWithCountsResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -28354,6 +29473,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ApplicationCommandResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -28429,6 +29549,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ApplicationCommandResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -28504,6 +29625,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ApplicationCommandResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -28648,6 +29770,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "CommandPermissionsResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -28723,6 +29846,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "CommandPermissionsResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -28798,6 +29922,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "CommandPermissionsResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -28938,6 +30063,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GuildBanResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -29009,6 +30135,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GuildBanResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -29080,6 +30207,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GuildBanResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -29214,6 +30342,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "EmojiResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -29285,6 +30414,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "EmojiResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -29356,6 +30486,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "EmojiResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -29490,6 +30621,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GuildMemberResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -29561,6 +30693,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GuildMemberResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -29632,6 +30765,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GuildMemberResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -29763,6 +30897,7 @@ class DefaultApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GuildHomeSettingsResponse",
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -29831,6 +30966,7 @@ class DefaultApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GuildHomeSettingsResponse",
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -29899,6 +31035,7 @@ class DefaultApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GuildHomeSettingsResponse",
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -30026,6 +31163,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GuildPreviewResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -30093,6 +31231,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GuildPreviewResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -30160,6 +31299,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GuildPreviewResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -30291,6 +31431,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GuildRoleResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -30362,6 +31503,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GuildRoleResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -30433,6 +31575,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GuildRoleResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -30571,6 +31714,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ListGuildScheduledEvents200ResponseInner",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -30646,6 +31790,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ListGuildScheduledEvents200ResponseInner",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -30721,6 +31866,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ListGuildScheduledEvents200ResponseInner",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -30860,6 +32006,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SoundboardSoundResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -30931,6 +32078,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SoundboardSoundResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -31002,6 +32150,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SoundboardSoundResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -31136,6 +32285,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GuildStickerResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -31207,6 +32357,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GuildStickerResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -31278,6 +32429,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GuildStickerResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -31408,6 +32560,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GuildTemplateResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -31475,6 +32628,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GuildTemplateResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -31542,6 +32696,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GuildTemplateResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -31669,6 +32824,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "VanityURLResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -31736,6 +32892,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "VanityURLResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -31803,6 +32960,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "VanityURLResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -31930,6 +33088,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[ListChannelWebhooks200ResponseInner]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -31997,6 +33156,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[ListChannelWebhooks200ResponseInner]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -32064,6 +33224,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[ListChannelWebhooks200ResponseInner]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -32191,6 +33352,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GuildWelcomeScreenResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -32258,6 +33420,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GuildWelcomeScreenResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -32325,6 +33488,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GuildWelcomeScreenResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -32452,6 +33616,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "WidgetResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -32519,6 +33684,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "WidgetResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -32586,6 +33752,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "WidgetResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -32717,6 +33884,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "str",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -32788,6 +33956,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "str",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -32859,6 +34028,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "str",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -32992,6 +34162,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "WidgetSettingsResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -33059,6 +34230,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "WidgetSettingsResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -33126,6 +34298,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "WidgetSettingsResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -33253,6 +34426,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "UserGuildOnboardingResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -33320,6 +34494,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "UserGuildOnboardingResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -33387,6 +34562,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "UserGuildOnboardingResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -33514,6 +34690,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "LobbyResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -33581,6 +34758,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "LobbyResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -33648,6 +34826,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "LobbyResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -33779,6 +34958,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[LobbyMessageResponse]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -33850,6 +35030,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[LobbyMessageResponse]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -33921,6 +35102,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[LobbyMessageResponse]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -34060,6 +35242,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "MessageResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -34131,6 +35314,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "MessageResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -34202,6 +35386,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "MessageResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -34328,6 +35513,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "PrivateApplicationResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -34391,6 +35577,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "PrivateApplicationResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -34454,6 +35641,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "PrivateApplicationResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -34578,6 +35766,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "PrivateGuildMemberResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -34645,6 +35834,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "PrivateGuildMemberResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -34712,6 +35902,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "PrivateGuildMemberResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -34837,6 +36028,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "PrivateApplicationResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -34900,6 +36092,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "PrivateApplicationResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -34963,6 +36156,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "PrivateApplicationResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -35083,6 +36277,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "OAuth2GetAuthorizationResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -35146,6 +36341,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "OAuth2GetAuthorizationResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -35209,6 +36405,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "OAuth2GetAuthorizationResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -35332,6 +36529,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "UserPIIResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -35395,6 +36593,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "UserPIIResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -35458,6 +36657,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "UserPIIResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -35581,6 +36781,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "OAuth2GetOpenIDConnectUserInfoResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -35644,6 +36845,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "OAuth2GetOpenIDConnectUserInfoResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -35707,6 +36909,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "OAuth2GetOpenIDConnectUserInfoResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -35842,6 +37045,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "MessageResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -35917,6 +37121,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "MessageResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -35992,6 +37197,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "MessageResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -36123,6 +37329,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "OAuth2GetKeys",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -36186,6 +37393,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "OAuth2GetKeys",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -36249,6 +37457,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "OAuth2GetKeys",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -36373,6 +37582,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "VoiceStateResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -36440,6 +37650,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "VoiceStateResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -36507,6 +37718,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "VoiceStateResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -36630,6 +37842,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[SoundboardSoundResponse]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -36693,6 +37906,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[SoundboardSoundResponse]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -36756,6 +37970,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[SoundboardSoundResponse]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -36880,6 +38095,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "StageInstanceResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -36947,6 +38163,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "StageInstanceResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -37014,6 +38231,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "StageInstanceResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -37141,6 +38359,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GetSticker200Response",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -37208,6 +38427,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GetSticker200Response",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -37275,6 +38495,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GetSticker200Response",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -37402,6 +38623,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "StickerPackResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -37469,6 +38691,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "StickerPackResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -37536,6 +38759,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "StickerPackResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -37671,6 +38895,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ThreadMemberResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -37746,6 +38971,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ThreadMemberResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -37821,6 +39047,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ThreadMemberResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -37956,6 +39183,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "UserResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -38023,6 +39251,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "UserResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -38090,6 +39319,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "UserResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -38221,6 +39451,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "VoiceStateResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -38292,6 +39523,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "VoiceStateResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -38363,6 +39595,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "VoiceStateResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -38493,6 +39726,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ListChannelWebhooks200ResponseInner",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -38560,6 +39794,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ListChannelWebhooks200ResponseInner",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -38627,6 +39862,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ListChannelWebhooks200ResponseInner",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -38758,6 +39994,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ListChannelWebhooks200ResponseInner",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -38829,6 +40066,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ListChannelWebhooks200ResponseInner",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -38900,6 +40138,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ListChannelWebhooks200ResponseInner",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -39042,6 +40281,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "MessageResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -39121,6 +40361,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "MessageResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -39200,6 +40441,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "MessageResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -39346,6 +40588,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ListChannelInvites200ResponseInner",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -39421,6 +40664,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ListChannelInvites200ResponseInner",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -39496,6 +40740,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ListChannelInvites200ResponseInner",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -39633,6 +40878,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ListChannelInvites200ResponseInner",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -39700,6 +40946,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ListChannelInvites200ResponseInner",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -39767,6 +41014,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ListChannelInvites200ResponseInner",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -39894,6 +41142,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -39961,6 +41210,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -40028,6 +41278,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -40155,6 +41406,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -40222,6 +41474,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -40289,6 +41542,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -40416,6 +41670,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -40483,6 +41738,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -40550,6 +41806,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -40680,6 +41937,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -40747,6 +42005,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -40814,6 +42073,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -40945,6 +42205,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[ApplicationCommandResponse]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -41016,6 +42277,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[ApplicationCommandResponse]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -41087,6 +42349,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[ApplicationCommandResponse]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -41222,6 +42485,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ListApplicationEmojisResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -41289,6 +42553,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ListApplicationEmojisResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -41356,6 +42621,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ListApplicationEmojisResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -41483,6 +42749,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[ListAutoModerationRules200ResponseInner]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -41550,6 +42817,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[ListAutoModerationRules200ResponseInner]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -41617,6 +42885,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[ListAutoModerationRules200ResponseInner]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -41744,6 +43013,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[ListChannelInvites200ResponseInner]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -41811,6 +43081,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[ListChannelInvites200ResponseInner]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -41878,6 +43149,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[ListChannelInvites200ResponseInner]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -42005,6 +43277,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[ListChannelWebhooks200ResponseInner]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -42072,6 +43345,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[ListChannelWebhooks200ResponseInner]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -42139,6 +43413,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[ListChannelWebhooks200ResponseInner]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -42270,6 +43545,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[CommandPermissionsResponse]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -42341,6 +43617,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[CommandPermissionsResponse]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -42412,6 +43689,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[CommandPermissionsResponse]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -42553,6 +43831,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[ApplicationCommandResponse]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -42628,6 +43907,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[ApplicationCommandResponse]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -42703,6 +43983,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[ApplicationCommandResponse]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -42865,6 +44146,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GuildAuditLogResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -42956,6 +44238,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GuildAuditLogResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -43047,6 +44330,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GuildAuditLogResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -43216,6 +44500,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[GuildBanResponse]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -43295,6 +44580,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[GuildBanResponse]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -43374,6 +44660,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[GuildBanResponse]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -43516,6 +44803,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[GetChannel200Response]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -43583,6 +44871,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[GetChannel200Response]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -43650,6 +44939,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[GetChannel200Response]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -43780,6 +45070,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[EmojiResponse]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -43847,6 +45138,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[EmojiResponse]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -43914,6 +45206,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[EmojiResponse]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -44041,6 +45334,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[ListGuildIntegrations200ResponseInner]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -44108,6 +45402,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[ListGuildIntegrations200ResponseInner]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -44175,6 +45470,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[ListGuildIntegrations200ResponseInner]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -44302,6 +45598,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[ListChannelInvites200ResponseInner]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -44369,6 +45666,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[ListChannelInvites200ResponseInner]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -44436,6 +45734,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[ListChannelInvites200ResponseInner]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -44571,6 +45870,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[GuildMemberResponse]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -44646,6 +45946,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[GuildMemberResponse]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -44721,6 +46022,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[GuildMemberResponse]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -44858,6 +46160,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[GuildRoleResponse]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -44925,6 +46228,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[GuildRoleResponse]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -44992,6 +46296,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[GuildRoleResponse]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -45139,6 +46444,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[ScheduledEventUserResponse]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -45226,6 +46532,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[ScheduledEventUserResponse]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -45313,6 +46620,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[ScheduledEventUserResponse]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -45467,6 +46775,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[ListGuildScheduledEvents200ResponseInner]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -45538,6 +46847,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[ListGuildScheduledEvents200ResponseInner]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -45609,6 +46919,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[ListGuildScheduledEvents200ResponseInner]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -45741,6 +47052,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ListGuildSoundboardSoundsResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -45808,6 +47120,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ListGuildSoundboardSoundsResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -45875,6 +47188,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ListGuildSoundboardSoundsResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -46002,6 +47316,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[GuildStickerResponse]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -46069,6 +47384,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[GuildStickerResponse]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -46136,6 +47452,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[GuildStickerResponse]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -46263,6 +47580,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[GuildTemplateResponse]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -46330,6 +47648,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[GuildTemplateResponse]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -46397,6 +47716,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[GuildTemplateResponse]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -46524,6 +47844,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[VoiceRegionResponse]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -46591,6 +47912,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[VoiceRegionResponse]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -46658,6 +47980,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[VoiceRegionResponse]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -46805,6 +48128,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[UserResponse]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -46892,6 +48216,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[UserResponse]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -46979,6 +48304,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[UserResponse]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -47143,6 +48469,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[MessageResponse]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -47226,6 +48553,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[MessageResponse]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -47309,6 +48637,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[MessageResponse]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -47452,6 +48781,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[ConnectedAccountResponse]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -47515,6 +48845,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[ConnectedAccountResponse]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -47578,6 +48909,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[ConnectedAccountResponse]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -47717,6 +49049,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[MyGuildResponse]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -47796,6 +49129,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[MyGuildResponse]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -47875,6 +49209,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[MyGuildResponse]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -48030,6 +49365,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ThreadsResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -48105,6 +49441,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ThreadsResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -48180,6 +49517,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ThreadsResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -48325,6 +49663,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "PinnedMessagesResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -48400,6 +49739,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "PinnedMessagesResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -48475,6 +49815,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "PinnedMessagesResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -48629,6 +49970,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ThreadsResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -48704,6 +50046,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ThreadsResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -48779,6 +50122,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ThreadsResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -48933,6 +50277,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ThreadsResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -49008,6 +50353,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ThreadsResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -49083,6 +50429,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ThreadsResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -49225,6 +50572,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "StickerPackCollectionResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -49288,6 +50636,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "StickerPackCollectionResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -49351,6 +50700,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "StickerPackCollectionResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -49487,6 +50837,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[ThreadMemberResponse]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -49566,6 +50917,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[ThreadMemberResponse]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -49645,6 +50997,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[ThreadMemberResponse]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -49783,6 +51136,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[VoiceRegionResponse]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -49846,6 +51200,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[VoiceRegionResponse]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -49909,6 +51264,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[VoiceRegionResponse]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -50033,6 +51389,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ProvisionalTokenResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -50100,6 +51457,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ProvisionalTokenResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -50167,6 +51525,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ProvisionalTokenResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -50307,6 +51666,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -50374,6 +51734,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -50441,6 +51802,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -50585,6 +51947,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "MessageResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -50656,6 +52019,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "MessageResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -50727,6 +52091,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "MessageResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -50865,6 +52230,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GuildPruneResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -50940,6 +52306,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GuildPruneResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -51015,6 +52382,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GuildPruneResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -51156,6 +52524,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GuildPruneResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -51227,6 +52596,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GuildPruneResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -51298,6 +52668,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GuildPruneResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -51445,6 +52816,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GuildOnboardingResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -51516,6 +52888,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GuildOnboardingResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -51587,6 +52960,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GuildOnboardingResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -51738,6 +53112,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[GuildMemberResponse]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -51813,6 +53188,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[GuildMemberResponse]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -51888,6 +53264,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[GuildMemberResponse]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -52029,6 +53406,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -52100,6 +53478,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -52171,6 +53550,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -52322,6 +53702,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -52397,6 +53778,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -52472,6 +53854,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -52630,6 +54013,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "CommandPermissionsResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -52709,6 +54093,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "CommandPermissionsResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -52788,6 +54173,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "CommandPermissionsResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -52944,6 +54330,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GuildMFALevelResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -53015,6 +54402,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GuildMFALevelResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -53086,6 +54474,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GuildMFALevelResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -53233,6 +54622,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GuildTemplateResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -53304,6 +54694,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GuildTemplateResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -53375,6 +54766,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GuildTemplateResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -53549,6 +54941,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ThreadSearchResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -53660,6 +55053,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ThreadSearchResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -53771,6 +55165,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ThreadSearchResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -53954,6 +55349,7 @@ class DefaultApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "object",
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -54022,6 +55418,7 @@ class DefaultApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "object",
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -54090,6 +55487,7 @@ class DefaultApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "object",
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -54221,6 +55619,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -54292,6 +55691,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -54363,6 +55763,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -54497,6 +55898,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "PrivateApplicationResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -54568,6 +55970,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "PrivateApplicationResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -54639,6 +56042,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "PrivateApplicationResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -54790,6 +56194,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ApplicationCommandResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -54865,6 +56270,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ApplicationCommandResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -54940,6 +56346,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ApplicationCommandResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -55097,6 +56504,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "EmojiResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -55172,6 +56580,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "EmojiResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -55247,6 +56656,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "EmojiResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -55397,6 +56807,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[ApplicationRoleConnectionsMetadataItemResponse]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -55468,6 +56879,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[ApplicationRoleConnectionsMetadataItemResponse]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -55539,6 +56951,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[ApplicationRoleConnectionsMetadataItemResponse]",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -55687,6 +57100,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ApplicationUserRoleConnectionResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -55758,6 +57172,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ApplicationUserRoleConnectionResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -55829,6 +57244,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ApplicationUserRoleConnectionResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -55982,6 +57398,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "CreateAutoModerationRule200Response",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -56057,6 +57474,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "CreateAutoModerationRule200Response",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -56132,6 +57550,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "CreateAutoModerationRule200Response",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -56282,6 +57701,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GetChannel200Response",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -56353,6 +57773,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GetChannel200Response",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -56424,6 +57845,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GetChannel200Response",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -56571,6 +57993,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GuildResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -56642,6 +58065,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GuildResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -56713,6 +58137,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GuildResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -56868,6 +58293,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ApplicationCommandResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -56947,6 +58373,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ApplicationCommandResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -57026,6 +58453,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ApplicationCommandResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -57186,6 +58614,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "EmojiResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -57261,6 +58690,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "EmojiResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -57336,6 +58766,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "EmojiResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -57491,6 +58922,7 @@ class DefaultApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GuildMemberResponse",
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -57567,6 +58999,7 @@ class DefaultApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GuildMemberResponse",
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -57643,6 +59076,7 @@ class DefaultApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GuildMemberResponse",
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -57797,6 +59231,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GuildRoleResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -57872,6 +59307,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GuildRoleResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -57947,6 +59383,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GuildRoleResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -58101,6 +59538,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ListGuildScheduledEvents200ResponseInner",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -58176,6 +59614,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ListGuildScheduledEvents200ResponseInner",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -58251,6 +59690,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ListGuildScheduledEvents200ResponseInner",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -58405,6 +59845,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SoundboardSoundResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -58480,6 +59921,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SoundboardSoundResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -58555,6 +59997,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "SoundboardSoundResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -58709,6 +60152,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GuildStickerResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -58784,6 +60228,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GuildStickerResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -58859,6 +60304,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GuildStickerResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -59013,6 +60459,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GuildTemplateResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -59088,6 +60535,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GuildTemplateResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -59163,6 +60611,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GuildTemplateResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -59313,6 +60762,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GuildWelcomeScreenResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -59384,6 +60834,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GuildWelcomeScreenResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -59455,6 +60906,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GuildWelcomeScreenResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -59602,6 +61054,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "WidgetSettingsResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -59673,6 +61126,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "WidgetSettingsResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -59744,6 +61198,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "WidgetSettingsResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -59895,6 +61350,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "MessageResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -59970,6 +61426,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "MessageResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -60045,6 +61502,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "MessageResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -60193,6 +61651,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "PrivateApplicationResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -60260,6 +61719,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "PrivateApplicationResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -60327,6 +61787,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "PrivateApplicationResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -60471,6 +61932,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "PrivateGuildMemberResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -60542,6 +62004,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "PrivateGuildMemberResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -60613,6 +62076,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "PrivateGuildMemberResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -60756,6 +62220,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "UserPIIResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -60823,6 +62288,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "UserPIIResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -60890,6 +62356,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "UserPIIResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -61046,6 +62513,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "MessageResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -61129,6 +62597,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "MessageResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -61212,6 +62681,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "MessageResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -61374,6 +62844,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -61445,6 +62916,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -61516,6 +62988,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -61663,6 +63136,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "StageInstanceResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -61734,6 +63208,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "StageInstanceResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -61805,6 +63280,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "StageInstanceResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -61956,6 +63432,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -62031,6 +63508,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -62106,6 +63584,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -62256,6 +63735,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ListChannelWebhooks200ResponseInner",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -62327,6 +63807,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ListChannelWebhooks200ResponseInner",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -62398,6 +63879,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ListChannelWebhooks200ResponseInner",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -62549,6 +64031,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ListChannelWebhooks200ResponseInner",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -62624,6 +64107,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ListChannelWebhooks200ResponseInner",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -62699,6 +64183,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ListChannelWebhooks200ResponseInner",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -62865,6 +64350,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "MessageResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -62952,6 +64438,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "MessageResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -63039,6 +64526,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "MessageResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -63204,6 +64692,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ActivitiesAttachmentResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -63275,6 +64764,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ActivitiesAttachmentResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(
@@ -63346,6 +64836,7 @@ class DefaultApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "ActivitiesAttachmentResponse",
+            '429': "RatelimitedResponse",
             '4XX': "ErrorResponse",
         }
         response_data = await self.api_client.call_api(

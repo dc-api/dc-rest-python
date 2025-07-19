@@ -9,7 +9,7 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
+- **Modified**: 2025-07-19T09:30:54.227061557Z[Etc/UTC]
 - **Generator Version**: 7.14.0
 
 <details>
@@ -48,10 +48,10 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 
 import unittest
 
-from dc_rest.models.add_guild_member_request import AddGuildMemberRequest
+from dc_rest.models.bot_partner_sdk_token_request import BotPartnerSdkTokenRequest
 
-class TestAddGuildMemberRequest(unittest.TestCase):
-    """AddGuildMemberRequest unit test stubs"""
+class TestBotPartnerSdkTokenRequest(unittest.TestCase):
+    """BotPartnerSdkTokenRequest unit test stubs"""
 
     def setUp(self):
         pass
@@ -59,33 +59,27 @@ class TestAddGuildMemberRequest(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional) -> AddGuildMemberRequest:
-        """Test AddGuildMemberRequest
+    def make_instance(self, include_optional) -> BotPartnerSdkTokenRequest:
+        """Test BotPartnerSdkTokenRequest
             include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # uncomment below to create an instance of `AddGuildMemberRequest`
+        # uncomment below to create an instance of `BotPartnerSdkTokenRequest`
         """
-        model = AddGuildMemberRequest()
+        model = BotPartnerSdkTokenRequest()
         if include_optional:
-            return AddGuildMemberRequest(
-                nick = '',
-                roles = [
-                    '9072888001528021798096225500850762068629339333975650685139102691291'
-                    ],
-                mute = True,
-                deaf = True,
-                access_token = '',
-                flags = 56
+            return BotPartnerSdkTokenRequest(
+                external_user_id = '',
+                preferred_global_name = '0'
             )
         else:
-            return AddGuildMemberRequest(
-                access_token = '',
+            return BotPartnerSdkTokenRequest(
+                external_user_id = '',
         )
         """
 
-    def testAddGuildMemberRequest(self):
-        """Test AddGuildMemberRequest"""
+    def testBotPartnerSdkTokenRequest(self):
+        """Test BotPartnerSdkTokenRequest"""
         # inst_req_only = self.make_instance(include_optional=False)
         # inst_req_and_optional = self.make_instance(include_optional=True)
 

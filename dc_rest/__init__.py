@@ -11,7 +11,7 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
+- **Modified**: 2025-07-19T09:30:54.227061557Z[Etc/UTC]
 - **Generator Version**: 7.14.0
 
 <details>
@@ -71,7 +71,6 @@ __all__ = [
     "ActivitiesAttachmentResponse",
     "AddGroupDmUser201Response",
     "AddGroupDmUserRequest",
-    "AddGuildMemberRequest",
     "AddLobbyMemberRequest",
     "ApplicationCommandAttachmentOption",
     "ApplicationCommandAttachmentOptionResponse",
@@ -141,6 +140,8 @@ __all__ = [
     "BlockMessageActionMetadataResponse",
     "BlockMessageActionResponse",
     "BotAccountPatchRequest",
+    "BotAddGuildMemberRequest",
+    "BotPartnerSdkTokenRequest",
     "BulkBanUsersFromGuildRequest",
     "BulkBanUsersResponse",
     "BulkDeleteMessagesRequest",
@@ -313,6 +314,7 @@ __all__ = [
     "ListGuildIntegrations200ResponseInner",
     "ListGuildScheduledEvents200ResponseInner",
     "ListGuildSoundboardSoundsResponse",
+    "LobbyGuildInviteResponse",
     "LobbyMemberRequest",
     "LobbyMemberResponse",
     "LobbyMessageResponse",
@@ -402,6 +404,7 @@ __all__ = [
     "PurchaseNotificationResponse",
     "QuarantineUserAction",
     "QuarantineUserActionResponse",
+    "RatelimitedResponse",
     "ResolvedObjectsResponse",
     "ResourceChannelResponse",
     "RichEmbed",
@@ -548,7 +551,6 @@ from dc_rest.models.action_row_component_response_components_inner import Action
 from dc_rest.models.activities_attachment_response import ActivitiesAttachmentResponse as ActivitiesAttachmentResponse
 from dc_rest.models.add_group_dm_user201_response import AddGroupDmUser201Response as AddGroupDmUser201Response
 from dc_rest.models.add_group_dm_user_request import AddGroupDmUserRequest as AddGroupDmUserRequest
-from dc_rest.models.add_guild_member_request import AddGuildMemberRequest as AddGuildMemberRequest
 from dc_rest.models.add_lobby_member_request import AddLobbyMemberRequest as AddLobbyMemberRequest
 from dc_rest.models.application_command_attachment_option import ApplicationCommandAttachmentOption as ApplicationCommandAttachmentOption
 from dc_rest.models.application_command_attachment_option_response import ApplicationCommandAttachmentOptionResponse as ApplicationCommandAttachmentOptionResponse
@@ -618,6 +620,8 @@ from dc_rest.models.block_message_action_metadata import BlockMessageActionMetad
 from dc_rest.models.block_message_action_metadata_response import BlockMessageActionMetadataResponse as BlockMessageActionMetadataResponse
 from dc_rest.models.block_message_action_response import BlockMessageActionResponse as BlockMessageActionResponse
 from dc_rest.models.bot_account_patch_request import BotAccountPatchRequest as BotAccountPatchRequest
+from dc_rest.models.bot_add_guild_member_request import BotAddGuildMemberRequest as BotAddGuildMemberRequest
+from dc_rest.models.bot_partner_sdk_token_request import BotPartnerSdkTokenRequest as BotPartnerSdkTokenRequest
 from dc_rest.models.bulk_ban_users_from_guild_request import BulkBanUsersFromGuildRequest as BulkBanUsersFromGuildRequest
 from dc_rest.models.bulk_ban_users_response import BulkBanUsersResponse as BulkBanUsersResponse
 from dc_rest.models.bulk_delete_messages_request import BulkDeleteMessagesRequest as BulkDeleteMessagesRequest
@@ -790,6 +794,7 @@ from dc_rest.models.list_channel_webhooks200_response_inner import ListChannelWe
 from dc_rest.models.list_guild_integrations200_response_inner import ListGuildIntegrations200ResponseInner as ListGuildIntegrations200ResponseInner
 from dc_rest.models.list_guild_scheduled_events200_response_inner import ListGuildScheduledEvents200ResponseInner as ListGuildScheduledEvents200ResponseInner
 from dc_rest.models.list_guild_soundboard_sounds_response import ListGuildSoundboardSoundsResponse as ListGuildSoundboardSoundsResponse
+from dc_rest.models.lobby_guild_invite_response import LobbyGuildInviteResponse as LobbyGuildInviteResponse
 from dc_rest.models.lobby_member_request import LobbyMemberRequest as LobbyMemberRequest
 from dc_rest.models.lobby_member_response import LobbyMemberResponse as LobbyMemberResponse
 from dc_rest.models.lobby_message_response import LobbyMessageResponse as LobbyMessageResponse
@@ -879,6 +884,7 @@ from dc_rest.models.prune_guild_request_include_roles import PruneGuildRequestIn
 from dc_rest.models.purchase_notification_response import PurchaseNotificationResponse as PurchaseNotificationResponse
 from dc_rest.models.quarantine_user_action import QuarantineUserAction as QuarantineUserAction
 from dc_rest.models.quarantine_user_action_response import QuarantineUserActionResponse as QuarantineUserActionResponse
+from dc_rest.models.ratelimited_response import RatelimitedResponse as RatelimitedResponse
 from dc_rest.models.resolved_objects_response import ResolvedObjectsResponse as ResolvedObjectsResponse
 from dc_rest.models.resource_channel_response import ResourceChannelResponse as ResourceChannelResponse
 from dc_rest.models.rich_embed import RichEmbed as RichEmbed
