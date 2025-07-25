@@ -9,7 +9,7 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
+- **Modified**: 2025-07-25T15:01:26.291599901Z[Etc/UTC]
 - **Generator Version**: 7.14.0
 
 <details>
@@ -61,7 +61,7 @@ class CreateOrUpdateThreadTagRequest(BaseModel):
     """
     CreateOrUpdateThreadTagRequest
     """ # noqa: E501
-    name: Annotated[str, Field(min_length=0, strict=True, max_length=20)]
+    name: Annotated[str, Field(min_length=0, strict=True, max_length=50)]
     emoji_id: Optional[Annotated[str, Field(strict=True)]] = None
     emoji_name: Optional[Annotated[str, Field(strict=True, max_length=100)]] = None
     moderated: Optional[StrictBool] = None

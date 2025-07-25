@@ -9,7 +9,7 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
+- **Modified**: 2025-07-25T15:01:26.291599901Z[Etc/UTC]
 - **Generator Version**: 7.14.0
 
 <details>
@@ -51,23 +51,20 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, field_validator
-from typing import Any, ClassVar, Dict, List, Optional
-from typing_extensions import Annotated
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
+from typing import Any, ClassVar, Dict, List, Union
 from typing import Optional, Set
 from typing_extensions import Self
 
-class AddGuildMemberRequest(BaseModel):
+class RatelimitedResponse(BaseModel):
     """
-    AddGuildMemberRequest
+    Ratelimit error object returned by the Discord API
     """ # noqa: E501
-    nick: Optional[Annotated[str, Field(strict=True, max_length=32)]] = None
-    roles: Optional[Annotated[List[Annotated[str, Field(strict=True)]], Field(max_length=1521)]] = None
-    mute: Optional[StrictBool] = None
-    deaf: Optional[StrictBool] = None
-    access_token: Annotated[str, Field(strict=True, max_length=152133)]
-    flags: Optional[StrictInt] = None
-    __properties: ClassVar[List[str]] = ["nick", "roles", "mute", "deaf", "access_token", "flags"]
+    code: StrictInt = Field(description="Discord internal error code. See error code reference")
+    message: StrictStr = Field(description="Human-readable error message")
+    retry_after: Union[StrictFloat, StrictInt] = Field(description="The number of seconds to wait before retrying your request")
+    var_global: StrictBool = Field(description="Whether you are being ratelimited by the global ratelimit or a per-endpoint ratelimit", alias="global")
+    __properties: ClassVar[List[str]] = ["code", "message", "retry_after", "global"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -87,7 +84,7 @@ class AddGuildMemberRequest(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of AddGuildMemberRequest from a JSON string"""
+        """Create an instance of RatelimitedResponse from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -108,36 +105,11 @@ class AddGuildMemberRequest(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if nick (nullable) is None
-        # and model_fields_set contains the field
-        if self.nick is None and "nick" in self.model_fields_set:
-            _dict['nick'] = None
-
-        # set to None if roles (nullable) is None
-        # and model_fields_set contains the field
-        if self.roles is None and "roles" in self.model_fields_set:
-            _dict['roles'] = None
-
-        # set to None if mute (nullable) is None
-        # and model_fields_set contains the field
-        if self.mute is None and "mute" in self.model_fields_set:
-            _dict['mute'] = None
-
-        # set to None if deaf (nullable) is None
-        # and model_fields_set contains the field
-        if self.deaf is None and "deaf" in self.model_fields_set:
-            _dict['deaf'] = None
-
-        # set to None if flags (nullable) is None
-        # and model_fields_set contains the field
-        if self.flags is None and "flags" in self.model_fields_set:
-            _dict['flags'] = None
-
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of AddGuildMemberRequest from a dict"""
+        """Create an instance of RatelimitedResponse from a dict"""
         if obj is None:
             return None
 
@@ -147,15 +119,13 @@ class AddGuildMemberRequest(BaseModel):
         # raise errors for additional fields in the input
         for _key in obj.keys():
             if _key not in cls.__properties:
-                raise ValueError("Error due to additional fields (not defined in AddGuildMemberRequest) in the input: " + _key)
+                raise ValueError("Error due to additional fields (not defined in RatelimitedResponse) in the input: " + _key)
 
         _obj = cls.model_validate({
-            "nick": obj.get("nick"),
-            "roles": obj.get("roles"),
-            "mute": obj.get("mute"),
-            "deaf": obj.get("deaf"),
-            "access_token": obj.get("access_token"),
-            "flags": obj.get("flags")
+            "code": obj.get("code"),
+            "message": obj.get("message"),
+            "retry_after": obj.get("retry_after"),
+            "global": obj.get("global")
         })
         return _obj
 
