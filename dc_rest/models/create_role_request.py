@@ -9,7 +9,7 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
+- **Modified**: 2025-08-08T14:09:27.478410824Z[Etc/UTC]
 - **Generator Version**: 7.14.0
 
 <details>
@@ -51,24 +51,24 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
 from typing import Optional, Set
 from typing_extensions import Self
 
-class CreateGuildRequestRoleItem(BaseModel):
+class CreateRoleRequest(BaseModel):
     """
-    CreateGuildRequestRoleItem
+    CreateRoleRequest
     """ # noqa: E501
-    id: StrictInt
     name: Optional[Annotated[str, Field(strict=True, max_length=100)]] = None
     permissions: Optional[StrictInt] = None
     color: Optional[Annotated[int, Field(le=16777215, strict=True, ge=0)]] = None
     hoist: Optional[StrictBool] = None
     mentionable: Optional[StrictBool] = None
+    icon: Optional[StrictStr] = None
     unicode_emoji: Optional[Annotated[str, Field(strict=True, max_length=100)]] = None
-    __properties: ClassVar[List[str]] = ["id", "name", "permissions", "color", "hoist", "mentionable", "unicode_emoji"]
+    __properties: ClassVar[List[str]] = ["name", "permissions", "color", "hoist", "mentionable", "icon", "unicode_emoji"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -88,7 +88,7 @@ class CreateGuildRequestRoleItem(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of CreateGuildRequestRoleItem from a JSON string"""
+        """Create an instance of CreateRoleRequest from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -134,6 +134,11 @@ class CreateGuildRequestRoleItem(BaseModel):
         if self.mentionable is None and "mentionable" in self.model_fields_set:
             _dict['mentionable'] = None
 
+        # set to None if icon (nullable) is None
+        # and model_fields_set contains the field
+        if self.icon is None and "icon" in self.model_fields_set:
+            _dict['icon'] = None
+
         # set to None if unicode_emoji (nullable) is None
         # and model_fields_set contains the field
         if self.unicode_emoji is None and "unicode_emoji" in self.model_fields_set:
@@ -143,7 +148,7 @@ class CreateGuildRequestRoleItem(BaseModel):
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of CreateGuildRequestRoleItem from a dict"""
+        """Create an instance of CreateRoleRequest from a dict"""
         if obj is None:
             return None
 
@@ -153,15 +158,15 @@ class CreateGuildRequestRoleItem(BaseModel):
         # raise errors for additional fields in the input
         for _key in obj.keys():
             if _key not in cls.__properties:
-                raise ValueError("Error due to additional fields (not defined in CreateGuildRequestRoleItem) in the input: " + _key)
+                raise ValueError("Error due to additional fields (not defined in CreateRoleRequest) in the input: " + _key)
 
         _obj = cls.model_validate({
-            "id": obj.get("id"),
             "name": obj.get("name"),
             "permissions": obj.get("permissions"),
             "color": obj.get("color"),
             "hoist": obj.get("hoist"),
             "mentionable": obj.get("mentionable"),
+            "icon": obj.get("icon"),
             "unicode_emoji": obj.get("unicode_emoji")
         })
         return _obj

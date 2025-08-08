@@ -9,7 +9,7 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
+- **Modified**: 2025-08-08T14:09:27.478410824Z[Etc/UTC]
 - **Generator Version**: 7.14.0
 
 <details>
@@ -48,10 +48,10 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 
 import unittest
 
-from dc_rest.models.bulk_update_guild_roles_request_inner import BulkUpdateGuildRolesRequestInner
+from dc_rest.models.update_role_positions_request import UpdateRolePositionsRequest
 
-class TestBulkUpdateGuildRolesRequestInner(unittest.TestCase):
-    """BulkUpdateGuildRolesRequestInner unit test stubs"""
+class TestUpdateRolePositionsRequest(unittest.TestCase):
+    """UpdateRolePositionsRequest unit test stubs"""
 
     def setUp(self):
         pass
@@ -59,26 +59,26 @@ class TestBulkUpdateGuildRolesRequestInner(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional) -> BulkUpdateGuildRolesRequestInner:
-        """Test BulkUpdateGuildRolesRequestInner
+    def make_instance(self, include_optional) -> UpdateRolePositionsRequest:
+        """Test UpdateRolePositionsRequest
             include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # uncomment below to create an instance of `BulkUpdateGuildRolesRequestInner`
+        # uncomment below to create an instance of `UpdateRolePositionsRequest`
         """
-        model = BulkUpdateGuildRolesRequestInner()
+        model = UpdateRolePositionsRequest()
         if include_optional:
-            return BulkUpdateGuildRolesRequestInner(
+            return UpdateRolePositionsRequest(
                 id = '9072888001528021798096225500850762068629339333975650685139102691291',
                 position = 56
             )
         else:
-            return BulkUpdateGuildRolesRequestInner(
+            return UpdateRolePositionsRequest(
         )
         """
 
-    def testBulkUpdateGuildRolesRequestInner(self):
-        """Test BulkUpdateGuildRolesRequestInner"""
+    def testUpdateRolePositionsRequest(self):
+        """Test UpdateRolePositionsRequest"""
         # inst_req_only = self.make_instance(include_optional=False)
         # inst_req_and_optional = self.make_instance(include_optional=True)
 

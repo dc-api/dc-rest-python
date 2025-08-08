@@ -9,7 +9,7 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
+- **Modified**: 2025-08-08T14:09:27.478410824Z[Etc/UTC]
 - **Generator Version**: 7.14.0
 
 <details>
@@ -51,19 +51,19 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from pydantic import BaseModel, ConfigDict, Field
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
 from typing import Optional, Set
 from typing_extensions import Self
 
-class CreateGuildFromTemplateRequest(BaseModel):
+class BotPartnerSdkTokenRequest(BaseModel):
     """
-    CreateGuildFromTemplateRequest
+    BotPartnerSdkTokenRequest
     """ # noqa: E501
-    name: Annotated[str, Field(min_length=2, strict=True, max_length=100)]
-    icon: Optional[StrictStr] = None
-    __properties: ClassVar[List[str]] = ["name", "icon"]
+    external_user_id: Annotated[str, Field(strict=True, max_length=1024)]
+    preferred_global_name: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=32)]] = None
+    __properties: ClassVar[List[str]] = ["external_user_id", "preferred_global_name"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -83,7 +83,7 @@ class CreateGuildFromTemplateRequest(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of CreateGuildFromTemplateRequest from a JSON string"""
+        """Create an instance of BotPartnerSdkTokenRequest from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -104,16 +104,16 @@ class CreateGuildFromTemplateRequest(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if icon (nullable) is None
+        # set to None if preferred_global_name (nullable) is None
         # and model_fields_set contains the field
-        if self.icon is None and "icon" in self.model_fields_set:
-            _dict['icon'] = None
+        if self.preferred_global_name is None and "preferred_global_name" in self.model_fields_set:
+            _dict['preferred_global_name'] = None
 
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of CreateGuildFromTemplateRequest from a dict"""
+        """Create an instance of BotPartnerSdkTokenRequest from a dict"""
         if obj is None:
             return None
 
@@ -123,11 +123,11 @@ class CreateGuildFromTemplateRequest(BaseModel):
         # raise errors for additional fields in the input
         for _key in obj.keys():
             if _key not in cls.__properties:
-                raise ValueError("Error due to additional fields (not defined in CreateGuildFromTemplateRequest) in the input: " + _key)
+                raise ValueError("Error due to additional fields (not defined in BotPartnerSdkTokenRequest) in the input: " + _key)
 
         _obj = cls.model_validate({
-            "name": obj.get("name"),
-            "icon": obj.get("icon")
+            "external_user_id": obj.get("external_user_id"),
+            "preferred_global_name": obj.get("preferred_global_name")
         })
         return _obj
 

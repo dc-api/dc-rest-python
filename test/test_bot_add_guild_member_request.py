@@ -9,7 +9,7 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
+- **Modified**: 2025-08-08T14:09:27.478410824Z[Etc/UTC]
 - **Generator Version**: 7.14.0
 
 <details>
@@ -48,10 +48,10 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 
 import unittest
 
-from dc_rest.models.create_guild_request_role_item import CreateGuildRequestRoleItem
+from dc_rest.models.bot_add_guild_member_request import BotAddGuildMemberRequest
 
-class TestCreateGuildRequestRoleItem(unittest.TestCase):
-    """CreateGuildRequestRoleItem unit test stubs"""
+class TestBotAddGuildMemberRequest(unittest.TestCase):
+    """BotAddGuildMemberRequest unit test stubs"""
 
     def setUp(self):
         pass
@@ -59,32 +59,33 @@ class TestCreateGuildRequestRoleItem(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional) -> CreateGuildRequestRoleItem:
-        """Test CreateGuildRequestRoleItem
+    def make_instance(self, include_optional) -> BotAddGuildMemberRequest:
+        """Test BotAddGuildMemberRequest
             include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # uncomment below to create an instance of `CreateGuildRequestRoleItem`
+        # uncomment below to create an instance of `BotAddGuildMemberRequest`
         """
-        model = CreateGuildRequestRoleItem()
+        model = BotAddGuildMemberRequest()
         if include_optional:
-            return CreateGuildRequestRoleItem(
-                id = 56,
-                name = '',
-                permissions = 56,
-                color = 0,
-                hoist = True,
-                mentionable = True,
-                unicode_emoji = ''
+            return BotAddGuildMemberRequest(
+                nick = '',
+                roles = [
+                    '9072888001528021798096225500850762068629339333975650685139102691291'
+                    ],
+                mute = True,
+                deaf = True,
+                access_token = '',
+                flags = 56
             )
         else:
-            return CreateGuildRequestRoleItem(
-                id = 56,
+            return BotAddGuildMemberRequest(
+                access_token = '',
         )
         """
 
-    def testCreateGuildRequestRoleItem(self):
-        """Test CreateGuildRequestRoleItem"""
+    def testBotAddGuildMemberRequest(self):
+        """Test BotAddGuildMemberRequest"""
         # inst_req_only = self.make_instance(include_optional=False)
         # inst_req_and_optional = self.make_instance(include_optional=True)
 

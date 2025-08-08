@@ -9,7 +9,7 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
+- **Modified**: 2025-08-08T14:09:27.478410824Z[Etc/UTC]
 - **Generator Version**: 7.14.0
 
 <details>
@@ -48,10 +48,10 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 
 import unittest
 
-from dc_rest.models.string_select_option_for_message_request import StringSelectOptionForMessageRequest
+from dc_rest.models.create_role_request import CreateRoleRequest
 
-class TestStringSelectOptionForMessageRequest(unittest.TestCase):
-    """StringSelectOptionForMessageRequest unit test stubs"""
+class TestCreateRoleRequest(unittest.TestCase):
+    """CreateRoleRequest unit test stubs"""
 
     def setUp(self):
         pass
@@ -59,33 +59,31 @@ class TestStringSelectOptionForMessageRequest(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional) -> StringSelectOptionForMessageRequest:
-        """Test StringSelectOptionForMessageRequest
+    def make_instance(self, include_optional) -> CreateRoleRequest:
+        """Test CreateRoleRequest
             include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # uncomment below to create an instance of `StringSelectOptionForMessageRequest`
+        # uncomment below to create an instance of `CreateRoleRequest`
         """
-        model = StringSelectOptionForMessageRequest()
+        model = CreateRoleRequest()
         if include_optional:
-            return StringSelectOptionForMessageRequest(
-                label = '0',
-                value = '0',
-                description = '',
-                default = True,
-                emoji = dc_rest.models.component_emoji_for_message_request.ComponentEmojiForMessageRequest(
-                    id = '9072888001528021798096225500850762068629339333975650685139102691291', 
-                    name = '', )
+            return CreateRoleRequest(
+                name = '',
+                permissions = 56,
+                color = 0,
+                hoist = True,
+                mentionable = True,
+                icon = '',
+                unicode_emoji = ''
             )
         else:
-            return StringSelectOptionForMessageRequest(
-                label = '0',
-                value = '0',
+            return CreateRoleRequest(
         )
         """
 
-    def testStringSelectOptionForMessageRequest(self):
-        """Test StringSelectOptionForMessageRequest"""
+    def testCreateRoleRequest(self):
+        """Test CreateRoleRequest"""
         # inst_req_only = self.make_instance(include_optional=False)
         # inst_req_and_optional = self.make_instance(include_optional=True)
 

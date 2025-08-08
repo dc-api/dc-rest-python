@@ -1,4 +1,4 @@
-# CreateGuildRoleRequest
+# CreateRoleRequest
 
 
 ## Properties
@@ -16,19 +16,19 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from dc_rest.models.create_guild_role_request import CreateGuildRoleRequest
+from dc_rest.models.create_role_request import CreateRoleRequest
 
 # TODO update the JSON string below
 json = "{}"
-# create an instance of CreateGuildRoleRequest from a JSON string
-create_guild_role_request_instance = CreateGuildRoleRequest.from_json(json)
+# create an instance of CreateRoleRequest from a JSON string
+create_role_request_instance = CreateRoleRequest.from_json(json)
 # print the JSON string representation of the object
-print(CreateGuildRoleRequest.to_json())
+print(CreateRoleRequest.to_json())
 
 # convert the object into a dict
-create_guild_role_request_dict = create_guild_role_request_instance.to_dict()
-# create an instance of CreateGuildRoleRequest from a dict
-create_guild_role_request_from_dict = CreateGuildRoleRequest.from_dict(create_guild_role_request_dict)
+create_role_request_dict = create_role_request_instance.to_dict()
+# create an instance of CreateRoleRequest from a dict
+create_role_request_from_dict = CreateRoleRequest.from_dict(create_role_request_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
