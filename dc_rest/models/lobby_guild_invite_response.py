@@ -9,7 +9,7 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
+- **Modified**: 2025-08-08T14:09:27.478410824Z[Etc/UTC]
 - **Generator Version**: 7.14.0
 
 <details>
@@ -46,46 +46,81 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 """  # noqa: E501
 
 
-import unittest
+from __future__ import annotations
+import pprint
+import re  # noqa: F401
+import json
 
-from dc_rest.models.create_guild_role_request import CreateGuildRoleRequest
+from pydantic import BaseModel, ConfigDict, StrictStr
+from typing import Any, ClassVar, Dict, List
+from typing import Optional, Set
+from typing_extensions import Self
 
-class TestCreateGuildRoleRequest(unittest.TestCase):
-    """CreateGuildRoleRequest unit test stubs"""
+class LobbyGuildInviteResponse(BaseModel):
+    """
+    LobbyGuildInviteResponse
+    """ # noqa: E501
+    code: StrictStr
+    __properties: ClassVar[List[str]] = ["code"]
 
-    def setUp(self):
-        pass
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
 
-    def tearDown(self):
-        pass
 
-    def make_instance(self, include_optional) -> CreateGuildRoleRequest:
-        """Test CreateGuildRoleRequest
-            include_optional is a boolean, when False only required
-            params are included, when True both required and
-            optional params are included """
-        # uncomment below to create an instance of `CreateGuildRoleRequest`
+    def to_str(self) -> str:
+        """Returns the string representation of the model using alias"""
+        return pprint.pformat(self.model_dump(by_alias=True))
+
+    def to_json(self) -> str:
+        """Returns the JSON representation of the model using alias"""
+        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
+        return json.dumps(self.to_dict())
+
+    @classmethod
+    def from_json(cls, json_str: str) -> Optional[Self]:
+        """Create an instance of LobbyGuildInviteResponse from a JSON string"""
+        return cls.from_dict(json.loads(json_str))
+
+    def to_dict(self) -> Dict[str, Any]:
+        """Return the dictionary representation of the model using alias.
+
+        This has the following differences from calling pydantic's
+        `self.model_dump(by_alias=True)`:
+
+        * `None` is only added to the output dict for nullable fields that
+          were set at model initialization. Other fields with value `None`
+          are ignored.
         """
-        model = CreateGuildRoleRequest()
-        if include_optional:
-            return CreateGuildRoleRequest(
-                name = '',
-                permissions = 56,
-                color = 0,
-                hoist = True,
-                mentionable = True,
-                icon = '',
-                unicode_emoji = ''
-            )
-        else:
-            return CreateGuildRoleRequest(
+        excluded_fields: Set[str] = set([
+        ])
+
+        _dict = self.model_dump(
+            by_alias=True,
+            exclude=excluded_fields,
+            exclude_none=True,
         )
-        """
+        return _dict
 
-    def testCreateGuildRoleRequest(self):
-        """Test CreateGuildRoleRequest"""
-        # inst_req_only = self.make_instance(include_optional=False)
-        # inst_req_and_optional = self.make_instance(include_optional=True)
+    @classmethod
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
+        """Create an instance of LobbyGuildInviteResponse from a dict"""
+        if obj is None:
+            return None
 
-if __name__ == '__main__':
-    unittest.main()
+        if not isinstance(obj, dict):
+            return cls.model_validate(obj)
+
+        # raise errors for additional fields in the input
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                raise ValueError("Error due to additional fields (not defined in LobbyGuildInviteResponse) in the input: " + _key)
+
+        _obj = cls.model_validate({
+            "code": obj.get("code")
+        })
+        return _obj
+
+

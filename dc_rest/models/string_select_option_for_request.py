@@ -9,7 +9,7 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
+- **Modified**: 2025-08-08T14:09:27.478410824Z[Etc/UTC]
 - **Generator Version**: 7.14.0
 
 <details>
@@ -51,23 +51,23 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, field_validator
+from pydantic import BaseModel, ConfigDict, Field, StrictBool
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
+from dc_rest.models.component_emoji_for_request import ComponentEmojiForRequest
 from typing import Optional, Set
 from typing_extensions import Self
 
-class AddGuildMemberRequest(BaseModel):
+class StringSelectOptionForRequest(BaseModel):
     """
-    AddGuildMemberRequest
+    StringSelectOptionForRequest
     """ # noqa: E501
-    nick: Optional[Annotated[str, Field(strict=True, max_length=32)]] = None
-    roles: Optional[Annotated[List[Annotated[str, Field(strict=True)]], Field(max_length=1521)]] = None
-    mute: Optional[StrictBool] = None
-    deaf: Optional[StrictBool] = None
-    access_token: Annotated[str, Field(strict=True, max_length=152133)]
-    flags: Optional[StrictInt] = None
-    __properties: ClassVar[List[str]] = ["nick", "roles", "mute", "deaf", "access_token", "flags"]
+    label: Annotated[str, Field(min_length=1, strict=True, max_length=100)]
+    value: Annotated[str, Field(min_length=1, strict=True, max_length=100)]
+    description: Optional[Annotated[str, Field(strict=True, max_length=100)]] = None
+    default: Optional[StrictBool] = None
+    emoji: Optional[ComponentEmojiForRequest] = None
+    __properties: ClassVar[List[str]] = ["label", "value", "description", "default", "emoji"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -87,7 +87,7 @@ class AddGuildMemberRequest(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of AddGuildMemberRequest from a JSON string"""
+        """Create an instance of StringSelectOptionForRequest from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -108,36 +108,29 @@ class AddGuildMemberRequest(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if nick (nullable) is None
+        # override the default output from pydantic by calling `to_dict()` of emoji
+        if self.emoji:
+            _dict['emoji'] = self.emoji.to_dict()
+        # set to None if description (nullable) is None
         # and model_fields_set contains the field
-        if self.nick is None and "nick" in self.model_fields_set:
-            _dict['nick'] = None
+        if self.description is None and "description" in self.model_fields_set:
+            _dict['description'] = None
 
-        # set to None if roles (nullable) is None
+        # set to None if default (nullable) is None
         # and model_fields_set contains the field
-        if self.roles is None and "roles" in self.model_fields_set:
-            _dict['roles'] = None
+        if self.default is None and "default" in self.model_fields_set:
+            _dict['default'] = None
 
-        # set to None if mute (nullable) is None
+        # set to None if emoji (nullable) is None
         # and model_fields_set contains the field
-        if self.mute is None and "mute" in self.model_fields_set:
-            _dict['mute'] = None
-
-        # set to None if deaf (nullable) is None
-        # and model_fields_set contains the field
-        if self.deaf is None and "deaf" in self.model_fields_set:
-            _dict['deaf'] = None
-
-        # set to None if flags (nullable) is None
-        # and model_fields_set contains the field
-        if self.flags is None and "flags" in self.model_fields_set:
-            _dict['flags'] = None
+        if self.emoji is None and "emoji" in self.model_fields_set:
+            _dict['emoji'] = None
 
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of AddGuildMemberRequest from a dict"""
+        """Create an instance of StringSelectOptionForRequest from a dict"""
         if obj is None:
             return None
 
@@ -147,15 +140,14 @@ class AddGuildMemberRequest(BaseModel):
         # raise errors for additional fields in the input
         for _key in obj.keys():
             if _key not in cls.__properties:
-                raise ValueError("Error due to additional fields (not defined in AddGuildMemberRequest) in the input: " + _key)
+                raise ValueError("Error due to additional fields (not defined in StringSelectOptionForRequest) in the input: " + _key)
 
         _obj = cls.model_validate({
-            "nick": obj.get("nick"),
-            "roles": obj.get("roles"),
-            "mute": obj.get("mute"),
-            "deaf": obj.get("deaf"),
-            "access_token": obj.get("access_token"),
-            "flags": obj.get("flags")
+            "label": obj.get("label"),
+            "value": obj.get("value"),
+            "description": obj.get("description"),
+            "default": obj.get("default"),
+            "emoji": ComponentEmojiForRequest.from_dict(obj["emoji"]) if obj.get("emoji") is not None else None
         })
         return _obj
 

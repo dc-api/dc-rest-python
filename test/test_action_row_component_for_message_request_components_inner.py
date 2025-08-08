@@ -9,7 +9,7 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
+- **Modified**: 2025-08-08T14:09:27.478410824Z[Etc/UTC]
 - **Generator Version**: 7.14.0
 
 <details>
@@ -76,7 +76,7 @@ class TestActionRowComponentForMessageRequestComponentsInner(unittest.TestCase):
                 disabled = True,
                 url = '',
                 sku_id = '9072888001528021798096225500850762068629339333975650685139102691291',
-                emoji = dc_rest.models.component_emoji_for_message_request.ComponentEmojiForMessageRequest(
+                emoji = dc_rest.models.component_emoji_for_request.ComponentEmojiForRequest(
                     id = '9072888001528021798096225500850762068629339333975650685139102691291', 
                     name = '', ),
                 placeholder = '',
@@ -91,12 +91,12 @@ class TestActionRowComponentForMessageRequestComponentsInner(unittest.TestCase):
                     56
                     ],
                 options = [
-                    dc_rest.models.string_select_option_for_message_request.StringSelectOptionForMessageRequest(
+                    dc_rest.models.string_select_option_for_request.StringSelectOptionForRequest(
                         label = '0', 
                         value = '0', 
                         description = '', 
                         default = True, 
-                        emoji = dc_rest.models.component_emoji_for_message_request.ComponentEmojiForMessageRequest(
+                        emoji = dc_rest.models.component_emoji_for_request.ComponentEmojiForRequest(
                             id = '9072888001528021798096225500850762068629339333975650685139102691291', 
                             name = '', ), )
                     ]
@@ -107,12 +107,12 @@ class TestActionRowComponentForMessageRequestComponentsInner(unittest.TestCase):
                 custom_id = '',
                 style = 56,
                 options = [
-                    dc_rest.models.string_select_option_for_message_request.StringSelectOptionForMessageRequest(
+                    dc_rest.models.string_select_option_for_request.StringSelectOptionForRequest(
                         label = '0', 
                         value = '0', 
                         description = '', 
                         default = True, 
-                        emoji = dc_rest.models.component_emoji_for_message_request.ComponentEmojiForMessageRequest(
+                        emoji = dc_rest.models.component_emoji_for_request.ComponentEmojiForRequest(
                             id = '9072888001528021798096225500850762068629339333975650685139102691291', 
                             name = '', ), )
                     ],

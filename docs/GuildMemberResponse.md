@@ -15,6 +15,7 @@ Name | Type | Description | Notes
 **pending** | **bool** |  | 
 **premium_since** | **datetime** |  | [optional] 
 **roles** | **List[str]** |  | 
+**collectibles** | [**UserCollectiblesResponse**](UserCollectiblesResponse.md) |  | [optional] 
 **user** | [**UserResponse**](UserResponse.md) |  | 
 **mute** | **bool** |  | 
 **deaf** | **bool** |  | 

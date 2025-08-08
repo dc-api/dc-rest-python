@@ -9,7 +9,7 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
+- **Modified**: 2025-08-08T14:09:27.478410824Z[Etc/UTC]
 - **Generator Version**: 7.14.0
 
 <details>
@@ -48,10 +48,10 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 
 import unittest
 
-from dc_rest.models.create_guild_request_channel_item import CreateGuildRequestChannelItem
+from dc_rest.models.string_select_option_for_request import StringSelectOptionForRequest
 
-class TestCreateGuildRequestChannelItem(unittest.TestCase):
-    """CreateGuildRequestChannelItem unit test stubs"""
+class TestStringSelectOptionForRequest(unittest.TestCase):
+    """StringSelectOptionForRequest unit test stubs"""
 
     def setUp(self):
         pass
@@ -59,59 +59,33 @@ class TestCreateGuildRequestChannelItem(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional) -> CreateGuildRequestChannelItem:
-        """Test CreateGuildRequestChannelItem
+    def make_instance(self, include_optional) -> StringSelectOptionForRequest:
+        """Test StringSelectOptionForRequest
             include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # uncomment below to create an instance of `CreateGuildRequestChannelItem`
+        # uncomment below to create an instance of `StringSelectOptionForRequest`
         """
-        model = CreateGuildRequestChannelItem()
+        model = StringSelectOptionForRequest()
         if include_optional:
-            return CreateGuildRequestChannelItem(
-                type = 56,
-                name = '0',
-                position = 0,
-                topic = '',
-                bitrate = 8000,
-                user_limit = 0,
-                nsfw = True,
-                rate_limit_per_user = 0,
-                parent_id = '9072888001528021798096225500850762068629339333975650685139102691291',
-                permission_overwrites = [
-                    dc_rest.models.channel_permission_overwrite_request.ChannelPermissionOverwriteRequest(
-                        id = '9072888001528021798096225500850762068629339333975650685139102691291', 
-                        type = 56, 
-                        allow = 56, 
-                        deny = 56, )
-                    ],
-                rtc_region = '',
-                video_quality_mode = 56,
-                default_auto_archive_duration = 56,
-                default_reaction_emoji = dc_rest.models.update_default_reaction_emoji_request.UpdateDefaultReactionEmojiRequest(
-                    emoji_id = '9072888001528021798096225500850762068629339333975650685139102691291', 
-                    emoji_name = '', ),
-                default_thread_rate_limit_per_user = 0,
-                default_sort_order = 56,
-                default_forum_layout = 56,
-                default_tag_setting = '',
-                id = '9072888001528021798096225500850762068629339333975650685139102691291',
-                available_tags = [
-                    dc_rest.models.create_or_update_thread_tag_request.CreateOrUpdateThreadTagRequest(
-                        name = '', 
-                        emoji_id = '9072888001528021798096225500850762068629339333975650685139102691291', 
-                        emoji_name = '', 
-                        moderated = True, )
-                    ]
+            return StringSelectOptionForRequest(
+                label = '0',
+                value = '0',
+                description = '',
+                default = True,
+                emoji = dc_rest.models.component_emoji_for_request.ComponentEmojiForRequest(
+                    id = '9072888001528021798096225500850762068629339333975650685139102691291', 
+                    name = '', )
             )
         else:
-            return CreateGuildRequestChannelItem(
-                name = '0',
+            return StringSelectOptionForRequest(
+                label = '0',
+                value = '0',
         )
         """
 
-    def testCreateGuildRequestChannelItem(self):
-        """Test CreateGuildRequestChannelItem"""
+    def testStringSelectOptionForRequest(self):
+        """Test StringSelectOptionForRequest"""
         # inst_req_only = self.make_instance(include_optional=False)
         # inst_req_and_optional = self.make_instance(include_optional=True)
 

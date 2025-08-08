@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **min_values** | **int** |  | [optional] 
 **max_values** | **int** |  | [optional] 
 **disabled** | **bool** |  | [optional] 
-**options** | [**List[StringSelectOptionForMessageRequest]**](StringSelectOptionForMessageRequest.md) |  | 
+**options** | [**List[StringSelectOptionForRequest]**](StringSelectOptionForRequest.md) |  | 
 
 ## Example
 

@@ -9,7 +9,7 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
+- **Modified**: 2025-08-08T14:09:27.478410824Z[Etc/UTC]
 - **Generator Version**: 7.14.0
 
 <details>
@@ -64,7 +64,7 @@ class TextInputComponentForModalRequest(BaseModel):
     type: StrictInt
     custom_id: Annotated[str, Field(strict=True, max_length=100)]
     style: StrictInt
-    label: Annotated[str, Field(strict=True, max_length=45)]
+    label: Optional[Annotated[str, Field(strict=True, max_length=45)]] = None
     value: Optional[Annotated[str, Field(strict=True, max_length=4000)]] = None
     placeholder: Optional[Annotated[str, Field(strict=True, max_length=100)]] = None
     required: Optional[StrictBool] = None
@@ -111,6 +111,11 @@ class TextInputComponentForModalRequest(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if label (nullable) is None
+        # and model_fields_set contains the field
+        if self.label is None and "label" in self.model_fields_set:
+            _dict['label'] = None
+
         # set to None if value (nullable) is None
         # and model_fields_set contains the field
         if self.value is None and "value" in self.model_fields_set:

@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **metadata** | **Dict[str, str]** |  | [optional] 
 **members** | [**List[LobbyMemberResponse]**](LobbyMemberResponse.md) |  | [optional] 
 **linked_channel** | [**GuildChannelResponse**](GuildChannelResponse.md) |  | [optional] 
+**flags** | **int** |  | 
 
 ## Example
 

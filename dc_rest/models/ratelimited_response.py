@@ -9,7 +9,7 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
+- **Modified**: 2025-08-08T14:09:27.478410824Z[Etc/UTC]
 - **Generator Version**: 7.14.0
 
 <details>
@@ -51,29 +51,20 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, field_validator
-from typing import Any, ClassVar, Dict, List, Optional
-from typing_extensions import Annotated
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
+from typing import Any, ClassVar, Dict, List, Union
 from typing import Optional, Set
 from typing_extensions import Self
 
-class ComponentEmojiForMessageRequest(BaseModel):
+class RatelimitedResponse(BaseModel):
     """
-    ComponentEmojiForMessageRequest
+    Ratelimit error object returned by the Discord API
     """ # noqa: E501
-    id: Optional[Annotated[str, Field(strict=True)]] = None
-    name: Annotated[str, Field(strict=True, max_length=32)]
-    __properties: ClassVar[List[str]] = ["id", "name"]
-
-    @field_validator('id')
-    def id_validate_regular_expression(cls, value):
-        """Validates the regular expression"""
-        if value is None:
-            return value
-
-        if not re.match(r"^(0|[1-9][0-9]*)$", value):
-            raise ValueError(r"must validate the regular expression /^(0|[1-9][0-9]*)$/")
-        return value
+    code: StrictInt = Field(description="Discord internal error code. See error code reference")
+    message: StrictStr = Field(description="Human-readable error message")
+    retry_after: Union[StrictFloat, StrictInt] = Field(description="The number of seconds to wait before retrying your request")
+    var_global: StrictBool = Field(description="Whether you are being ratelimited by the global ratelimit or a per-endpoint ratelimit", alias="global")
+    __properties: ClassVar[List[str]] = ["code", "message", "retry_after", "global"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -93,7 +84,7 @@ class ComponentEmojiForMessageRequest(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of ComponentEmojiForMessageRequest from a JSON string"""
+        """Create an instance of RatelimitedResponse from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -118,7 +109,7 @@ class ComponentEmojiForMessageRequest(BaseModel):
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of ComponentEmojiForMessageRequest from a dict"""
+        """Create an instance of RatelimitedResponse from a dict"""
         if obj is None:
             return None
 
@@ -128,11 +119,13 @@ class ComponentEmojiForMessageRequest(BaseModel):
         # raise errors for additional fields in the input
         for _key in obj.keys():
             if _key not in cls.__properties:
-                raise ValueError("Error due to additional fields (not defined in ComponentEmojiForMessageRequest) in the input: " + _key)
+                raise ValueError("Error due to additional fields (not defined in RatelimitedResponse) in the input: " + _key)
 
         _obj = cls.model_validate({
-            "id": obj.get("id"),
-            "name": obj.get("name")
+            "code": obj.get("code"),
+            "message": obj.get("message"),
+            "retry_after": obj.get("retry_after"),
+            "global": obj.get("global")
         })
         return _obj
 

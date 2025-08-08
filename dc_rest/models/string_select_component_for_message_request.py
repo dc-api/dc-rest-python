@@ -9,7 +9,7 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
+- **Modified**: 2025-08-08T14:09:27.478410824Z[Etc/UTC]
 - **Generator Version**: 7.14.0
 
 <details>
@@ -54,7 +54,7 @@ import json
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
-from dc_rest.models.string_select_option_for_message_request import StringSelectOptionForMessageRequest
+from dc_rest.models.string_select_option_for_request import StringSelectOptionForRequest
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -68,7 +68,7 @@ class StringSelectComponentForMessageRequest(BaseModel):
     min_values: Optional[Annotated[int, Field(le=25, strict=True, ge=0)]] = None
     max_values: Optional[Annotated[int, Field(le=25, strict=True, ge=1)]] = None
     disabled: Optional[StrictBool] = None
-    options: Annotated[List[StringSelectOptionForMessageRequest], Field(min_length=1, max_length=25)]
+    options: Annotated[List[StringSelectOptionForRequest], Field(min_length=1, max_length=25)]
     __properties: ClassVar[List[str]] = ["type", "custom_id", "placeholder", "min_values", "max_values", "disabled", "options"]
 
     model_config = ConfigDict(
@@ -160,7 +160,7 @@ class StringSelectComponentForMessageRequest(BaseModel):
             "min_values": obj.get("min_values"),
             "max_values": obj.get("max_values"),
             "disabled": obj.get("disabled"),
-            "options": [StringSelectOptionForMessageRequest.from_dict(_item) for _item in obj["options"]] if obj.get("options") is not None else None
+            "options": [StringSelectOptionForRequest.from_dict(_item) for _item in obj["options"]] if obj.get("options") is not None else None
         })
         return _obj
 

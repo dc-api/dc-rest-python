@@ -9,7 +9,7 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
+- **Modified**: 2025-08-08T14:09:27.478410824Z[Etc/UTC]
 - **Generator Version**: 7.14.0
 
 <details>
@@ -68,7 +68,8 @@ class LobbyResponse(BaseModel):
     metadata: Optional[Dict[str, StrictStr]] = None
     members: Optional[List[LobbyMemberResponse]] = None
     linked_channel: Optional[GuildChannelResponse] = None
-    __properties: ClassVar[List[str]] = ["id", "application_id", "metadata", "members", "linked_channel"]
+    flags: Annotated[int, Field(le=4294967295, strict=True, ge=0)]
+    __properties: ClassVar[List[str]] = ["id", "application_id", "metadata", "members", "linked_channel", "flags"]
 
     @field_validator('id')
     def id_validate_regular_expression(cls, value):
@@ -164,7 +165,8 @@ class LobbyResponse(BaseModel):
             "application_id": obj.get("application_id"),
             "metadata": obj.get("metadata"),
             "members": [LobbyMemberResponse.from_dict(_item) for _item in obj["members"]] if obj.get("members") is not None else None,
-            "linked_channel": GuildChannelResponse.from_dict(obj["linked_channel"]) if obj.get("linked_channel") is not None else None
+            "linked_channel": GuildChannelResponse.from_dict(obj["linked_channel"]) if obj.get("linked_channel") is not None else None,
+            "flags": obj.get("flags")
         })
         return _obj
 
