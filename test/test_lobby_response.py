@@ -9,7 +9,7 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
+- **Modified**: 2025-08-17T02:10:54.420301940Z[Etc/UTC]
 - **Generator Version**: 7.14.0
 
 <details>
@@ -124,12 +124,14 @@ class TestLobbyResponse(unittest.TestCase):
                     default_forum_layout = 56, 
                     default_tag_setting = '', 
                     hd_streaming_until = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
-                    hd_streaming_buyer_id = '9072888001528021798096225500850762068629339333975650685139102691291', )
+                    hd_streaming_buyer_id = '9072888001528021798096225500850762068629339333975650685139102691291', ),
+                flags = 0
             )
         else:
             return LobbyResponse(
                 id = '9072888001528021798096225500850762068629339333975650685139102691291',
                 application_id = '9072888001528021798096225500850762068629339333975650685139102691291',
+                flags = 0,
         )
         """
 

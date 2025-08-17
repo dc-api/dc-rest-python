@@ -10,7 +10,7 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
+- **Modified**: 2025-08-17T02:10:54.420301940Z[Etc/UTC]
 - **Generator Version**: 7.14.0
 
 <details>
@@ -57,7 +57,6 @@ from dc_rest.models.action_row_component_response_components_inner import Action
 from dc_rest.models.activities_attachment_response import ActivitiesAttachmentResponse
 from dc_rest.models.add_group_dm_user201_response import AddGroupDmUser201Response
 from dc_rest.models.add_group_dm_user_request import AddGroupDmUserRequest
-from dc_rest.models.add_guild_member_request import AddGuildMemberRequest
 from dc_rest.models.add_lobby_member_request import AddLobbyMemberRequest
 from dc_rest.models.application_command_attachment_option import ApplicationCommandAttachmentOption
 from dc_rest.models.application_command_attachment_option_response import ApplicationCommandAttachmentOptionResponse
@@ -127,12 +126,13 @@ from dc_rest.models.block_message_action_metadata import BlockMessageActionMetad
 from dc_rest.models.block_message_action_metadata_response import BlockMessageActionMetadataResponse
 from dc_rest.models.block_message_action_response import BlockMessageActionResponse
 from dc_rest.models.bot_account_patch_request import BotAccountPatchRequest
-from dc_rest.models.bulk_ban_users_from_guild_request import BulkBanUsersFromGuildRequest
+from dc_rest.models.bot_add_guild_member_request import BotAddGuildMemberRequest
+from dc_rest.models.bot_partner_sdk_token_request import BotPartnerSdkTokenRequest
+from dc_rest.models.bulk_ban_users_request import BulkBanUsersRequest
 from dc_rest.models.bulk_ban_users_response import BulkBanUsersResponse
 from dc_rest.models.bulk_delete_messages_request import BulkDeleteMessagesRequest
 from dc_rest.models.bulk_lobby_member_request import BulkLobbyMemberRequest
 from dc_rest.models.bulk_update_guild_channels_request_inner import BulkUpdateGuildChannelsRequestInner
-from dc_rest.models.bulk_update_guild_roles_request_inner import BulkUpdateGuildRolesRequestInner
 from dc_rest.models.button_component_for_message_request import ButtonComponentForMessageRequest
 from dc_rest.models.button_component_response import ButtonComponentResponse
 from dc_rest.models.channel_follower_response import ChannelFollowerResponse
@@ -145,7 +145,7 @@ from dc_rest.models.channel_select_default_value import ChannelSelectDefaultValu
 from dc_rest.models.channel_select_default_value_response import ChannelSelectDefaultValueResponse
 from dc_rest.models.command_permission_response import CommandPermissionResponse
 from dc_rest.models.command_permissions_response import CommandPermissionsResponse
-from dc_rest.models.component_emoji_for_message_request import ComponentEmojiForMessageRequest
+from dc_rest.models.component_emoji_for_request import ComponentEmojiForRequest
 from dc_rest.models.component_emoji_response import ComponentEmojiResponse
 from dc_rest.models.connected_account_guild_response import ConnectedAccountGuildResponse
 from dc_rest.models.connected_account_integration_response import ConnectedAccountIntegrationResponse
@@ -163,11 +163,7 @@ from dc_rest.models.create_forum_thread_request import CreateForumThreadRequest
 from dc_rest.models.create_group_dm_invite_request import CreateGroupDMInviteRequest
 from dc_rest.models.create_guild_channel_request import CreateGuildChannelRequest
 from dc_rest.models.create_guild_emoji_request import CreateGuildEmojiRequest
-from dc_rest.models.create_guild_from_template_request import CreateGuildFromTemplateRequest
 from dc_rest.models.create_guild_invite_request import CreateGuildInviteRequest
-from dc_rest.models.create_guild_request_channel_item import CreateGuildRequestChannelItem
-from dc_rest.models.create_guild_request_role_item import CreateGuildRequestRoleItem
-from dc_rest.models.create_guild_role_request import CreateGuildRoleRequest
 from dc_rest.models.create_guild_scheduled_event_request import CreateGuildScheduledEventRequest
 from dc_rest.models.create_guild_template_request import CreateGuildTemplateRequest
 from dc_rest.models.create_interaction_response_request import CreateInteractionResponseRequest
@@ -177,6 +173,7 @@ from dc_rest.models.create_message_interaction_callback_response import CreateMe
 from dc_rest.models.create_or_join_lobby_request import CreateOrJoinLobbyRequest
 from dc_rest.models.create_or_update_thread_tag_request import CreateOrUpdateThreadTagRequest
 from dc_rest.models.create_private_channel_request import CreatePrivateChannelRequest
+from dc_rest.models.create_role_request import CreateRoleRequest
 from dc_rest.models.create_stage_instance_request import CreateStageInstanceRequest
 from dc_rest.models.create_text_thread_with_message_request import CreateTextThreadWithMessageRequest
 from dc_rest.models.create_text_thread_without_message_request import CreateTextThreadWithoutMessageRequest
@@ -243,11 +240,11 @@ from dc_rest.models.guild_audit_log_response_integrations_inner import GuildAudi
 from dc_rest.models.guild_ban_response import GuildBanResponse
 from dc_rest.models.guild_channel_location import GuildChannelLocation
 from dc_rest.models.guild_channel_response import GuildChannelResponse
-from dc_rest.models.guild_create_request import GuildCreateRequest
 from dc_rest.models.guild_home_settings_response import GuildHomeSettingsResponse
 from dc_rest.models.guild_incoming_webhook_response import GuildIncomingWebhookResponse
 from dc_rest.models.guild_invite_response import GuildInviteResponse
 from dc_rest.models.guild_mfa_level_response import GuildMFALevelResponse
+from dc_rest.models.guild_mfa_request import GuildMFARequest
 from dc_rest.models.guild_member_response import GuildMemberResponse
 from dc_rest.models.guild_onboarding_response import GuildOnboardingResponse
 from dc_rest.models.guild_patch_request_partial import GuildPatchRequestPartial
@@ -299,6 +296,7 @@ from dc_rest.models.list_channel_webhooks200_response_inner import ListChannelWe
 from dc_rest.models.list_guild_integrations200_response_inner import ListGuildIntegrations200ResponseInner
 from dc_rest.models.list_guild_scheduled_events200_response_inner import ListGuildScheduledEvents200ResponseInner
 from dc_rest.models.list_guild_soundboard_sounds_response import ListGuildSoundboardSoundsResponse
+from dc_rest.models.lobby_guild_invite_response import LobbyGuildInviteResponse
 from dc_rest.models.lobby_member_request import LobbyMemberRequest
 from dc_rest.models.lobby_member_response import LobbyMemberResponse
 from dc_rest.models.lobby_message_response import LobbyMessageResponse
@@ -388,6 +386,7 @@ from dc_rest.models.prune_guild_request_include_roles import PruneGuildRequestIn
 from dc_rest.models.purchase_notification_response import PurchaseNotificationResponse
 from dc_rest.models.quarantine_user_action import QuarantineUserAction
 from dc_rest.models.quarantine_user_action_response import QuarantineUserActionResponse
+from dc_rest.models.ratelimited_response import RatelimitedResponse
 from dc_rest.models.resolved_objects_response import ResolvedObjectsResponse
 from dc_rest.models.resource_channel_response import ResourceChannelResponse
 from dc_rest.models.rich_embed import RichEmbed
@@ -413,7 +412,6 @@ from dc_rest.models.separator_component_for_message_request import SeparatorComp
 from dc_rest.models.separator_component_response import SeparatorComponentResponse
 from dc_rest.models.set_channel_permission_overwrite_request import SetChannelPermissionOverwriteRequest
 from dc_rest.models.set_guild_application_command_permissions_request import SetGuildApplicationCommandPermissionsRequest
-from dc_rest.models.set_guild_mfa_level_request import SetGuildMfaLevelRequest
 from dc_rest.models.settings_emoji_response import SettingsEmojiResponse
 from dc_rest.models.slack_webhook import SlackWebhook
 from dc_rest.models.soundboard_create_request import SoundboardCreateRequest
@@ -430,7 +428,7 @@ from dc_rest.models.sticker_pack_collection_response import StickerPackCollectio
 from dc_rest.models.sticker_pack_response import StickerPackResponse
 from dc_rest.models.string_select_component_for_message_request import StringSelectComponentForMessageRequest
 from dc_rest.models.string_select_component_response import StringSelectComponentResponse
-from dc_rest.models.string_select_option_for_message_request import StringSelectOptionForMessageRequest
+from dc_rest.models.string_select_option_for_request import StringSelectOptionForRequest
 from dc_rest.models.string_select_option_response import StringSelectOptionResponse
 from dc_rest.models.team_member_response import TeamMemberResponse
 from dc_rest.models.team_response import TeamResponse
@@ -468,6 +466,8 @@ from dc_rest.models.update_message_interaction_callback_request import UpdateMes
 from dc_rest.models.update_message_interaction_callback_response import UpdateMessageInteractionCallbackResponse
 from dc_rest.models.update_my_guild_member_request import UpdateMyGuildMemberRequest
 from dc_rest.models.update_onboarding_prompt_request import UpdateOnboardingPromptRequest
+from dc_rest.models.update_role_positions_request import UpdateRolePositionsRequest
+from dc_rest.models.update_role_request_partial import UpdateRoleRequestPartial
 from dc_rest.models.update_self_voice_state_request import UpdateSelfVoiceStateRequest
 from dc_rest.models.update_stage_instance_request import UpdateStageInstanceRequest
 from dc_rest.models.update_thread_request_partial import UpdateThreadRequestPartial

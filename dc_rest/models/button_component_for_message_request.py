@@ -9,7 +9,7 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
+- **Modified**: 2025-08-17T02:10:54.420301940Z[Etc/UTC]
 - **Generator Version**: 7.14.0
 
 <details>
@@ -54,7 +54,7 @@ import json
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
-from dc_rest.models.component_emoji_for_message_request import ComponentEmojiForMessageRequest
+from dc_rest.models.component_emoji_for_request import ComponentEmojiForRequest
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -69,7 +69,7 @@ class ButtonComponentForMessageRequest(BaseModel):
     disabled: Optional[StrictBool] = None
     url: Optional[Annotated[str, Field(strict=True, max_length=512)]] = None
     sku_id: Optional[Annotated[str, Field(strict=True)]] = None
-    emoji: Optional[ComponentEmojiForMessageRequest] = None
+    emoji: Optional[ComponentEmojiForRequest] = None
     __properties: ClassVar[List[str]] = ["type", "custom_id", "style", "label", "disabled", "url", "sku_id", "emoji"]
 
     @field_validator('sku_id')
@@ -178,7 +178,7 @@ class ButtonComponentForMessageRequest(BaseModel):
             "disabled": obj.get("disabled"),
             "url": obj.get("url"),
             "sku_id": obj.get("sku_id"),
-            "emoji": ComponentEmojiForMessageRequest.from_dict(obj["emoji"]) if obj.get("emoji") is not None else None
+            "emoji": ComponentEmojiForRequest.from_dict(obj["emoji"]) if obj.get("emoji") is not None else None
         })
         return _obj
 
