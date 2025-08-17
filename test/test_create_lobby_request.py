@@ -9,7 +9,7 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
+- **Modified**: 2025-08-17T02:10:54.420301940Z[Etc/UTC]
 - **Generator Version**: 7.14.0
 
 <details>
@@ -80,7 +80,8 @@ class TestCreateLobbyRequest(unittest.TestCase):
                     ],
                 metadata = {
                     'key' : ''
-                    }
+                    },
+                flags = 1
             )
         else:
             return CreateLobbyRequest(

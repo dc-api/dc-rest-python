@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **disabled** | **bool** |  | [optional] 
 **url** | **str** |  | [optional] 
 **sku_id** | **str** |  | [optional] 
-**emoji** | [**ComponentEmojiForMessageRequest**](ComponentEmojiForMessageRequest.md) |  | [optional] 
+**emoji** | [**ComponentEmojiForRequest**](ComponentEmojiForRequest.md) |  | [optional] 
 **description** | **str** |  | [optional] 
 **spoiler** | **bool** |  | [optional] 
 **media** | [**UnfurledMediaRequest**](UnfurledMediaRequest.md) |  | 
