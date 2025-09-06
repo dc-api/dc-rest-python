@@ -9,7 +9,7 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
+- **Modified**: 2025-09-06T05:32:19.307434611Z[Etc/UTC]
 - **Generator Version**: 7.14.0
 
 <details>
@@ -145,11 +145,6 @@ class SoundboardSoundResponse(BaseModel):
         # and model_fields_set contains the field
         if self.emoji_name is None and "emoji_name" in self.model_fields_set:
             _dict['emoji_name'] = None
-
-        # set to None if user (nullable) is None
-        # and model_fields_set contains the field
-        if self.user is None and "user" in self.model_fields_set:
-            _dict['user'] = None
 
         return _dict
 

@@ -6,19 +6,21 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **type** | **int** |  | 
+**id** | **int** |  | [optional] 
 **custom_id** | **str** |  | 
 **style** | **int** |  | 
 **label** | **str** |  | [optional] 
 **disabled** | **bool** |  | [optional] 
 **url** | **str** |  | [optional] 
 **sku_id** | **str** |  | [optional] 
-**emoji** | [**ComponentEmojiForMessageRequest**](ComponentEmojiForMessageRequest.md) |  | [optional] 
+**emoji** | [**ComponentEmojiForRequest**](ComponentEmojiForRequest.md) |  | [optional] 
 **placeholder** | **str** |  | [optional] 
 **min_values** | **int** |  | [optional] 
 **max_values** | **int** |  | [optional] 
+**required** | **bool** |  | [optional] 
 **default_values** | [**List[UserSelectDefaultValue]**](UserSelectDefaultValue.md) |  | [optional] 
 **channel_types** | **List[int]** |  | [optional] 
-**options** | [**List[StringSelectOptionForMessageRequest]**](StringSelectOptionForMessageRequest.md) |  | 
+**options** | [**List[StringSelectOptionForRequest]**](StringSelectOptionForRequest.md) |  | 
 
 ## Example
 

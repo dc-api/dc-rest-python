@@ -9,7 +9,7 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
+- **Modified**: 2025-09-06T05:32:19.307434611Z[Etc/UTC]
 - **Generator Version**: 7.14.0
 
 <details>
@@ -51,8 +51,9 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, StrictBool, StrictInt
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt
 from typing import Any, ClassVar, Dict, List, Optional
+from typing_extensions import Annotated
 from dc_rest.models.unfurled_media_request_with_attachment_reference_required import UnfurledMediaRequestWithAttachmentReferenceRequired
 from typing import Optional, Set
 from typing_extensions import Self
@@ -62,9 +63,10 @@ class FileComponentForMessageRequest(BaseModel):
     FileComponentForMessageRequest
     """ # noqa: E501
     type: StrictInt
+    id: Optional[Annotated[int, Field(strict=True, ge=0)]] = None
     spoiler: Optional[StrictBool] = None
     file: UnfurledMediaRequestWithAttachmentReferenceRequired
-    __properties: ClassVar[List[str]] = ["type", "spoiler", "file"]
+    __properties: ClassVar[List[str]] = ["type", "id", "spoiler", "file"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -108,6 +110,11 @@ class FileComponentForMessageRequest(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of file
         if self.file:
             _dict['file'] = self.file.to_dict()
+        # set to None if id (nullable) is None
+        # and model_fields_set contains the field
+        if self.id is None and "id" in self.model_fields_set:
+            _dict['id'] = None
+
         # set to None if spoiler (nullable) is None
         # and model_fields_set contains the field
         if self.spoiler is None and "spoiler" in self.model_fields_set:
@@ -131,6 +138,7 @@ class FileComponentForMessageRequest(BaseModel):
 
         _obj = cls.model_validate({
             "type": obj.get("type"),
+            "id": obj.get("id"),
             "spoiler": obj.get("spoiler"),
             "file": UnfurledMediaRequestWithAttachmentReferenceRequired.from_dict(obj["file"]) if obj.get("file") is not None else None
         })

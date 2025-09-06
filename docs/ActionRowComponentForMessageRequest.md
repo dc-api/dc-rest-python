@@ -6,6 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **type** | **int** |  | 
+**id** | **int** |  | [optional] 
 **components** | [**List[ActionRowComponentForMessageRequestComponentsInner]**](ActionRowComponentForMessageRequestComponentsInner.md) |  | 
 
 ## Example

@@ -9,7 +9,7 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
+- **Modified**: 2025-09-06T05:32:19.307434611Z[Etc/UTC]
 - **Generator Version**: 7.14.0
 
 <details>
@@ -111,6 +111,13 @@ class TestCreatedThreadResponse(unittest.TestCase):
                 guild_id = '9072888001528021798096225500850762068629339333975650685139102691291',
                 name = '',
                 owner_id = '9072888001528021798096225500850762068629339333975650685139102691291',
+                thread_metadata = dc_rest.models.thread_metadata_response.ThreadMetadataResponse(
+                    archived = True, 
+                    archive_timestamp = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                    auto_archive_duration = 56, 
+                    locked = True, 
+                    create_timestamp = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                    invitable = True, ),
                 message_count = 56,
                 member_count = 56,
                 total_message_sent = 56,

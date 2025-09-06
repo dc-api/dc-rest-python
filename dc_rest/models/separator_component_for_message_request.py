@@ -9,7 +9,7 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
+- **Modified**: 2025-09-06T05:32:19.307434611Z[Etc/UTC]
 - **Generator Version**: 7.14.0
 
 <details>
@@ -51,8 +51,9 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, StrictBool, StrictInt
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt
 from typing import Any, ClassVar, Dict, List, Optional
+from typing_extensions import Annotated
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -61,9 +62,10 @@ class SeparatorComponentForMessageRequest(BaseModel):
     SeparatorComponentForMessageRequest
     """ # noqa: E501
     type: StrictInt
+    id: Optional[Annotated[int, Field(strict=True, ge=0)]] = None
     spacing: Optional[StrictInt] = None
     divider: Optional[StrictBool] = None
-    __properties: ClassVar[List[str]] = ["type", "spacing", "divider"]
+    __properties: ClassVar[List[str]] = ["type", "id", "spacing", "divider"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -104,6 +106,11 @@ class SeparatorComponentForMessageRequest(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if id (nullable) is None
+        # and model_fields_set contains the field
+        if self.id is None and "id" in self.model_fields_set:
+            _dict['id'] = None
+
         # set to None if divider (nullable) is None
         # and model_fields_set contains the field
         if self.divider is None and "divider" in self.model_fields_set:
@@ -127,6 +134,7 @@ class SeparatorComponentForMessageRequest(BaseModel):
 
         _obj = cls.model_validate({
             "type": obj.get("type"),
+            "id": obj.get("id"),
             "spacing": obj.get("spacing"),
             "divider": obj.get("divider")
         })

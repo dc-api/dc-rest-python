@@ -6,6 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **type** | **int** |  | 
+**id** | **int** |  | [optional] 
 **components** | [**List[TextInputComponentForModalRequest]**](TextInputComponentForModalRequest.md) |  | 
 
 ## Example

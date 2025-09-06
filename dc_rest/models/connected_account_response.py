@@ -9,7 +9,7 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
+- **Modified**: 2025-09-06T05:32:19.307434611Z[Etc/UTC]
 - **Generator Version**: 7.14.0
 
 <details>
@@ -129,20 +129,10 @@ class ConnectedAccountResponse(BaseModel):
         if self.type is None and "type" in self.model_fields_set:
             _dict['type'] = None
 
-        # set to None if integrations (nullable) is None
-        # and model_fields_set contains the field
-        if self.integrations is None and "integrations" in self.model_fields_set:
-            _dict['integrations'] = None
-
         # set to None if visibility (nullable) is None
         # and model_fields_set contains the field
         if self.visibility is None and "visibility" in self.model_fields_set:
             _dict['visibility'] = None
-
-        # set to None if revoked (nullable) is None
-        # and model_fields_set contains the field
-        if self.revoked is None and "revoked" in self.model_fields_set:
-            _dict['revoked'] = None
 
         return _dict
 

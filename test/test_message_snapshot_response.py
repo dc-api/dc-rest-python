@@ -9,7 +9,7 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
+- **Modified**: 2025-09-06T05:32:19.307434611Z[Etc/UTC]
 - **Generator Version**: 7.14.0
 
 <details>
@@ -221,49 +221,6 @@ class TestMessageSnapshotResponse(unittest.TestCase):
                     components = [
                         null
                         ], 
-                    resolved = dc_rest.models.resolved_objects_response.ResolvedObjectsResponse(
-                        users = {
-                            'key' : 
-                            }, 
-                        members = {
-                            'key' : dc_rest.models.guild_member_response.GuildMemberResponse(
-                                avatar = '', 
-                                banner = '', 
-                                communication_disabled_until = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
-                                flags = 56, 
-                                joined_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
-                                nick = '', 
-                                pending = True, 
-                                premium_since = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
-                                roles = [
-                                    '9072888001528021798096225500850762068629339333975650685139102691291'
-                                    ], 
-                                user = , 
-                                mute = True, 
-                                deaf = True, )
-                            }, 
-                        channels = {
-                            'key' : null
-                            }, 
-                        roles = {
-                            'key' : dc_rest.models.guild_role_response.GuildRoleResponse(
-                                id = '9072888001528021798096225500850762068629339333975650685139102691291', 
-                                name = '', 
-                                description = '', 
-                                permissions = '', 
-                                position = 56, 
-                                color = 56, 
-                                colors = dc_rest.models.guild_role_colors_response.GuildRoleColorsResponse(
-                                    primary_color = 56, 
-                                    secondary_color = 56, 
-                                    tertiary_color = 56, ), 
-                                hoist = True, 
-                                managed = True, 
-                                mentionable = True, 
-                                icon = '', 
-                                unicode_emoji = '', 
-                                flags = 56, )
-                            }, ), 
                     stickers = [
                         null
                         ], 
@@ -276,6 +233,167 @@ class TestMessageSnapshotResponse(unittest.TestCase):
             )
         else:
             return MessageSnapshotResponse(
+                message = dc_rest.models.minimal_content_message_response.MinimalContentMessageResponse(
+                    type = 56, 
+                    content = '', 
+                    mentions = [
+                        dc_rest.models.user_response.UserResponse(
+                            id = '9072888001528021798096225500850762068629339333975650685139102691291', 
+                            username = '', 
+                            avatar = '', 
+                            discriminator = '', 
+                            public_flags = 56, 
+                            flags = -9007199254740991, 
+                            bot = True, 
+                            system = True, 
+                            banner = '', 
+                            accent_color = 56, 
+                            global_name = '', 
+                            avatar_decoration_data = dc_rest.models.user_avatar_decoration_response.UserAvatarDecorationResponse(
+                                asset = '', 
+                                sku_id = '9072888001528021798096225500850762068629339333975650685139102691291', ), 
+                            collectibles = dc_rest.models.user_collectibles_response.UserCollectiblesResponse(
+                                nameplate = dc_rest.models.user_nameplate_response.UserNameplateResponse(
+                                    asset = '', 
+                                    label = '', 
+                                    palette = '', ), ), 
+                            primary_guild = dc_rest.models.user_primary_guild_response.UserPrimaryGuildResponse(
+                                identity_guild_id = '9072888001528021798096225500850762068629339333975650685139102691291', 
+                                identity_enabled = True, 
+                                tag = '', 
+                                badge = '', ), )
+                        ], 
+                    mention_roles = [
+                        '9072888001528021798096225500850762068629339333975650685139102691291'
+                        ], 
+                    attachments = [
+                        dc_rest.models.attachment_response.AttachmentResponse(
+                            id = '9072888001528021798096225500850762068629339333975650685139102691291', 
+                            filename = '', 
+                            size = 56, 
+                            url = '', 
+                            proxy_url = '', 
+                            width = 56, 
+                            height = 56, 
+                            duration_secs = 1.337, 
+                            waveform = '', 
+                            description = '', 
+                            content_type = '', 
+                            ephemeral = True, 
+                            title = '', 
+                            application = dc_rest.models.application_response.ApplicationResponse(
+                                id = '9072888001528021798096225500850762068629339333975650685139102691291', 
+                                name = '', 
+                                icon = '', 
+                                description = '', 
+                                cover_image = '', 
+                                primary_sku_id = '9072888001528021798096225500850762068629339333975650685139102691291', 
+                                bot = dc_rest.models.user_response.UserResponse(
+                                    id = '9072888001528021798096225500850762068629339333975650685139102691291', 
+                                    username = '', 
+                                    avatar = '', 
+                                    discriminator = '', 
+                                    public_flags = 56, 
+                                    flags = -9007199254740991, 
+                                    system = True, 
+                                    banner = '', 
+                                    accent_color = 56, 
+                                    global_name = '', ), 
+                                slug = '', 
+                                guild_id = '9072888001528021798096225500850762068629339333975650685139102691291', 
+                                rpc_origins = [
+                                    ''
+                                    ], 
+                                bot_public = True, 
+                                bot_require_code_grant = True, 
+                                terms_of_service_url = '', 
+                                privacy_policy_url = '', 
+                                custom_install_url = '', 
+                                install_params = dc_rest.models.application_o_auth2_install_params_response.ApplicationOAuth2InstallParamsResponse(
+                                    scopes = [
+                                        'applications.commands'
+                                        ], 
+                                    permissions = '', ), 
+                                integration_types_config = {
+                                    'key' : dc_rest.models.application_integration_type_configuration_response.ApplicationIntegrationTypeConfigurationResponse(
+                                        oauth2_install_params = dc_rest.models.application_o_auth2_install_params_response.ApplicationOAuth2InstallParamsResponse(
+                                            scopes = [
+                                                'applications.commands'
+                                                ], 
+                                            permissions = '', ), )
+                                    }, 
+                                verify_key = '', 
+                                flags = 56, 
+                                max_participants = 56, 
+                                tags = [
+                                    ''
+                                    ], ), 
+                            clip_created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                            clip_participants = [
+                                
+                                ], )
+                        ], 
+                    embeds = [
+                        dc_rest.models.message_embed_response.MessageEmbedResponse(
+                            type = '', 
+                            url = '', 
+                            title = '', 
+                            description = '', 
+                            color = 56, 
+                            timestamp = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                            fields = [
+                                dc_rest.models.message_embed_field_response.MessageEmbedFieldResponse(
+                                    name = '', 
+                                    value = '', 
+                                    inline = True, )
+                                ], 
+                            author = dc_rest.models.message_embed_author_response.MessageEmbedAuthorResponse(
+                                name = '', 
+                                url = '', 
+                                icon_url = '', 
+                                proxy_icon_url = '', ), 
+                            provider = dc_rest.models.message_embed_provider_response.MessageEmbedProviderResponse(
+                                name = '', 
+                                url = '', ), 
+                            image = dc_rest.models.message_embed_image_response.MessageEmbedImageResponse(
+                                url = '', 
+                                proxy_url = '', 
+                                width = 0, 
+                                height = 0, 
+                                content_type = '', 
+                                placeholder = '', 
+                                placeholder_version = 0, 
+                                description = '', ), 
+                            thumbnail = dc_rest.models.message_embed_image_response.MessageEmbedImageResponse(
+                                url = '', 
+                                proxy_url = '', 
+                                width = 0, 
+                                height = 0, 
+                                content_type = '', 
+                                placeholder = '', 
+                                placeholder_version = 0, 
+                                description = '', ), 
+                            video = , 
+                            footer = dc_rest.models.message_embed_footer_response.MessageEmbedFooterResponse(
+                                text = '', 
+                                icon_url = '', 
+                                proxy_icon_url = '', ), )
+                        ], 
+                    timestamp = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                    edited_timestamp = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                    flags = 56, 
+                    components = [
+                        null
+                        ], 
+                    stickers = [
+                        null
+                        ], 
+                    sticker_items = [
+                        dc_rest.models.message_sticker_item_response.MessageStickerItemResponse(
+                            id = , 
+                            name = '', 
+                            format_type = 56, )
+                        ], ),
         )
         """
 

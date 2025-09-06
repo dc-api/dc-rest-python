@@ -9,7 +9,7 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
+- **Modified**: 2025-09-06T05:32:19.307434611Z[Etc/UTC]
 - **Generator Version**: 7.14.0
 
 <details>
@@ -177,11 +177,6 @@ class VoiceScheduledEventResponse(BaseModel):
         if self.description is None and "description" in self.model_fields_set:
             _dict['description'] = None
 
-        # set to None if creator (nullable) is None
-        # and model_fields_set contains the field
-        if self.creator is None and "creator" in self.model_fields_set:
-            _dict['creator'] = None
-
         # set to None if image (nullable) is None
         # and model_fields_set contains the field
         if self.image is None and "image" in self.model_fields_set:
@@ -201,11 +196,6 @@ class VoiceScheduledEventResponse(BaseModel):
         # and model_fields_set contains the field
         if self.entity_type is None and "entity_type" in self.model_fields_set:
             _dict['entity_type'] = None
-
-        # set to None if user_count (nullable) is None
-        # and model_fields_set contains the field
-        if self.user_count is None and "user_count" in self.model_fields_set:
-            _dict['user_count'] = None
 
         # set to None if privacy_level (nullable) is None
         # and model_fields_set contains the field

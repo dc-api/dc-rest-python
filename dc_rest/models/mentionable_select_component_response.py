@@ -9,7 +9,7 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
+- **Modified**: 2025-09-06T05:32:19.307434611Z[Etc/UTC]
 - **Generator Version**: 7.14.0
 
 <details>
@@ -117,11 +117,6 @@ class MentionableSelectComponentResponse(BaseModel):
                 if _item_default_values:
                     _items.append(_item_default_values.to_dict())
             _dict['default_values'] = _items
-        # set to None if placeholder (nullable) is None
-        # and model_fields_set contains the field
-        if self.placeholder is None and "placeholder" in self.model_fields_set:
-            _dict['placeholder'] = None
-
         # set to None if min_values (nullable) is None
         # and model_fields_set contains the field
         if self.min_values is None and "min_values" in self.model_fields_set:
@@ -131,16 +126,6 @@ class MentionableSelectComponentResponse(BaseModel):
         # and model_fields_set contains the field
         if self.max_values is None and "max_values" in self.model_fields_set:
             _dict['max_values'] = None
-
-        # set to None if disabled (nullable) is None
-        # and model_fields_set contains the field
-        if self.disabled is None and "disabled" in self.model_fields_set:
-            _dict['disabled'] = None
-
-        # set to None if default_values (nullable) is None
-        # and model_fields_set contains the field
-        if self.default_values is None and "default_values" in self.model_fields_set:
-            _dict['default_values'] = None
 
         return _dict
 

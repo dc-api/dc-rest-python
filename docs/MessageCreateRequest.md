@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **flags** | **int** |  | [optional] 
 **attachments** | [**List[MessageAttachmentRequest]**](MessageAttachmentRequest.md) |  | [optional] 
 **poll** | [**PollCreateRequest**](PollCreateRequest.md) |  | [optional] 
+**shared_client_theme** | [**CustomClientThemeShareRequest**](CustomClientThemeShareRequest.md) |  | [optional] 
 **confetti_potion** | **object** |  | [optional] 
 **message_reference** | [**MessageReferenceRequest**](MessageReferenceRequest.md) |  | [optional] 
 **nonce** | [**BasicMessageResponseNonce**](BasicMessageResponseNonce.md) |  | [optional] 

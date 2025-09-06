@@ -9,7 +9,7 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
+- **Modified**: 2025-09-06T05:32:19.307434611Z[Etc/UTC]
 - **Generator Version**: 7.14.0
 
 <details>
@@ -251,6 +251,9 @@ class TestGuildWithCountsResponse(unittest.TestCase):
                 default_message_notifications = 56,
                 mfa_level = 56,
                 explicit_content_filter = 56,
+                max_members = 56,
+                max_stage_video_channel_users = 56,
+                max_video_channel_users = 56,
                 premium_tier = 56,
                 premium_subscription_count = 56,
                 preferred_locale = '',

@@ -9,7 +9,7 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
+- **Modified**: 2025-09-06T05:32:19.307434611Z[Etc/UTC]
 - **Generator Version**: 7.14.0
 
 <details>
@@ -69,7 +69,7 @@ class GuildRoleResponse(BaseModel):
     permissions: StrictStr
     position: StrictInt
     color: StrictInt
-    colors: Optional[GuildRoleColorsResponse] = None
+    colors: GuildRoleColorsResponse
     hoist: StrictBool
     managed: StrictBool
     mentionable: StrictBool
@@ -136,11 +136,6 @@ class GuildRoleResponse(BaseModel):
         if self.description is None and "description" in self.model_fields_set:
             _dict['description'] = None
 
-        # set to None if colors (nullable) is None
-        # and model_fields_set contains the field
-        if self.colors is None and "colors" in self.model_fields_set:
-            _dict['colors'] = None
-
         # set to None if icon (nullable) is None
         # and model_fields_set contains the field
         if self.icon is None and "icon" in self.model_fields_set:
@@ -150,11 +145,6 @@ class GuildRoleResponse(BaseModel):
         # and model_fields_set contains the field
         if self.unicode_emoji is None and "unicode_emoji" in self.model_fields_set:
             _dict['unicode_emoji'] = None
-
-        # set to None if tags (nullable) is None
-        # and model_fields_set contains the field
-        if self.tags is None and "tags" in self.model_fields_set:
-            _dict['tags'] = None
 
         return _dict
 

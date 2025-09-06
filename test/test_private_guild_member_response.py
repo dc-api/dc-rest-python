@@ -9,7 +9,7 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
+- **Modified**: 2025-09-06T05:32:19.307434611Z[Etc/UTC]
 - **Generator Version**: 7.14.0
 
 <details>
@@ -83,6 +83,12 @@ class TestPrivateGuildMemberResponse(unittest.TestCase):
                 roles = [
                     '9072888001528021798096225500850762068629339333975650685139102691291'
                     ],
+                collectibles = dc_rest.models.user_collectibles_response.UserCollectiblesResponse(
+                    nameplate = dc_rest.models.user_nameplate_response.UserNameplateResponse(
+                        sku_id = '9072888001528021798096225500850762068629339333975650685139102691291', 
+                        asset = '', 
+                        label = '', 
+                        palette = '', ), ),
                 user = dc_rest.models.user_response.UserResponse(
                     id = '9072888001528021798096225500850762068629339333975650685139102691291', 
                     username = '', 
@@ -90,7 +96,6 @@ class TestPrivateGuildMemberResponse(unittest.TestCase):
                     discriminator = '', 
                     public_flags = 56, 
                     flags = -9007199254740991, 
-                    bot = True, 
                     system = True, 
                     banner = '', 
                     accent_color = 56, 
@@ -126,7 +131,6 @@ class TestPrivateGuildMemberResponse(unittest.TestCase):
                     discriminator = '', 
                     public_flags = 56, 
                     flags = -9007199254740991, 
-                    bot = True, 
                     system = True, 
                     banner = '', 
                     accent_color = 56, 

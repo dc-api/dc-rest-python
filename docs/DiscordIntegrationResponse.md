@@ -7,8 +7,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **type** | **str** |  | 
 **name** | **str** |  | [optional] 
-**account** | [**AccountResponse**](AccountResponse.md) |  | [optional] 
-**enabled** | **bool** |  | [optional] 
+**account** | [**AccountResponse**](AccountResponse.md) |  | 
+**enabled** | **bool** |  | 
 **id** | **str** |  | 
 **application** | [**IntegrationApplicationResponse**](IntegrationApplicationResponse.md) |  | 
 **scopes** | **List[str]** |  | 

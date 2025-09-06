@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**items** | [**List[PinnedMessageResponse]**](PinnedMessageResponse.md) |  | [optional] 
+**items** | [**List[PinnedMessageResponse]**](PinnedMessageResponse.md) |  | 
 **has_more** | **bool** |  | 
 
 ## Example
