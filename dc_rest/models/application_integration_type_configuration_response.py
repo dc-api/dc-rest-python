@@ -9,7 +9,7 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
+- **Modified**: 2025-09-06T05:32:19.307434611Z[Etc/UTC]
 - **Generator Version**: 7.14.0
 
 <details>
@@ -106,11 +106,6 @@ class ApplicationIntegrationTypeConfigurationResponse(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of oauth2_install_params
         if self.oauth2_install_params:
             _dict['oauth2_install_params'] = self.oauth2_install_params.to_dict()
-        # set to None if oauth2_install_params (nullable) is None
-        # and model_fields_set contains the field
-        if self.oauth2_install_params is None and "oauth2_install_params" in self.model_fields_set:
-            _dict['oauth2_install_params'] = None
-
         return _dict
 
     @classmethod

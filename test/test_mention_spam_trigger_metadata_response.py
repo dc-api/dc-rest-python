@@ -9,7 +9,7 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
+- **Modified**: 2025-09-06T05:32:19.307434611Z[Etc/UTC]
 - **Generator Version**: 7.14.0
 
 <details>
@@ -75,6 +75,7 @@ class TestMentionSpamTriggerMetadataResponse(unittest.TestCase):
         else:
             return MentionSpamTriggerMetadataResponse(
                 mention_total_limit = 56,
+                mention_raid_protection_enabled = True,
         )
         """
 

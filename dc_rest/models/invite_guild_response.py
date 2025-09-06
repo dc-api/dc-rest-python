@@ -9,7 +9,7 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
+- **Modified**: 2025-09-06T05:32:19.307434611Z[Etc/UTC]
 - **Generator Version**: 7.14.0
 
 <details>
@@ -72,7 +72,7 @@ class InviteGuildResponse(BaseModel):
     vanity_url_code: Optional[StrictStr] = None
     nsfw_level: Optional[StrictInt] = None
     nsfw: Optional[StrictBool] = None
-    premium_subscription_count: Optional[StrictInt] = None
+    premium_subscription_count: StrictInt
     __properties: ClassVar[List[str]] = ["id", "name", "splash", "banner", "description", "icon", "features", "verification_level", "vanity_url_code", "nsfw_level", "nsfw", "premium_subscription_count"]
 
     @field_validator('id')
@@ -155,11 +155,6 @@ class InviteGuildResponse(BaseModel):
         # and model_fields_set contains the field
         if self.nsfw is None and "nsfw" in self.model_fields_set:
             _dict['nsfw'] = None
-
-        # set to None if premium_subscription_count (nullable) is None
-        # and model_fields_set contains the field
-        if self.premium_subscription_count is None and "premium_subscription_count" in self.model_fields_set:
-            _dict['premium_subscription_count'] = None
 
         return _dict
 

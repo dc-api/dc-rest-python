@@ -9,7 +9,7 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
+- **Modified**: 2025-09-06T05:32:19.307434611Z[Etc/UTC]
 - **Generator Version**: 7.14.0
 
 <details>
@@ -63,7 +63,7 @@ class FriendInviteResponse(BaseModel):
     """
     FriendInviteResponse
     """ # noqa: E501
-    type: Optional[StrictInt] = None
+    type: Optional[StrictInt]
     code: StrictStr
     inviter: Optional[UserResponse] = None
     max_age: Optional[StrictInt] = None
@@ -127,55 +127,15 @@ class FriendInviteResponse(BaseModel):
         if self.type is None and "type" in self.model_fields_set:
             _dict['type'] = None
 
-        # set to None if inviter (nullable) is None
-        # and model_fields_set contains the field
-        if self.inviter is None and "inviter" in self.model_fields_set:
-            _dict['inviter'] = None
-
-        # set to None if max_age (nullable) is None
-        # and model_fields_set contains the field
-        if self.max_age is None and "max_age" in self.model_fields_set:
-            _dict['max_age'] = None
-
-        # set to None if created_at (nullable) is None
-        # and model_fields_set contains the field
-        if self.created_at is None and "created_at" in self.model_fields_set:
-            _dict['created_at'] = None
-
         # set to None if expires_at (nullable) is None
         # and model_fields_set contains the field
         if self.expires_at is None and "expires_at" in self.model_fields_set:
             _dict['expires_at'] = None
 
-        # set to None if friends_count (nullable) is None
-        # and model_fields_set contains the field
-        if self.friends_count is None and "friends_count" in self.model_fields_set:
-            _dict['friends_count'] = None
-
         # set to None if channel (nullable) is None
         # and model_fields_set contains the field
         if self.channel is None and "channel" in self.model_fields_set:
             _dict['channel'] = None
-
-        # set to None if is_contact (nullable) is None
-        # and model_fields_set contains the field
-        if self.is_contact is None and "is_contact" in self.model_fields_set:
-            _dict['is_contact'] = None
-
-        # set to None if uses (nullable) is None
-        # and model_fields_set contains the field
-        if self.uses is None and "uses" in self.model_fields_set:
-            _dict['uses'] = None
-
-        # set to None if max_uses (nullable) is None
-        # and model_fields_set contains the field
-        if self.max_uses is None and "max_uses" in self.model_fields_set:
-            _dict['max_uses'] = None
-
-        # set to None if flags (nullable) is None
-        # and model_fields_set contains the field
-        if self.flags is None and "flags" in self.model_fields_set:
-            _dict['flags'] = None
 
         return _dict
 

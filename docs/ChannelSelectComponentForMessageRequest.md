@@ -6,11 +6,13 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **type** | **int** |  | 
+**id** | **int** |  | [optional] 
 **custom_id** | **str** |  | 
 **placeholder** | **str** |  | [optional] 
 **min_values** | **int** |  | [optional] 
 **max_values** | **int** |  | [optional] 
 **disabled** | **bool** |  | [optional] 
+**required** | **bool** |  | [optional] 
 **default_values** | [**List[ChannelSelectDefaultValue]**](ChannelSelectDefaultValue.md) |  | [optional] 
 **channel_types** | **List[int]** |  | [optional] 
 

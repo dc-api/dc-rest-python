@@ -5,10 +5,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**users** | [**Dict[str, UserResponse]**](UserResponse.md) |  | 
-**members** | [**Dict[str, GuildMemberResponse]**](GuildMemberResponse.md) |  | 
-**channels** | [**Dict[str, GetChannel200Response]**](GetChannel200Response.md) |  | 
-**roles** | [**Dict[str, GuildRoleResponse]**](GuildRoleResponse.md) |  | 
+**users** | [**Dict[str, UserResponse]**](UserResponse.md) |  | [optional] 
+**members** | [**Dict[str, BasicGuildMemberResponse]**](BasicGuildMemberResponse.md) |  | [optional] 
+**channels** | [**Dict[str, GetChannel200Response]**](GetChannel200Response.md) |  | [optional] 
+**roles** | [**Dict[str, GuildRoleResponse]**](GuildRoleResponse.md) |  | [optional] 
 
 ## Example
 

@@ -9,7 +9,7 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
+- **Modified**: 2025-09-06T05:32:19.307434611Z[Etc/UTC]
 - **Generator Version**: 7.14.0
 
 <details>
@@ -52,7 +52,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, StrictBool, StrictInt
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, List
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -62,7 +62,7 @@ class PollResultsEntryResponse(BaseModel):
     """ # noqa: E501
     id: StrictInt
     count: StrictInt
-    me_voted: Optional[StrictBool] = None
+    me_voted: StrictBool
     __properties: ClassVar[List[str]] = ["id", "count", "me_voted"]
 
     model_config = ConfigDict(
@@ -104,11 +104,6 @@ class PollResultsEntryResponse(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if me_voted (nullable) is None
-        # and model_fields_set contains the field
-        if self.me_voted is None and "me_voted" in self.model_fields_set:
-            _dict['me_voted'] = None
-
         return _dict
 
     @classmethod

@@ -9,7 +9,7 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
+- **Modified**: 2025-09-06T05:32:19.307434611Z[Etc/UTC]
 - **Generator Version**: 7.14.0
 
 <details>
@@ -125,30 +125,10 @@ class ButtonComponentResponse(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of emoji
         if self.emoji:
             _dict['emoji'] = self.emoji.to_dict()
-        # set to None if custom_id (nullable) is None
-        # and model_fields_set contains the field
-        if self.custom_id is None and "custom_id" in self.model_fields_set:
-            _dict['custom_id'] = None
-
         # set to None if style (nullable) is None
         # and model_fields_set contains the field
         if self.style is None and "style" in self.model_fields_set:
             _dict['style'] = None
-
-        # set to None if label (nullable) is None
-        # and model_fields_set contains the field
-        if self.label is None and "label" in self.model_fields_set:
-            _dict['label'] = None
-
-        # set to None if disabled (nullable) is None
-        # and model_fields_set contains the field
-        if self.disabled is None and "disabled" in self.model_fields_set:
-            _dict['disabled'] = None
-
-        # set to None if emoji (nullable) is None
-        # and model_fields_set contains the field
-        if self.emoji is None and "emoji" in self.model_fields_set:
-            _dict['emoji'] = None
 
         # set to None if url (nullable) is None
         # and model_fields_set contains the field

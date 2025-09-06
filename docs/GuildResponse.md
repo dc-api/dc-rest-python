@@ -29,9 +29,9 @@ Name | Type | Description | Notes
 **mfa_level** | **int** |  | 
 **explicit_content_filter** | **int** |  | 
 **max_presences** | **int** |  | [optional] 
-**max_members** | **int** |  | [optional] 
-**max_stage_video_channel_users** | **int** |  | [optional] 
-**max_video_channel_users** | **int** |  | [optional] 
+**max_members** | **int** |  | 
+**max_stage_video_channel_users** | **int** |  | 
+**max_video_channel_users** | **int** |  | 
 **vanity_url_code** | **str** |  | [optional] 
 **premium_tier** | **int** |  | 
 **premium_subscription_count** | **int** |  | 

@@ -9,7 +9,7 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
+- **Modified**: 2025-09-06T05:32:19.307434611Z[Etc/UTC]
 - **Generator Version**: 7.14.0
 
 <details>
@@ -82,7 +82,7 @@ class TestGuildHomeSettingsResponse(unittest.TestCase):
                         action_type = 56, 
                         title = '', 
                         description = '', 
-                        emoji = dc_rest.models.message_reaction_emoji_response.MessageReactionEmojiResponse(
+                        emoji = dc_rest.models.settings_emoji_response.SettingsEmojiResponse(
                             id = '9072888001528021798096225500850762068629339333975650685139102691291', 
                             name = '', 
                             animated = True, ), 
@@ -92,7 +92,7 @@ class TestGuildHomeSettingsResponse(unittest.TestCase):
                     dc_rest.models.resource_channel_response.ResourceChannelResponse(
                         channel_id = '9072888001528021798096225500850762068629339333975650685139102691291', 
                         title = '', 
-                        emoji = dc_rest.models.message_reaction_emoji_response.MessageReactionEmojiResponse(
+                        emoji = dc_rest.models.settings_emoji_response.SettingsEmojiResponse(
                             id = '9072888001528021798096225500850762068629339333975650685139102691291', 
                             name = '', 
                             animated = True, ), 
@@ -104,6 +104,29 @@ class TestGuildHomeSettingsResponse(unittest.TestCase):
             return GuildHomeSettingsResponse(
                 guild_id = '9072888001528021798096225500850762068629339333975650685139102691291',
                 enabled = True,
+                new_member_actions = [
+                    dc_rest.models.new_member_action_response.NewMemberActionResponse(
+                        channel_id = '9072888001528021798096225500850762068629339333975650685139102691291', 
+                        action_type = 56, 
+                        title = '', 
+                        description = '', 
+                        emoji = dc_rest.models.settings_emoji_response.SettingsEmojiResponse(
+                            id = '9072888001528021798096225500850762068629339333975650685139102691291', 
+                            name = '', 
+                            animated = True, ), 
+                        icon = '', )
+                    ],
+                resource_channels = [
+                    dc_rest.models.resource_channel_response.ResourceChannelResponse(
+                        channel_id = '9072888001528021798096225500850762068629339333975650685139102691291', 
+                        title = '', 
+                        emoji = dc_rest.models.settings_emoji_response.SettingsEmojiResponse(
+                            id = '9072888001528021798096225500850762068629339333975650685139102691291', 
+                            name = '', 
+                            animated = True, ), 
+                        icon = '', 
+                        description = '', )
+                    ],
         )
         """
 

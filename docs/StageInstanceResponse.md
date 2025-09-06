@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **topic** | **str** |  | 
 **privacy_level** | **int** |  | 
 **id** | **str** |  | 
-**discoverable_disabled** | **bool** |  | [optional] 
+**discoverable_disabled** | **bool** |  | 
 **guild_scheduled_event_id** | **str** |  | [optional] 
 
 ## Example

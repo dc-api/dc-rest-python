@@ -5,13 +5,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**type** | **int** |  | [optional] 
+**type** | **int** |  | 
 **code** | **str** |  | 
 **inviter** | [**UserResponse**](UserResponse.md) |  | [optional] 
 **max_age** | **int** |  | [optional] 
 **created_at** | **datetime** |  | [optional] 
 **expires_at** | **datetime** |  | [optional] 
-**channel** | [**InviteChannelResponse**](InviteChannelResponse.md) |  | [optional] 
+**channel** | [**InviteChannelResponse**](InviteChannelResponse.md) |  | 
 **approximate_member_count** | **int** |  | [optional] 
 
 ## Example

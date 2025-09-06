@@ -9,7 +9,7 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
+- **Modified**: 2025-09-06T05:32:19.307434611Z[Etc/UTC]
 - **Generator Version**: 7.14.0
 
 <details>
@@ -51,7 +51,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr, field_validator
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
 from typing import Optional, Set
@@ -61,11 +61,12 @@ class GuildTemplateChannelTags(BaseModel):
     """
     GuildTemplateChannelTags
     """ # noqa: E501
+    id: Optional[StrictInt] = None
     name: StrictStr
     emoji_id: Optional[Annotated[str, Field(strict=True)]] = None
     emoji_name: Optional[StrictStr] = None
     moderated: Optional[StrictBool] = None
-    __properties: ClassVar[List[str]] = ["name", "emoji_id", "emoji_name", "moderated"]
+    __properties: ClassVar[List[str]] = ["id", "name", "emoji_id", "emoji_name", "moderated"]
 
     @field_validator('emoji_id')
     def emoji_id_validate_regular_expression(cls, value):
@@ -116,6 +117,11 @@ class GuildTemplateChannelTags(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if id (nullable) is None
+        # and model_fields_set contains the field
+        if self.id is None and "id" in self.model_fields_set:
+            _dict['id'] = None
+
         # set to None if emoji_name (nullable) is None
         # and model_fields_set contains the field
         if self.emoji_name is None and "emoji_name" in self.model_fields_set:
@@ -143,6 +149,7 @@ class GuildTemplateChannelTags(BaseModel):
                 raise ValueError("Error due to additional fields (not defined in GuildTemplateChannelTags) in the input: " + _key)
 
         _obj = cls.model_validate({
+            "id": obj.get("id"),
             "name": obj.get("name"),
             "emoji_id": obj.get("emoji_id"),
             "emoji_name": obj.get("emoji_name"),

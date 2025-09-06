@@ -9,7 +9,7 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
+- **Modified**: 2025-09-06T05:32:19.307434611Z[Etc/UTC]
 - **Generator Version**: 7.14.0
 
 <details>
@@ -145,16 +145,6 @@ class UserPIIResponse(BaseModel):
         if self.avatar is None and "avatar" in self.model_fields_set:
             _dict['avatar'] = None
 
-        # set to None if bot (nullable) is None
-        # and model_fields_set contains the field
-        if self.bot is None and "bot" in self.model_fields_set:
-            _dict['bot'] = None
-
-        # set to None if system (nullable) is None
-        # and model_fields_set contains the field
-        if self.system is None and "system" in self.model_fields_set:
-            _dict['system'] = None
-
         # set to None if banner (nullable) is None
         # and model_fields_set contains the field
         if self.banner is None and "banner" in self.model_fields_set:
@@ -189,11 +179,6 @@ class UserPIIResponse(BaseModel):
         # and model_fields_set contains the field
         if self.email is None and "email" in self.model_fields_set:
             _dict['email'] = None
-
-        # set to None if verified (nullable) is None
-        # and model_fields_set contains the field
-        if self.verified is None and "verified" in self.model_fields_set:
-            _dict['verified'] = None
 
         return _dict
 

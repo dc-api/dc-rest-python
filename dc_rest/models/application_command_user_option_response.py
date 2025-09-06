@@ -9,7 +9,7 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
+- **Modified**: 2025-09-06T05:32:19.307434611Z[Etc/UTC]
 - **Generator Version**: 7.14.0
 
 <details>
@@ -109,21 +109,6 @@ class ApplicationCommandUserOptionResponse(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if name_localized (nullable) is None
-        # and model_fields_set contains the field
-        if self.name_localized is None and "name_localized" in self.model_fields_set:
-            _dict['name_localized'] = None
-
-        # set to None if description_localized (nullable) is None
-        # and model_fields_set contains the field
-        if self.description_localized is None and "description_localized" in self.model_fields_set:
-            _dict['description_localized'] = None
-
-        # set to None if required (nullable) is None
-        # and model_fields_set contains the field
-        if self.required is None and "required" in self.model_fields_set:
-            _dict['required'] = None
-
         return _dict
 
     @classmethod

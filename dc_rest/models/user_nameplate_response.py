@@ -9,7 +9,7 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
+- **Modified**: 2025-09-06T05:32:19.307434611Z[Etc/UTC]
 - **Generator Version**: 7.14.0
 
 <details>
@@ -62,9 +62,9 @@ class UserNameplateResponse(BaseModel):
     UserNameplateResponse
     """ # noqa: E501
     sku_id: Optional[Annotated[str, Field(strict=True)]] = None
-    asset: Optional[StrictStr] = None
-    label: Optional[StrictStr] = None
-    palette: Optional[StrictStr] = None
+    asset: StrictStr
+    label: StrictStr
+    palette: StrictStr
     __properties: ClassVar[List[str]] = ["sku_id", "asset", "label", "palette"]
 
     @field_validator('sku_id')
@@ -116,16 +116,6 @@ class UserNameplateResponse(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if asset (nullable) is None
-        # and model_fields_set contains the field
-        if self.asset is None and "asset" in self.model_fields_set:
-            _dict['asset'] = None
-
-        # set to None if label (nullable) is None
-        # and model_fields_set contains the field
-        if self.label is None and "label" in self.model_fields_set:
-            _dict['label'] = None
-
         return _dict
 
     @classmethod

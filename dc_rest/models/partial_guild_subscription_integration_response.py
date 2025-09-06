@@ -9,7 +9,7 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
+- **Modified**: 2025-09-06T05:32:19.307434611Z[Etc/UTC]
 - **Generator Version**: 7.14.0
 
 <details>
@@ -65,7 +65,7 @@ class PartialGuildSubscriptionIntegrationResponse(BaseModel):
     id: Annotated[str, Field(strict=True)]
     type: Optional[StrictStr]
     name: Optional[StrictStr] = None
-    account: Optional[AccountResponse] = None
+    account: AccountResponse
     __properties: ClassVar[List[str]] = ["id", "type", "name", "account"]
 
     @field_validator('id')
@@ -126,11 +126,6 @@ class PartialGuildSubscriptionIntegrationResponse(BaseModel):
         # and model_fields_set contains the field
         if self.name is None and "name" in self.model_fields_set:
             _dict['name'] = None
-
-        # set to None if account (nullable) is None
-        # and model_fields_set contains the field
-        if self.account is None and "account" in self.model_fields_set:
-            _dict['account'] = None
 
         return _dict
 

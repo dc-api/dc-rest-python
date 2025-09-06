@@ -9,7 +9,7 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
+- **Modified**: 2025-09-06T05:32:19.307434611Z[Etc/UTC]
 - **Generator Version**: 7.14.0
 
 <details>
@@ -146,66 +146,6 @@ class MessageEmbedResponse(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of footer
         if self.footer:
             _dict['footer'] = self.footer.to_dict()
-        # set to None if url (nullable) is None
-        # and model_fields_set contains the field
-        if self.url is None and "url" in self.model_fields_set:
-            _dict['url'] = None
-
-        # set to None if title (nullable) is None
-        # and model_fields_set contains the field
-        if self.title is None and "title" in self.model_fields_set:
-            _dict['title'] = None
-
-        # set to None if description (nullable) is None
-        # and model_fields_set contains the field
-        if self.description is None and "description" in self.model_fields_set:
-            _dict['description'] = None
-
-        # set to None if color (nullable) is None
-        # and model_fields_set contains the field
-        if self.color is None and "color" in self.model_fields_set:
-            _dict['color'] = None
-
-        # set to None if timestamp (nullable) is None
-        # and model_fields_set contains the field
-        if self.timestamp is None and "timestamp" in self.model_fields_set:
-            _dict['timestamp'] = None
-
-        # set to None if fields (nullable) is None
-        # and model_fields_set contains the field
-        if self.fields is None and "fields" in self.model_fields_set:
-            _dict['fields'] = None
-
-        # set to None if author (nullable) is None
-        # and model_fields_set contains the field
-        if self.author is None and "author" in self.model_fields_set:
-            _dict['author'] = None
-
-        # set to None if provider (nullable) is None
-        # and model_fields_set contains the field
-        if self.provider is None and "provider" in self.model_fields_set:
-            _dict['provider'] = None
-
-        # set to None if image (nullable) is None
-        # and model_fields_set contains the field
-        if self.image is None and "image" in self.model_fields_set:
-            _dict['image'] = None
-
-        # set to None if thumbnail (nullable) is None
-        # and model_fields_set contains the field
-        if self.thumbnail is None and "thumbnail" in self.model_fields_set:
-            _dict['thumbnail'] = None
-
-        # set to None if video (nullable) is None
-        # and model_fields_set contains the field
-        if self.video is None and "video" in self.model_fields_set:
-            _dict['video'] = None
-
-        # set to None if footer (nullable) is None
-        # and model_fields_set contains the field
-        if self.footer is None and "footer" in self.model_fields_set:
-            _dict['footer'] = None
-
         return _dict
 
     @classmethod

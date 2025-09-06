@@ -9,7 +9,7 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
+- **Modified**: 2025-09-06T05:32:19.307434611Z[Etc/UTC]
 - **Generator Version**: 7.14.0
 
 <details>
@@ -70,11 +70,13 @@ class TestRoleSelectComponentForMessageRequest(unittest.TestCase):
         if include_optional:
             return RoleSelectComponentForMessageRequest(
                 type = 56,
+                id = 0,
                 custom_id = '',
                 placeholder = '',
                 min_values = 0,
                 max_values = 1,
                 disabled = True,
+                required = True,
                 default_values = [
                     dc_rest.models.role_select_default_value.RoleSelectDefaultValue(
                         type = 'role', 

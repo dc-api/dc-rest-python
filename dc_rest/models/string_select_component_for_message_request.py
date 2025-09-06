@@ -9,7 +9,7 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
+- **Modified**: 2025-09-06T05:32:19.307434611Z[Etc/UTC]
 - **Generator Version**: 7.14.0
 
 <details>
@@ -54,7 +54,7 @@ import json
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
-from dc_rest.models.string_select_option_for_message_request import StringSelectOptionForMessageRequest
+from dc_rest.models.string_select_option_for_request import StringSelectOptionForRequest
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -63,13 +63,15 @@ class StringSelectComponentForMessageRequest(BaseModel):
     StringSelectComponentForMessageRequest
     """ # noqa: E501
     type: StrictInt
+    id: Optional[Annotated[int, Field(strict=True, ge=0)]] = None
     custom_id: Annotated[str, Field(strict=True, max_length=100)]
     placeholder: Optional[Annotated[str, Field(strict=True, max_length=150)]] = None
     min_values: Optional[Annotated[int, Field(le=25, strict=True, ge=0)]] = None
     max_values: Optional[Annotated[int, Field(le=25, strict=True, ge=1)]] = None
     disabled: Optional[StrictBool] = None
-    options: Annotated[List[StringSelectOptionForMessageRequest], Field(min_length=1, max_length=25)]
-    __properties: ClassVar[List[str]] = ["type", "custom_id", "placeholder", "min_values", "max_values", "disabled", "options"]
+    required: Optional[StrictBool] = None
+    options: Annotated[List[StringSelectOptionForRequest], Field(min_length=1, max_length=25)]
+    __properties: ClassVar[List[str]] = ["type", "id", "custom_id", "placeholder", "min_values", "max_values", "disabled", "required", "options"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -117,6 +119,11 @@ class StringSelectComponentForMessageRequest(BaseModel):
                 if _item_options:
                     _items.append(_item_options.to_dict())
             _dict['options'] = _items
+        # set to None if id (nullable) is None
+        # and model_fields_set contains the field
+        if self.id is None and "id" in self.model_fields_set:
+            _dict['id'] = None
+
         # set to None if placeholder (nullable) is None
         # and model_fields_set contains the field
         if self.placeholder is None and "placeholder" in self.model_fields_set:
@@ -137,6 +144,11 @@ class StringSelectComponentForMessageRequest(BaseModel):
         if self.disabled is None and "disabled" in self.model_fields_set:
             _dict['disabled'] = None
 
+        # set to None if required (nullable) is None
+        # and model_fields_set contains the field
+        if self.required is None and "required" in self.model_fields_set:
+            _dict['required'] = None
+
         return _dict
 
     @classmethod
@@ -155,12 +167,14 @@ class StringSelectComponentForMessageRequest(BaseModel):
 
         _obj = cls.model_validate({
             "type": obj.get("type"),
+            "id": obj.get("id"),
             "custom_id": obj.get("custom_id"),
             "placeholder": obj.get("placeholder"),
             "min_values": obj.get("min_values"),
             "max_values": obj.get("max_values"),
             "disabled": obj.get("disabled"),
-            "options": [StringSelectOptionForMessageRequest.from_dict(_item) for _item in obj["options"]] if obj.get("options") is not None else None
+            "required": obj.get("required"),
+            "options": [StringSelectOptionForRequest.from_dict(_item) for _item in obj["options"]] if obj.get("options") is not None else None
         })
         return _obj
 
