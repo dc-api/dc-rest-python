@@ -15,7 +15,6 @@ Name | Type | Description | Notes
 **edited_timestamp** | **datetime** |  | [optional] 
 **flags** | **int** |  | 
 **components** | [**List[BasicMessageResponseComponentsInner]**](BasicMessageResponseComponentsInner.md) |  | 
-**resolved** | [**ResolvedObjectsResponse**](ResolvedObjectsResponse.md) |  | [optional] 
 **stickers** | [**List[GetSticker200Response]**](GetSticker200Response.md) |  | [optional] 
 **sticker_items** | [**List[MessageStickerItemResponse]**](MessageStickerItemResponse.md) |  | [optional] 
 **id** | **str** |  | 
@@ -37,7 +36,9 @@ Name | Type | Description | Notes
 **role_subscription_data** | [**MessageRoleSubscriptionDataResponse**](MessageRoleSubscriptionDataResponse.md) |  | [optional] 
 **purchase_notification** | [**PurchaseNotificationResponse**](PurchaseNotificationResponse.md) |  | [optional] 
 **position** | **int** |  | [optional] 
+**resolved** | [**ResolvedObjectsResponse**](ResolvedObjectsResponse.md) |  | [optional] 
 **poll** | [**PollResponse**](PollResponse.md) |  | [optional] 
+**shared_client_theme** | [**CustomClientThemeResponse**](CustomClientThemeResponse.md) |  | [optional] 
 **interaction_metadata** | [**BasicMessageResponseInteractionMetadata**](BasicMessageResponseInteractionMetadata.md) |  | [optional] 
 **message_snapshots** | [**List[MessageSnapshotResponse]**](MessageSnapshotResponse.md) |  | [optional] 
 

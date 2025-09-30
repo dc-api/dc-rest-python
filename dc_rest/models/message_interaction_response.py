@@ -9,7 +9,7 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
+- **Modified**: 2025-09-30T01:39:50.694712110Z[Etc/UTC]
 - **Generator Version**: 7.14.0
 
 <details>
@@ -118,16 +118,6 @@ class MessageInteractionResponse(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of user
         if self.user:
             _dict['user'] = self.user.to_dict()
-        # set to None if user (nullable) is None
-        # and model_fields_set contains the field
-        if self.user is None and "user" in self.model_fields_set:
-            _dict['user'] = None
-
-        # set to None if name_localized (nullable) is None
-        # and model_fields_set contains the field
-        if self.name_localized is None and "name_localized" in self.model_fields_set:
-            _dict['name_localized'] = None
-
         return _dict
 
     @classmethod

@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **str** |  | [optional] 
 **name** | **str** |  | [optional] 
-**animated** | **bool** |  | [optional] 
+**animated** | **bool** |  | 
 
 ## Example
 

@@ -6,6 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **type** | **int** |  | 
+**id** | **int** |  | [optional] 
 **components** | [**List[TextDisplayComponentForMessageRequest]**](TextDisplayComponentForMessageRequest.md) |  | 
 **accent_color** | **int** |  | [optional] 
 **spoiler** | **bool** |  | [optional] 

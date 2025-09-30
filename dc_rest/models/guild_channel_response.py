@@ -9,7 +9,7 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
+- **Modified**: 2025-09-30T01:39:50.694712110Z[Etc/UTC]
 - **Generator Version**: 7.14.0
 
 <details>
@@ -199,21 +199,6 @@ class GuildChannelResponse(BaseModel):
         if self.last_pin_timestamp is None and "last_pin_timestamp" in self.model_fields_set:
             _dict['last_pin_timestamp'] = None
 
-        # set to None if rate_limit_per_user (nullable) is None
-        # and model_fields_set contains the field
-        if self.rate_limit_per_user is None and "rate_limit_per_user" in self.model_fields_set:
-            _dict['rate_limit_per_user'] = None
-
-        # set to None if bitrate (nullable) is None
-        # and model_fields_set contains the field
-        if self.bitrate is None and "bitrate" in self.model_fields_set:
-            _dict['bitrate'] = None
-
-        # set to None if user_limit (nullable) is None
-        # and model_fields_set contains the field
-        if self.user_limit is None and "user_limit" in self.model_fields_set:
-            _dict['user_limit'] = None
-
         # set to None if rtc_region (nullable) is None
         # and model_fields_set contains the field
         if self.rtc_region is None and "rtc_region" in self.model_fields_set:
@@ -229,35 +214,10 @@ class GuildChannelResponse(BaseModel):
         if self.topic is None and "topic" in self.model_fields_set:
             _dict['topic'] = None
 
-        # set to None if default_thread_rate_limit_per_user (nullable) is None
-        # and model_fields_set contains the field
-        if self.default_thread_rate_limit_per_user is None and "default_thread_rate_limit_per_user" in self.model_fields_set:
-            _dict['default_thread_rate_limit_per_user'] = None
-
-        # set to None if permission_overwrites (nullable) is None
-        # and model_fields_set contains the field
-        if self.permission_overwrites is None and "permission_overwrites" in self.model_fields_set:
-            _dict['permission_overwrites'] = None
-
-        # set to None if nsfw (nullable) is None
-        # and model_fields_set contains the field
-        if self.nsfw is None and "nsfw" in self.model_fields_set:
-            _dict['nsfw'] = None
-
-        # set to None if available_tags (nullable) is None
-        # and model_fields_set contains the field
-        if self.available_tags is None and "available_tags" in self.model_fields_set:
-            _dict['available_tags'] = None
-
         # set to None if default_reaction_emoji (nullable) is None
         # and model_fields_set contains the field
         if self.default_reaction_emoji is None and "default_reaction_emoji" in self.model_fields_set:
             _dict['default_reaction_emoji'] = None
-
-        # set to None if hd_streaming_until (nullable) is None
-        # and model_fields_set contains the field
-        if self.hd_streaming_until is None and "hd_streaming_until" in self.model_fields_set:
-            _dict['hd_streaming_until'] = None
 
         return _dict
 

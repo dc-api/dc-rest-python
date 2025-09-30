@@ -9,7 +9,7 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
+- **Modified**: 2025-09-30T01:39:50.694712110Z[Etc/UTC]
 - **Generator Version**: 7.14.0
 
 <details>
@@ -79,7 +79,7 @@ class ThreadResponse(BaseModel):
     video_quality_mode: Optional[StrictInt] = None
     permissions: Optional[StrictStr] = None
     owner_id: Annotated[str, Field(strict=True)]
-    thread_metadata: Optional[ThreadMetadataResponse] = None
+    thread_metadata: ThreadMetadataResponse
     message_count: StrictInt
     member_count: StrictInt
     total_message_sent: StrictInt
@@ -178,21 +178,6 @@ class ThreadResponse(BaseModel):
         if self.last_pin_timestamp is None and "last_pin_timestamp" in self.model_fields_set:
             _dict['last_pin_timestamp'] = None
 
-        # set to None if rate_limit_per_user (nullable) is None
-        # and model_fields_set contains the field
-        if self.rate_limit_per_user is None and "rate_limit_per_user" in self.model_fields_set:
-            _dict['rate_limit_per_user'] = None
-
-        # set to None if bitrate (nullable) is None
-        # and model_fields_set contains the field
-        if self.bitrate is None and "bitrate" in self.model_fields_set:
-            _dict['bitrate'] = None
-
-        # set to None if user_limit (nullable) is None
-        # and model_fields_set contains the field
-        if self.user_limit is None and "user_limit" in self.model_fields_set:
-            _dict['user_limit'] = None
-
         # set to None if rtc_region (nullable) is None
         # and model_fields_set contains the field
         if self.rtc_region is None and "rtc_region" in self.model_fields_set:
@@ -202,21 +187,6 @@ class ThreadResponse(BaseModel):
         # and model_fields_set contains the field
         if self.permissions is None and "permissions" in self.model_fields_set:
             _dict['permissions'] = None
-
-        # set to None if thread_metadata (nullable) is None
-        # and model_fields_set contains the field
-        if self.thread_metadata is None and "thread_metadata" in self.model_fields_set:
-            _dict['thread_metadata'] = None
-
-        # set to None if applied_tags (nullable) is None
-        # and model_fields_set contains the field
-        if self.applied_tags is None and "applied_tags" in self.model_fields_set:
-            _dict['applied_tags'] = None
-
-        # set to None if member (nullable) is None
-        # and model_fields_set contains the field
-        if self.member is None and "member" in self.model_fields_set:
-            _dict['member'] = None
 
         return _dict
 

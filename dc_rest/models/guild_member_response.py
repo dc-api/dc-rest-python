@@ -9,7 +9,7 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
+- **Modified**: 2025-09-30T01:39:50.694712110Z[Etc/UTC]
 - **Generator Version**: 7.14.0
 
 <details>
@@ -56,6 +56,7 @@ from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, Strict
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
 from dc_rest.models.user_avatar_decoration_response import UserAvatarDecorationResponse
+from dc_rest.models.user_collectibles_response import UserCollectiblesResponse
 from dc_rest.models.user_response import UserResponse
 from typing import Optional, Set
 from typing_extensions import Self
@@ -74,10 +75,11 @@ class GuildMemberResponse(BaseModel):
     pending: StrictBool
     premium_since: Optional[datetime] = None
     roles: List[Annotated[str, Field(strict=True)]]
+    collectibles: Optional[UserCollectiblesResponse] = None
     user: UserResponse
     mute: StrictBool
     deaf: StrictBool
-    __properties: ClassVar[List[str]] = ["avatar", "avatar_decoration_data", "banner", "communication_disabled_until", "flags", "joined_at", "nick", "pending", "premium_since", "roles", "user", "mute", "deaf"]
+    __properties: ClassVar[List[str]] = ["avatar", "avatar_decoration_data", "banner", "communication_disabled_until", "flags", "joined_at", "nick", "pending", "premium_since", "roles", "collectibles", "user", "mute", "deaf"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -121,6 +123,9 @@ class GuildMemberResponse(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of avatar_decoration_data
         if self.avatar_decoration_data:
             _dict['avatar_decoration_data'] = self.avatar_decoration_data.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of collectibles
+        if self.collectibles:
+            _dict['collectibles'] = self.collectibles.to_dict()
         # override the default output from pydantic by calling `to_dict()` of user
         if self.user:
             _dict['user'] = self.user.to_dict()
@@ -154,6 +159,11 @@ class GuildMemberResponse(BaseModel):
         if self.premium_since is None and "premium_since" in self.model_fields_set:
             _dict['premium_since'] = None
 
+        # set to None if collectibles (nullable) is None
+        # and model_fields_set contains the field
+        if self.collectibles is None and "collectibles" in self.model_fields_set:
+            _dict['collectibles'] = None
+
         return _dict
 
     @classmethod
@@ -181,6 +191,7 @@ class GuildMemberResponse(BaseModel):
             "pending": obj.get("pending"),
             "premium_since": obj.get("premium_since"),
             "roles": obj.get("roles"),
+            "collectibles": UserCollectiblesResponse.from_dict(obj["collectibles"]) if obj.get("collectibles") is not None else None,
             "user": UserResponse.from_dict(obj["user"]) if obj.get("user") is not None else None,
             "mute": obj.get("mute"),
             "deaf": obj.get("deaf")

@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**answer_counts** | [**List[PollResultsEntryResponse]**](PollResultsEntryResponse.md) |  | [optional] 
+**answer_counts** | [**List[PollResultsEntryResponse]**](PollResultsEntryResponse.md) |  | 
 **is_finalized** | **bool** |  | 
 
 ## Example

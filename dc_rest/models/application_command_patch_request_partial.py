@@ -9,7 +9,7 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
+- **Modified**: 2025-09-30T01:39:50.694712110Z[Etc/UTC]
 - **Generator Version**: 7.14.0
 
 <details>
@@ -67,7 +67,7 @@ class ApplicationCommandPatchRequestPartial(BaseModel):
     description: Optional[Annotated[str, Field(strict=True, max_length=100)]] = None
     description_localizations: Optional[Dict[str, Annotated[str, Field(min_length=1, strict=True, max_length=100)]]] = None
     options: Optional[Annotated[List[ApplicationCommandCreateRequestOptionsInner], Field(max_length=25)]] = None
-    default_member_permissions: Optional[Annotated[int, Field(le=4503599627370495, strict=True, ge=0)]] = None
+    default_member_permissions: Optional[Annotated[int, Field(le=9007199254740991, strict=True, ge=0)]] = None
     dm_permission: Optional[StrictBool] = None
     contexts: Optional[Annotated[List[StrictInt], Field(min_length=1)]] = None
     integration_types: Optional[Annotated[List[StrictInt], Field(min_length=1)]] = None

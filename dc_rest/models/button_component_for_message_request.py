@@ -9,7 +9,7 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
+- **Modified**: 2025-09-30T01:39:50.694712110Z[Etc/UTC]
 - **Generator Version**: 7.14.0
 
 <details>
@@ -54,7 +54,7 @@ import json
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
-from dc_rest.models.component_emoji_for_message_request import ComponentEmojiForMessageRequest
+from dc_rest.models.component_emoji_for_request import ComponentEmojiForRequest
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -63,14 +63,15 @@ class ButtonComponentForMessageRequest(BaseModel):
     ButtonComponentForMessageRequest
     """ # noqa: E501
     type: StrictInt
+    id: Optional[Annotated[int, Field(strict=True, ge=0)]] = None
     custom_id: Optional[Annotated[str, Field(strict=True, max_length=100)]] = None
     style: Optional[StrictInt]
     label: Optional[Annotated[str, Field(strict=True, max_length=80)]] = None
     disabled: Optional[StrictBool] = None
     url: Optional[Annotated[str, Field(strict=True, max_length=512)]] = None
     sku_id: Optional[Annotated[str, Field(strict=True)]] = None
-    emoji: Optional[ComponentEmojiForMessageRequest] = None
-    __properties: ClassVar[List[str]] = ["type", "custom_id", "style", "label", "disabled", "url", "sku_id", "emoji"]
+    emoji: Optional[ComponentEmojiForRequest] = None
+    __properties: ClassVar[List[str]] = ["type", "id", "custom_id", "style", "label", "disabled", "url", "sku_id", "emoji"]
 
     @field_validator('sku_id')
     def sku_id_validate_regular_expression(cls, value):
@@ -124,6 +125,11 @@ class ButtonComponentForMessageRequest(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of emoji
         if self.emoji:
             _dict['emoji'] = self.emoji.to_dict()
+        # set to None if id (nullable) is None
+        # and model_fields_set contains the field
+        if self.id is None and "id" in self.model_fields_set:
+            _dict['id'] = None
+
         # set to None if custom_id (nullable) is None
         # and model_fields_set contains the field
         if self.custom_id is None and "custom_id" in self.model_fields_set:
@@ -172,13 +178,14 @@ class ButtonComponentForMessageRequest(BaseModel):
 
         _obj = cls.model_validate({
             "type": obj.get("type"),
+            "id": obj.get("id"),
             "custom_id": obj.get("custom_id"),
             "style": obj.get("style"),
             "label": obj.get("label"),
             "disabled": obj.get("disabled"),
             "url": obj.get("url"),
             "sku_id": obj.get("sku_id"),
-            "emoji": ComponentEmojiForMessageRequest.from_dict(obj["emoji"]) if obj.get("emoji") is not None else None
+            "emoji": ComponentEmojiForRequest.from_dict(obj["emoji"]) if obj.get("emoji") is not None else None
         })
         return _obj
 

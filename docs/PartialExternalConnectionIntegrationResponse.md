@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **id** | **str** |  | 
 **type** | **str** |  | 
 **name** | **str** |  | [optional] 
-**account** | [**AccountResponse**](AccountResponse.md) |  | [optional] 
+**account** | [**AccountResponse**](AccountResponse.md) |  | 
 
 ## Example
 

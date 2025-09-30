@@ -9,7 +9,7 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
+- **Modified**: 2025-09-30T01:39:50.694712110Z[Etc/UTC]
 - **Generator Version**: 7.14.0
 
 <details>
@@ -52,7 +52,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, StrictBool
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, List
 from dc_rest.models.poll_results_entry_response import PollResultsEntryResponse
 from typing import Optional, Set
 from typing_extensions import Self
@@ -61,7 +61,7 @@ class PollResultsResponse(BaseModel):
     """
     PollResultsResponse
     """ # noqa: E501
-    answer_counts: Optional[List[PollResultsEntryResponse]] = None
+    answer_counts: List[PollResultsEntryResponse]
     is_finalized: StrictBool
     __properties: ClassVar[List[str]] = ["answer_counts", "is_finalized"]
 
@@ -111,11 +111,6 @@ class PollResultsResponse(BaseModel):
                 if _item_answer_counts:
                     _items.append(_item_answer_counts.to_dict())
             _dict['answer_counts'] = _items
-        # set to None if answer_counts (nullable) is None
-        # and model_fields_set contains the field
-        if self.answer_counts is None and "answer_counts" in self.model_fields_set:
-            _dict['answer_counts'] = None
-
         return _dict
 
     @classmethod

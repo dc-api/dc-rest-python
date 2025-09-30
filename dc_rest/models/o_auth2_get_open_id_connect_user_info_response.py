@@ -9,7 +9,7 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
+- **Modified**: 2025-09-30T01:39:50.694712110Z[Etc/UTC]
 - **Generator Version**: 7.14.0
 
 <details>
@@ -113,30 +113,10 @@ class OAuth2GetOpenIDConnectUserInfoResponse(BaseModel):
         if self.email is None and "email" in self.model_fields_set:
             _dict['email'] = None
 
-        # set to None if email_verified (nullable) is None
-        # and model_fields_set contains the field
-        if self.email_verified is None and "email_verified" in self.model_fields_set:
-            _dict['email_verified'] = None
-
-        # set to None if preferred_username (nullable) is None
-        # and model_fields_set contains the field
-        if self.preferred_username is None and "preferred_username" in self.model_fields_set:
-            _dict['preferred_username'] = None
-
         # set to None if nickname (nullable) is None
         # and model_fields_set contains the field
         if self.nickname is None and "nickname" in self.model_fields_set:
             _dict['nickname'] = None
-
-        # set to None if picture (nullable) is None
-        # and model_fields_set contains the field
-        if self.picture is None and "picture" in self.model_fields_set:
-            _dict['picture'] = None
-
-        # set to None if locale (nullable) is None
-        # and model_fields_set contains the field
-        if self.locale is None and "locale" in self.model_fields_set:
-            _dict['locale'] = None
 
         return _dict
 

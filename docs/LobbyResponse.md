@@ -8,8 +8,10 @@ Name | Type | Description | Notes
 **id** | **str** |  | 
 **application_id** | **str** |  | 
 **metadata** | **Dict[str, str]** |  | [optional] 
-**members** | [**List[LobbyMemberResponse]**](LobbyMemberResponse.md) |  | [optional] 
+**members** | [**List[LobbyMemberResponse]**](LobbyMemberResponse.md) |  | 
 **linked_channel** | [**GuildChannelResponse**](GuildChannelResponse.md) |  | [optional] 
+**flags** | **int** |  | 
+**override_event_webhooks_url** | **str** |  | [optional] 
 
 ## Example
 

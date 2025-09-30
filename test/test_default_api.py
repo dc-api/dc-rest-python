@@ -9,7 +9,7 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
+- **Modified**: 2025-09-30T01:39:50.694712110Z[Etc/UTC]
 - **Generator Version**: 7.14.0
 
 <details>
@@ -108,6 +108,12 @@ class TestDefaultApi(unittest.IsolatedAsyncioTestCase):
         """
         pass
 
+    async def test_bot_partner_sdk_token(self) -> None:
+        """Test case for bot_partner_sdk_token
+
+        """
+        pass
+
     async def test_bulk_ban_users_from_guild(self) -> None:
         """Test case for bulk_ban_users_from_guild
 
@@ -192,12 +198,6 @@ class TestDefaultApi(unittest.IsolatedAsyncioTestCase):
         """
         pass
 
-    async def test_create_guild(self) -> None:
-        """Test case for create_guild
-
-        """
-        pass
-
     async def test_create_guild_application_command(self) -> None:
         """Test case for create_guild_application_command
 
@@ -212,12 +212,6 @@ class TestDefaultApi(unittest.IsolatedAsyncioTestCase):
 
     async def test_create_guild_emoji(self) -> None:
         """Test case for create_guild_emoji
-
-        """
-        pass
-
-    async def test_create_guild_from_template(self) -> None:
-        """Test case for create_guild_from_template
 
         """
         pass
@@ -254,6 +248,18 @@ class TestDefaultApi(unittest.IsolatedAsyncioTestCase):
 
     async def test_create_interaction_response(self) -> None:
         """Test case for create_interaction_response
+
+        """
+        pass
+
+    async def test_create_linked_lobby_guild_invite_for_self(self) -> None:
+        """Test case for create_linked_lobby_guild_invite_for_self
+
+        """
+        pass
+
+    async def test_create_linked_lobby_guild_invite_for_user(self) -> None:
+        """Test case for create_linked_lobby_guild_invite_for_user
 
         """
         pass

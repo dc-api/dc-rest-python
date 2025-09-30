@@ -36,6 +36,7 @@ Name | Type | Description | Notes
 **approximate_user_authorization_count** | **int** |  | 
 **explicit_content_filter** | **int** |  | 
 **team** | [**TeamResponse**](TeamResponse.md) |  | [optional] 
+**linked_games** | **List[object]** |  | [optional] 
 
 ## Example
 

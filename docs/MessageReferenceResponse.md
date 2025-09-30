@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**type** | **object** |  | [optional] 
+**type** | **object** |  | 
 **channel_id** | **str** |  | 
 **message_id** | **str** |  | [optional] 
 **guild_id** | **str** |  | [optional] 

@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 **vanity_url_code** | **str** |  | [optional] 
 **nsfw_level** | **int** |  | [optional] 
 **nsfw** | **bool** |  | [optional] 
-**premium_subscription_count** | **int** |  | [optional] 
+**premium_subscription_count** | **int** |  | 
 
 ## Example
 

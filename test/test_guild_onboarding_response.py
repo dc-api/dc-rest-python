@@ -9,7 +9,7 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
+- **Modified**: 2025-09-30T01:39:50.694712110Z[Etc/UTC]
 - **Generator Version**: 7.14.0
 
 <details>
@@ -79,7 +79,7 @@ class TestGuildOnboardingResponse(unittest.TestCase):
                                 id = '9072888001528021798096225500850762068629339333975650685139102691291', 
                                 title = '', 
                                 description = '', 
-                                emoji = dc_rest.models.message_reaction_emoji_response.MessageReactionEmojiResponse(
+                                emoji = dc_rest.models.settings_emoji_response.SettingsEmojiResponse(
                                     name = '', 
                                     animated = True, ), 
                                 role_ids = [
@@ -111,7 +111,7 @@ class TestGuildOnboardingResponse(unittest.TestCase):
                                 id = '9072888001528021798096225500850762068629339333975650685139102691291', 
                                 title = '', 
                                 description = '', 
-                                emoji = dc_rest.models.message_reaction_emoji_response.MessageReactionEmojiResponse(
+                                emoji = dc_rest.models.settings_emoji_response.SettingsEmojiResponse(
                                     name = '', 
                                     animated = True, ), 
                                 role_ids = [

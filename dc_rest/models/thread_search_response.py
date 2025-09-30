@@ -9,7 +9,7 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
+- **Modified**: 2025-09-30T01:39:50.694712110Z[Etc/UTC]
 - **Generator Version**: 7.14.0
 
 <details>
@@ -65,9 +65,9 @@ class ThreadSearchResponse(BaseModel):
     """ # noqa: E501
     threads: List[ThreadResponse]
     members: List[ThreadMemberResponse]
-    has_more: Optional[StrictBool] = None
+    has_more: StrictBool
     first_messages: Optional[List[MessageResponse]] = None
-    total_results: Optional[StrictInt] = None
+    total_results: StrictInt
     __properties: ClassVar[List[str]] = ["threads", "members", "has_more", "first_messages", "total_results"]
 
     model_config = ConfigDict(
@@ -130,21 +130,6 @@ class ThreadSearchResponse(BaseModel):
                 if _item_first_messages:
                     _items.append(_item_first_messages.to_dict())
             _dict['first_messages'] = _items
-        # set to None if has_more (nullable) is None
-        # and model_fields_set contains the field
-        if self.has_more is None and "has_more" in self.model_fields_set:
-            _dict['has_more'] = None
-
-        # set to None if first_messages (nullable) is None
-        # and model_fields_set contains the field
-        if self.first_messages is None and "first_messages" in self.model_fields_set:
-            _dict['first_messages'] = None
-
-        # set to None if total_results (nullable) is None
-        # and model_fields_set contains the field
-        if self.total_results is None and "total_results" in self.model_fields_set:
-            _dict['total_results'] = None
-
         return _dict
 
     @classmethod

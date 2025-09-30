@@ -9,7 +9,7 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
+- **Modified**: 2025-09-30T01:39:50.694712110Z[Etc/UTC]
 - **Generator Version**: 7.14.0
 
 <details>
@@ -138,60 +138,10 @@ class AttachmentResponse(BaseModel):
                 if _item_clip_participants:
                     _items.append(_item_clip_participants.to_dict())
             _dict['clip_participants'] = _items
-        # set to None if width (nullable) is None
-        # and model_fields_set contains the field
-        if self.width is None and "width" in self.model_fields_set:
-            _dict['width'] = None
-
-        # set to None if height (nullable) is None
-        # and model_fields_set contains the field
-        if self.height is None and "height" in self.model_fields_set:
-            _dict['height'] = None
-
-        # set to None if duration_secs (nullable) is None
-        # and model_fields_set contains the field
-        if self.duration_secs is None and "duration_secs" in self.model_fields_set:
-            _dict['duration_secs'] = None
-
-        # set to None if waveform (nullable) is None
-        # and model_fields_set contains the field
-        if self.waveform is None and "waveform" in self.model_fields_set:
-            _dict['waveform'] = None
-
-        # set to None if description (nullable) is None
-        # and model_fields_set contains the field
-        if self.description is None and "description" in self.model_fields_set:
-            _dict['description'] = None
-
-        # set to None if content_type (nullable) is None
-        # and model_fields_set contains the field
-        if self.content_type is None and "content_type" in self.model_fields_set:
-            _dict['content_type'] = None
-
-        # set to None if ephemeral (nullable) is None
-        # and model_fields_set contains the field
-        if self.ephemeral is None and "ephemeral" in self.model_fields_set:
-            _dict['ephemeral'] = None
-
         # set to None if title (nullable) is None
         # and model_fields_set contains the field
         if self.title is None and "title" in self.model_fields_set:
             _dict['title'] = None
-
-        # set to None if application (nullable) is None
-        # and model_fields_set contains the field
-        if self.application is None and "application" in self.model_fields_set:
-            _dict['application'] = None
-
-        # set to None if clip_created_at (nullable) is None
-        # and model_fields_set contains the field
-        if self.clip_created_at is None and "clip_created_at" in self.model_fields_set:
-            _dict['clip_created_at'] = None
-
-        # set to None if clip_participants (nullable) is None
-        # and model_fields_set contains the field
-        if self.clip_participants is None and "clip_participants" in self.model_fields_set:
-            _dict['clip_participants'] = None
 
         return _dict
 

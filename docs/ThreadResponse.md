@@ -20,7 +20,7 @@ Name | Type | Description | Notes
 **video_quality_mode** | **int** |  | [optional] 
 **permissions** | **str** |  | [optional] 
 **owner_id** | **str** |  | 
-**thread_metadata** | [**ThreadMetadataResponse**](ThreadMetadataResponse.md) |  | [optional] 
+**thread_metadata** | [**ThreadMetadataResponse**](ThreadMetadataResponse.md) |  | 
 **message_count** | **int** |  | 
 **member_count** | **int** |  | 
 **total_message_sent** | **int** |  | 

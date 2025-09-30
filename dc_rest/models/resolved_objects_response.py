@@ -9,7 +9,7 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
+- **Modified**: 2025-09-30T01:39:50.694712110Z[Etc/UTC]
 - **Generator Version**: 7.14.0
 
 <details>
@@ -52,9 +52,9 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
+from dc_rest.models.basic_guild_member_response import BasicGuildMemberResponse
 from dc_rest.models.get_channel200_response import GetChannel200Response
-from dc_rest.models.guild_member_response import GuildMemberResponse
 from dc_rest.models.guild_role_response import GuildRoleResponse
 from dc_rest.models.user_response import UserResponse
 from typing import Optional, Set
@@ -64,10 +64,10 @@ class ResolvedObjectsResponse(BaseModel):
     """
     ResolvedObjectsResponse
     """ # noqa: E501
-    users: Dict[str, UserResponse]
-    members: Dict[str, GuildMemberResponse]
-    channels: Dict[str, GetChannel200Response]
-    roles: Dict[str, GuildRoleResponse]
+    users: Optional[Dict[str, UserResponse]] = None
+    members: Optional[Dict[str, BasicGuildMemberResponse]] = None
+    channels: Optional[Dict[str, GetChannel200Response]] = None
+    roles: Optional[Dict[str, GuildRoleResponse]] = None
     __properties: ClassVar[List[str]] = ["users", "members", "channels", "roles"]
 
     model_config = ConfigDict(
@@ -161,7 +161,7 @@ class ResolvedObjectsResponse(BaseModel):
             if obj.get("users") is not None
             else None,
             "members": dict(
-                (_k, GuildMemberResponse.from_dict(_v))
+                (_k, BasicGuildMemberResponse.from_dict(_v))
                 for _k, _v in obj["members"].items()
             )
             if obj.get("members") is not None

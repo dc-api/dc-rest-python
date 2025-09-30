@@ -9,7 +9,7 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
+- **Modified**: 2025-09-30T01:39:50.694712110Z[Etc/UTC]
 - **Generator Version**: 7.14.0
 
 <details>
@@ -157,21 +157,6 @@ class GuildIncomingWebhookResponse(BaseModel):
         # and model_fields_set contains the field
         if self.avatar is None and "avatar" in self.model_fields_set:
             _dict['avatar'] = None
-
-        # set to None if user (nullable) is None
-        # and model_fields_set contains the field
-        if self.user is None and "user" in self.model_fields_set:
-            _dict['user'] = None
-
-        # set to None if token (nullable) is None
-        # and model_fields_set contains the field
-        if self.token is None and "token" in self.model_fields_set:
-            _dict['token'] = None
-
-        # set to None if url (nullable) is None
-        # and model_fields_set contains the field
-        if self.url is None and "url" in self.model_fields_set:
-            _dict['url'] = None
 
         return _dict
 
