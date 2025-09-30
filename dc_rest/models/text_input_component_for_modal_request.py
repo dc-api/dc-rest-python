@@ -9,7 +9,7 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
+- **Modified**: 2025-09-30T01:39:50.694712110Z[Etc/UTC]
 - **Generator Version**: 7.14.0
 
 <details>
@@ -62,15 +62,16 @@ class TextInputComponentForModalRequest(BaseModel):
     TextInputComponentForModalRequest
     """ # noqa: E501
     type: StrictInt
+    id: Optional[Annotated[int, Field(strict=True, ge=0)]] = None
     custom_id: Annotated[str, Field(strict=True, max_length=100)]
     style: StrictInt
-    label: Annotated[str, Field(strict=True, max_length=45)]
+    label: Optional[Annotated[str, Field(strict=True, max_length=45)]] = None
     value: Optional[Annotated[str, Field(strict=True, max_length=4000)]] = None
     placeholder: Optional[Annotated[str, Field(strict=True, max_length=100)]] = None
     required: Optional[StrictBool] = None
     min_length: Optional[Annotated[int, Field(le=4000, strict=True, ge=0)]] = None
     max_length: Optional[Annotated[int, Field(le=4000, strict=True, ge=1)]] = None
-    __properties: ClassVar[List[str]] = ["type", "custom_id", "style", "label", "value", "placeholder", "required", "min_length", "max_length"]
+    __properties: ClassVar[List[str]] = ["type", "id", "custom_id", "style", "label", "value", "placeholder", "required", "min_length", "max_length"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -111,6 +112,16 @@ class TextInputComponentForModalRequest(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if id (nullable) is None
+        # and model_fields_set contains the field
+        if self.id is None and "id" in self.model_fields_set:
+            _dict['id'] = None
+
+        # set to None if label (nullable) is None
+        # and model_fields_set contains the field
+        if self.label is None and "label" in self.model_fields_set:
+            _dict['label'] = None
+
         # set to None if value (nullable) is None
         # and model_fields_set contains the field
         if self.value is None and "value" in self.model_fields_set:
@@ -154,6 +165,7 @@ class TextInputComponentForModalRequest(BaseModel):
 
         _obj = cls.model_validate({
             "type": obj.get("type"),
+            "id": obj.get("id"),
             "custom_id": obj.get("custom_id"),
             "style": obj.get("style"),
             "label": obj.get("label"),

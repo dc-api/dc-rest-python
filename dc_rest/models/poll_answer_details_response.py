@@ -9,7 +9,7 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
+- **Modified**: 2025-09-30T01:39:50.694712110Z[Etc/UTC]
 - **Generator Version**: 7.14.0
 
 <details>
@@ -52,7 +52,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, List
 from dc_rest.models.user_response import UserResponse
 from typing import Optional, Set
 from typing_extensions import Self
@@ -61,7 +61,7 @@ class PollAnswerDetailsResponse(BaseModel):
     """
     PollAnswerDetailsResponse
     """ # noqa: E501
-    users: Optional[List[UserResponse]] = None
+    users: List[UserResponse]
     __properties: ClassVar[List[str]] = ["users"]
 
     model_config = ConfigDict(
@@ -110,11 +110,6 @@ class PollAnswerDetailsResponse(BaseModel):
                 if _item_users:
                     _items.append(_item_users.to_dict())
             _dict['users'] = _items
-        # set to None if users (nullable) is None
-        # and model_fields_set contains the field
-        if self.users is None and "users" in self.model_fields_set:
-            _dict['users'] = None
-
         return _dict
 
     @classmethod

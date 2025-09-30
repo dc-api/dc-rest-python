@@ -9,7 +9,7 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
+- **Modified**: 2025-09-30T01:39:50.694712110Z[Etc/UTC]
 - **Generator Version**: 7.14.0
 
 <details>
@@ -121,41 +121,6 @@ class ApplicationCommandNumberOptionResponse(BaseModel):
                 if _item_choices:
                     _items.append(_item_choices.to_dict())
             _dict['choices'] = _items
-        # set to None if name_localized (nullable) is None
-        # and model_fields_set contains the field
-        if self.name_localized is None and "name_localized" in self.model_fields_set:
-            _dict['name_localized'] = None
-
-        # set to None if description_localized (nullable) is None
-        # and model_fields_set contains the field
-        if self.description_localized is None and "description_localized" in self.model_fields_set:
-            _dict['description_localized'] = None
-
-        # set to None if required (nullable) is None
-        # and model_fields_set contains the field
-        if self.required is None and "required" in self.model_fields_set:
-            _dict['required'] = None
-
-        # set to None if autocomplete (nullable) is None
-        # and model_fields_set contains the field
-        if self.autocomplete is None and "autocomplete" in self.model_fields_set:
-            _dict['autocomplete'] = None
-
-        # set to None if choices (nullable) is None
-        # and model_fields_set contains the field
-        if self.choices is None and "choices" in self.model_fields_set:
-            _dict['choices'] = None
-
-        # set to None if min_value (nullable) is None
-        # and model_fields_set contains the field
-        if self.min_value is None and "min_value" in self.model_fields_set:
-            _dict['min_value'] = None
-
-        # set to None if max_value (nullable) is None
-        # and model_fields_set contains the field
-        if self.max_value is None and "max_value" in self.model_fields_set:
-            _dict['max_value'] = None
-
         return _dict
 
     @classmethod

@@ -9,7 +9,7 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
+- **Modified**: 2025-09-30T01:39:50.694712110Z[Etc/UTC]
 - **Generator Version**: 7.14.0
 
 <details>
@@ -71,7 +71,7 @@ class PrivateGroupChannelResponse(BaseModel):
     recipients: List[UserResponse]
     name: Optional[StrictStr] = None
     icon: Optional[StrictStr] = None
-    owner_id: Optional[Annotated[str, Field(strict=True)]] = None
+    owner_id: Annotated[str, Field(strict=True)]
     managed: Optional[StrictBool] = None
     application_id: Optional[Annotated[str, Field(strict=True)]] = None
     __properties: ClassVar[List[str]] = ["id", "type", "last_message_id", "flags", "last_pin_timestamp", "recipients", "name", "icon", "owner_id", "managed", "application_id"]
@@ -96,9 +96,6 @@ class PrivateGroupChannelResponse(BaseModel):
     @field_validator('owner_id')
     def owner_id_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        if value is None:
-            return value
-
         if not re.match(r"^(0|[1-9][0-9]*)$", value):
             raise ValueError(r"must validate the regular expression /^(0|[1-9][0-9]*)$/")
         return value
@@ -173,11 +170,6 @@ class PrivateGroupChannelResponse(BaseModel):
         # and model_fields_set contains the field
         if self.icon is None and "icon" in self.model_fields_set:
             _dict['icon'] = None
-
-        # set to None if managed (nullable) is None
-        # and model_fields_set contains the field
-        if self.managed is None and "managed" in self.model_fields_set:
-            _dict['managed'] = None
 
         return _dict
 

@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **recipients** | [**List[UserResponse]**](UserResponse.md) |  | 
 **name** | **str** |  | [optional] 
 **icon** | **str** |  | [optional] 
-**owner_id** | **str** |  | [optional] 
+**owner_id** | **str** |  | 
 **managed** | **bool** |  | [optional] 
 **application_id** | **str** |  | [optional] 
 

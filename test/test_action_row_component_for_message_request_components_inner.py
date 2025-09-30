@@ -9,7 +9,7 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
+- **Modified**: 2025-09-30T01:39:50.694712110Z[Etc/UTC]
 - **Generator Version**: 7.14.0
 
 <details>
@@ -70,18 +70,20 @@ class TestActionRowComponentForMessageRequestComponentsInner(unittest.TestCase):
         if include_optional:
             return ActionRowComponentForMessageRequestComponentsInner(
                 type = 56,
+                id = 0,
                 custom_id = '',
                 style = 56,
                 label = '',
                 disabled = True,
                 url = '',
                 sku_id = '9072888001528021798096225500850762068629339333975650685139102691291',
-                emoji = dc_rest.models.component_emoji_for_message_request.ComponentEmojiForMessageRequest(
+                emoji = dc_rest.models.component_emoji_for_request.ComponentEmojiForRequest(
                     id = '9072888001528021798096225500850762068629339333975650685139102691291', 
                     name = '', ),
                 placeholder = '',
                 min_values = 0,
                 max_values = 1,
+                required = True,
                 default_values = [
                     dc_rest.models.user_select_default_value.UserSelectDefaultValue(
                         type = 'user', 
@@ -91,12 +93,12 @@ class TestActionRowComponentForMessageRequestComponentsInner(unittest.TestCase):
                     56
                     ],
                 options = [
-                    dc_rest.models.string_select_option_for_message_request.StringSelectOptionForMessageRequest(
+                    dc_rest.models.string_select_option_for_request.StringSelectOptionForRequest(
                         label = '0', 
                         value = '0', 
                         description = '', 
                         default = True, 
-                        emoji = dc_rest.models.component_emoji_for_message_request.ComponentEmojiForMessageRequest(
+                        emoji = dc_rest.models.component_emoji_for_request.ComponentEmojiForRequest(
                             id = '9072888001528021798096225500850762068629339333975650685139102691291', 
                             name = '', ), )
                     ]
@@ -107,12 +109,12 @@ class TestActionRowComponentForMessageRequestComponentsInner(unittest.TestCase):
                 custom_id = '',
                 style = 56,
                 options = [
-                    dc_rest.models.string_select_option_for_message_request.StringSelectOptionForMessageRequest(
+                    dc_rest.models.string_select_option_for_request.StringSelectOptionForRequest(
                         label = '0', 
                         value = '0', 
                         description = '', 
                         default = True, 
-                        emoji = dc_rest.models.component_emoji_for_message_request.ComponentEmojiForMessageRequest(
+                        emoji = dc_rest.models.component_emoji_for_request.ComponentEmojiForRequest(
                             id = '9072888001528021798096225500850762068629339333975650685139102691291', 
                             name = '', ), )
                     ],

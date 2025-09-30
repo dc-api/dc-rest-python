@@ -9,7 +9,7 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
+- **Modified**: 2025-09-30T01:39:50.694712110Z[Etc/UTC]
 - **Generator Version**: 7.14.0
 
 <details>
@@ -148,16 +148,6 @@ class AuditLogEntryResponse(BaseModel):
         # and model_fields_set contains the field
         if self.action_type is None and "action_type" in self.model_fields_set:
             _dict['action_type'] = None
-
-        # set to None if changes (nullable) is None
-        # and model_fields_set contains the field
-        if self.changes is None and "changes" in self.model_fields_set:
-            _dict['changes'] = None
-
-        # set to None if reason (nullable) is None
-        # and model_fields_set contains the field
-        if self.reason is None and "reason" in self.model_fields_set:
-            _dict['reason'] = None
 
         return _dict
 

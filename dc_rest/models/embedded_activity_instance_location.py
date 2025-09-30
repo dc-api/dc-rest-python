@@ -9,7 +9,7 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
+- **Modified**: 2025-09-30T01:39:50.694712110Z[Etc/UTC]
 - **Generator Version**: 7.14.0
 
 <details>
@@ -88,9 +88,6 @@ class EmbeddedActivityInstanceLocation(BaseModel):
 
     @field_validator('actual_instance')
     def actual_instance_must_validate_oneof(cls, v):
-        if v is None:
-            return v
-
         instance = EmbeddedActivityInstanceLocation.model_construct()
         error_messages = []
         match = 0
@@ -118,12 +115,9 @@ class EmbeddedActivityInstanceLocation(BaseModel):
         return cls.from_json(json.dumps(obj))
 
     @classmethod
-    def from_json(cls, json_str: Optional[str]) -> Self:
+    def from_json(cls, json_str: str) -> Self:
         """Returns the object represented by the json string"""
         instance = cls.model_construct()
-        if json_str is None:
-            return instance
-
         error_messages = []
         match = 0
 

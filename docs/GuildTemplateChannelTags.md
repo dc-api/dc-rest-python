@@ -5,6 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**id** | **int** |  | [optional] 
 **name** | **str** |  | 
 **emoji_id** | **str** |  | [optional] 
 **emoji_name** | **str** |  | [optional] 

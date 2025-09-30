@@ -5,21 +5,21 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**type** | **int** |  | [optional] 
+**type** | **int** |  | 
 **code** | **str** |  | 
 **inviter** | [**UserResponse**](UserResponse.md) |  | [optional] 
 **max_age** | **int** |  | [optional] 
 **created_at** | **datetime** |  | [optional] 
 **expires_at** | **datetime** |  | [optional] 
 **friends_count** | **int** |  | [optional] 
-**channel** | [**InviteChannelResponse**](InviteChannelResponse.md) |  | [optional] 
+**channel** | [**InviteChannelResponse**](InviteChannelResponse.md) |  | 
 **is_contact** | **bool** |  | [optional] 
 **uses** | **int** |  | [optional] 
 **max_uses** | **int** |  | [optional] 
 **flags** | **int** |  | [optional] 
 **approximate_member_count** | **int** |  | [optional] 
-**guild** | [**InviteGuildResponse**](InviteGuildResponse.md) |  | [optional] 
-**guild_id** | **str** |  | [optional] 
+**guild** | [**InviteGuildResponse**](InviteGuildResponse.md) |  | 
+**guild_id** | **str** |  | 
 **target_type** | **int** |  | [optional] 
 **target_user** | [**UserResponse**](UserResponse.md) |  | [optional] 
 **target_application** | [**InviteApplicationResponse**](InviteApplicationResponse.md) |  | [optional] 

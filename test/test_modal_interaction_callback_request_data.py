@@ -9,7 +9,7 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
+- **Modified**: 2025-09-30T01:39:50.694712110Z[Etc/UTC]
 - **Generator Version**: 7.14.0
 
 <details>
@@ -72,20 +72,7 @@ class TestModalInteractionCallbackRequestData(unittest.TestCase):
                 custom_id = '',
                 title = '',
                 components = [
-                    dc_rest.models.action_row_component_for_modal_request.ActionRowComponentForModalRequest(
-                        type = 1, 
-                        components = [
-                            dc_rest.models.text_input_component_for_modal_request.TextInputComponentForModalRequest(
-                                type = 4, 
-                                custom_id = '', 
-                                style = 56, 
-                                label = '', 
-                                value = '', 
-                                placeholder = '', 
-                                required = True, 
-                                min_length = 0, 
-                                max_length = 1, )
-                            ], )
+                    null
                     ]
             )
         else:
@@ -93,20 +80,7 @@ class TestModalInteractionCallbackRequestData(unittest.TestCase):
                 custom_id = '',
                 title = '',
                 components = [
-                    dc_rest.models.action_row_component_for_modal_request.ActionRowComponentForModalRequest(
-                        type = 1, 
-                        components = [
-                            dc_rest.models.text_input_component_for_modal_request.TextInputComponentForModalRequest(
-                                type = 4, 
-                                custom_id = '', 
-                                style = 56, 
-                                label = '', 
-                                value = '', 
-                                placeholder = '', 
-                                required = True, 
-                                min_length = 0, 
-                                max_length = 1, )
-                            ], )
+                    null
                     ],
         )
         """

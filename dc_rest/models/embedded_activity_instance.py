@@ -9,7 +9,7 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
+- **Modified**: 2025-09-30T01:39:50.694712110Z[Etc/UTC]
 - **Generator Version**: 7.14.0
 
 <details>
@@ -52,7 +52,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, List
 from typing_extensions import Annotated
 from dc_rest.models.embedded_activity_instance_location import EmbeddedActivityInstanceLocation
 from typing import Optional, Set
@@ -65,7 +65,7 @@ class EmbeddedActivityInstance(BaseModel):
     application_id: Annotated[str, Field(strict=True)]
     instance_id: StrictStr
     launch_id: StrictStr
-    location: Optional[EmbeddedActivityInstanceLocation] = None
+    location: EmbeddedActivityInstanceLocation
     users: List[Annotated[str, Field(strict=True)]]
     __properties: ClassVar[List[str]] = ["application_id", "instance_id", "launch_id", "location", "users"]
 
@@ -118,11 +118,6 @@ class EmbeddedActivityInstance(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of location
         if self.location:
             _dict['location'] = self.location.to_dict()
-        # set to None if location (nullable) is None
-        # and model_fields_set contains the field
-        if self.location is None and "location" in self.model_fields_set:
-            _dict['location'] = None
-
         return _dict
 
     @classmethod
