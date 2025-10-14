@@ -9,8 +9,8 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
-- **Generator Version**: 7.14.0
+- **Modified**: 2025-10-14T14:27:07.339508839Z[Etc/UTC]
+- **Generator Version**: 7.16.0
 
 <details>
 <summary><strong>⚠️ Important Disclaimer & Limitation of Liability</strong></summary>
@@ -45,7 +45,6 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 </details>
 """  # noqa: E501
 
-
 from __future__ import annotations
 import pprint
 import re  # noqa: F401
@@ -72,7 +71,6 @@ class GuildPatchRequestPartial(BaseModel):
     afk_timeout: Optional[StrictInt] = None
     afk_channel_id: Optional[Annotated[str, Field(strict=True)]] = None
     system_channel_id: Optional[Annotated[str, Field(strict=True)]] = None
-    owner_id: Optional[Annotated[str, Field(strict=True)]] = None
     splash: Optional[StrictStr] = None
     banner: Optional[StrictStr] = None
     system_channel_flags: Optional[StrictInt] = None
@@ -83,7 +81,7 @@ class GuildPatchRequestPartial(BaseModel):
     safety_alerts_channel_id: Optional[Annotated[str, Field(strict=True)]] = None
     public_updates_channel_id: Optional[Annotated[str, Field(strict=True)]] = None
     premium_progress_bar_enabled: Optional[StrictBool] = None
-    __properties: ClassVar[List[str]] = ["name", "description", "region", "icon", "verification_level", "default_message_notifications", "explicit_content_filter", "preferred_locale", "afk_timeout", "afk_channel_id", "system_channel_id", "owner_id", "splash", "banner", "system_channel_flags", "features", "discovery_splash", "home_header", "rules_channel_id", "safety_alerts_channel_id", "public_updates_channel_id", "premium_progress_bar_enabled"]
+    __properties: ClassVar[List[str]] = ["name", "description", "region", "icon", "verification_level", "default_message_notifications", "explicit_content_filter", "preferred_locale", "afk_timeout", "afk_channel_id", "system_channel_id", "splash", "banner", "system_channel_flags", "features", "discovery_splash", "home_header", "rules_channel_id", "safety_alerts_channel_id", "public_updates_channel_id", "premium_progress_bar_enabled"]
 
     @field_validator('afk_channel_id')
     def afk_channel_id_validate_regular_expression(cls, value):
@@ -97,16 +95,6 @@ class GuildPatchRequestPartial(BaseModel):
 
     @field_validator('system_channel_id')
     def system_channel_id_validate_regular_expression(cls, value):
-        """Validates the regular expression"""
-        if value is None:
-            return value
-
-        if not re.match(r"^(0|[1-9][0-9]*)$", value):
-            raise ValueError(r"must validate the regular expression /^(0|[1-9][0-9]*)$/")
-        return value
-
-    @field_validator('owner_id')
-    def owner_id_validate_regular_expression(cls, value):
         """Validates the regular expression"""
         if value is None:
             return value
@@ -267,7 +255,6 @@ class GuildPatchRequestPartial(BaseModel):
             "afk_timeout": obj.get("afk_timeout"),
             "afk_channel_id": obj.get("afk_channel_id"),
             "system_channel_id": obj.get("system_channel_id"),
-            "owner_id": obj.get("owner_id"),
             "splash": obj.get("splash"),
             "banner": obj.get("banner"),
             "system_channel_flags": obj.get("system_channel_flags"),

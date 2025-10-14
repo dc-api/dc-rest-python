@@ -9,8 +9,8 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
-- **Generator Version**: 7.14.0
+- **Modified**: 2025-10-14T14:27:07.339508839Z[Etc/UTC]
+- **Generator Version**: 7.16.0
 
 <details>
 <summary><strong>⚠️ Important Disclaimer & Limitation of Liability</strong></summary>
@@ -45,7 +45,6 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 </details>
 """  # noqa: E501
 
-
 from __future__ import annotations
 import pprint
 import re  # noqa: F401
@@ -59,6 +58,7 @@ from dc_rest.models.basic_application_response import BasicApplicationResponse
 from dc_rest.models.basic_message_response_components_inner import BasicMessageResponseComponentsInner
 from dc_rest.models.basic_message_response_interaction_metadata import BasicMessageResponseInteractionMetadata
 from dc_rest.models.basic_message_response_nonce import BasicMessageResponseNonce
+from dc_rest.models.custom_client_theme_response import CustomClientThemeResponse
 from dc_rest.models.get_sticker200_response import GetSticker200Response
 from dc_rest.models.message_attachment_response import MessageAttachmentResponse
 from dc_rest.models.message_call_response import MessageCallResponse
@@ -91,7 +91,6 @@ class BasicMessageResponse(BaseModel):
     edited_timestamp: Optional[datetime] = None
     flags: StrictInt
     components: List[BasicMessageResponseComponentsInner]
-    resolved: Optional[ResolvedObjectsResponse] = None
     stickers: Optional[List[GetSticker200Response]] = None
     sticker_items: Optional[List[MessageStickerItemResponse]] = None
     id: Annotated[str, Field(strict=True)]
@@ -113,10 +112,12 @@ class BasicMessageResponse(BaseModel):
     role_subscription_data: Optional[MessageRoleSubscriptionDataResponse] = None
     purchase_notification: Optional[PurchaseNotificationResponse] = None
     position: Optional[StrictInt] = None
+    resolved: Optional[ResolvedObjectsResponse] = None
     poll: Optional[PollResponse] = None
+    shared_client_theme: Optional[CustomClientThemeResponse] = None
     interaction_metadata: Optional[BasicMessageResponseInteractionMetadata] = None
     message_snapshots: Optional[List[MessageSnapshotResponse]] = None
-    __properties: ClassVar[List[str]] = ["type", "content", "mentions", "mention_roles", "attachments", "embeds", "timestamp", "edited_timestamp", "flags", "components", "resolved", "stickers", "sticker_items", "id", "channel_id", "author", "pinned", "mention_everyone", "tts", "call", "activity", "application", "application_id", "interaction", "nonce", "webhook_id", "message_reference", "thread", "mention_channels", "role_subscription_data", "purchase_notification", "position", "poll", "interaction_metadata", "message_snapshots"]
+    __properties: ClassVar[List[str]] = ["type", "content", "mentions", "mention_roles", "attachments", "embeds", "timestamp", "edited_timestamp", "flags", "components", "stickers", "sticker_items", "id", "channel_id", "author", "pinned", "mention_everyone", "tts", "call", "activity", "application", "application_id", "interaction", "nonce", "webhook_id", "message_reference", "thread", "mention_channels", "role_subscription_data", "purchase_notification", "position", "resolved", "poll", "shared_client_theme", "interaction_metadata", "message_snapshots"]
 
     @field_validator('id')
     def id_validate_regular_expression(cls, value):
@@ -219,9 +220,6 @@ class BasicMessageResponse(BaseModel):
                 if _item_components:
                     _items.append(_item_components.to_dict())
             _dict['components'] = _items
-        # override the default output from pydantic by calling `to_dict()` of resolved
-        if self.resolved:
-            _dict['resolved'] = self.resolved.to_dict()
         # override the default output from pydantic by calling `to_dict()` of each item in stickers (list)
         _items = []
         if self.stickers:
@@ -270,9 +268,15 @@ class BasicMessageResponse(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of purchase_notification
         if self.purchase_notification:
             _dict['purchase_notification'] = self.purchase_notification.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of resolved
+        if self.resolved:
+            _dict['resolved'] = self.resolved.to_dict()
         # override the default output from pydantic by calling `to_dict()` of poll
         if self.poll:
             _dict['poll'] = self.poll.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of shared_client_theme
+        if self.shared_client_theme:
+            _dict['shared_client_theme'] = self.shared_client_theme.to_dict()
         # override the default output from pydantic by calling `to_dict()` of interaction_metadata
         if self.interaction_metadata:
             _dict['interaction_metadata'] = self.interaction_metadata.to_dict()
@@ -288,85 +292,15 @@ class BasicMessageResponse(BaseModel):
         if self.edited_timestamp is None and "edited_timestamp" in self.model_fields_set:
             _dict['edited_timestamp'] = None
 
-        # set to None if resolved (nullable) is None
-        # and model_fields_set contains the field
-        if self.resolved is None and "resolved" in self.model_fields_set:
-            _dict['resolved'] = None
-
-        # set to None if stickers (nullable) is None
-        # and model_fields_set contains the field
-        if self.stickers is None and "stickers" in self.model_fields_set:
-            _dict['stickers'] = None
-
-        # set to None if sticker_items (nullable) is None
-        # and model_fields_set contains the field
-        if self.sticker_items is None and "sticker_items" in self.model_fields_set:
-            _dict['sticker_items'] = None
-
-        # set to None if call (nullable) is None
-        # and model_fields_set contains the field
-        if self.call is None and "call" in self.model_fields_set:
-            _dict['call'] = None
-
-        # set to None if application (nullable) is None
-        # and model_fields_set contains the field
-        if self.application is None and "application" in self.model_fields_set:
-            _dict['application'] = None
-
-        # set to None if interaction (nullable) is None
-        # and model_fields_set contains the field
-        if self.interaction is None and "interaction" in self.model_fields_set:
-            _dict['interaction'] = None
-
         # set to None if nonce (nullable) is None
         # and model_fields_set contains the field
         if self.nonce is None and "nonce" in self.model_fields_set:
             _dict['nonce'] = None
 
-        # set to None if message_reference (nullable) is None
+        # set to None if shared_client_theme (nullable) is None
         # and model_fields_set contains the field
-        if self.message_reference is None and "message_reference" in self.model_fields_set:
-            _dict['message_reference'] = None
-
-        # set to None if thread (nullable) is None
-        # and model_fields_set contains the field
-        if self.thread is None and "thread" in self.model_fields_set:
-            _dict['thread'] = None
-
-        # set to None if mention_channels (nullable) is None
-        # and model_fields_set contains the field
-        if self.mention_channels is None and "mention_channels" in self.model_fields_set:
-            _dict['mention_channels'] = None
-
-        # set to None if role_subscription_data (nullable) is None
-        # and model_fields_set contains the field
-        if self.role_subscription_data is None and "role_subscription_data" in self.model_fields_set:
-            _dict['role_subscription_data'] = None
-
-        # set to None if purchase_notification (nullable) is None
-        # and model_fields_set contains the field
-        if self.purchase_notification is None and "purchase_notification" in self.model_fields_set:
-            _dict['purchase_notification'] = None
-
-        # set to None if position (nullable) is None
-        # and model_fields_set contains the field
-        if self.position is None and "position" in self.model_fields_set:
-            _dict['position'] = None
-
-        # set to None if poll (nullable) is None
-        # and model_fields_set contains the field
-        if self.poll is None and "poll" in self.model_fields_set:
-            _dict['poll'] = None
-
-        # set to None if interaction_metadata (nullable) is None
-        # and model_fields_set contains the field
-        if self.interaction_metadata is None and "interaction_metadata" in self.model_fields_set:
-            _dict['interaction_metadata'] = None
-
-        # set to None if message_snapshots (nullable) is None
-        # and model_fields_set contains the field
-        if self.message_snapshots is None and "message_snapshots" in self.model_fields_set:
-            _dict['message_snapshots'] = None
+        if self.shared_client_theme is None and "shared_client_theme" in self.model_fields_set:
+            _dict['shared_client_theme'] = None
 
         return _dict
 
@@ -395,7 +329,6 @@ class BasicMessageResponse(BaseModel):
             "edited_timestamp": obj.get("edited_timestamp"),
             "flags": obj.get("flags"),
             "components": [BasicMessageResponseComponentsInner.from_dict(_item) for _item in obj["components"]] if obj.get("components") is not None else None,
-            "resolved": ResolvedObjectsResponse.from_dict(obj["resolved"]) if obj.get("resolved") is not None else None,
             "stickers": [GetSticker200Response.from_dict(_item) for _item in obj["stickers"]] if obj.get("stickers") is not None else None,
             "sticker_items": [MessageStickerItemResponse.from_dict(_item) for _item in obj["sticker_items"]] if obj.get("sticker_items") is not None else None,
             "id": obj.get("id"),
@@ -417,7 +350,9 @@ class BasicMessageResponse(BaseModel):
             "role_subscription_data": MessageRoleSubscriptionDataResponse.from_dict(obj["role_subscription_data"]) if obj.get("role_subscription_data") is not None else None,
             "purchase_notification": PurchaseNotificationResponse.from_dict(obj["purchase_notification"]) if obj.get("purchase_notification") is not None else None,
             "position": obj.get("position"),
+            "resolved": ResolvedObjectsResponse.from_dict(obj["resolved"]) if obj.get("resolved") is not None else None,
             "poll": PollResponse.from_dict(obj["poll"]) if obj.get("poll") is not None else None,
+            "shared_client_theme": CustomClientThemeResponse.from_dict(obj["shared_client_theme"]) if obj.get("shared_client_theme") is not None else None,
             "interaction_metadata": BasicMessageResponseInteractionMetadata.from_dict(obj["interaction_metadata"]) if obj.get("interaction_metadata") is not None else None,
             "message_snapshots": [MessageSnapshotResponse.from_dict(_item) for _item in obj["message_snapshots"]] if obj.get("message_snapshots") is not None else None
         })

@@ -9,8 +9,8 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
-- **Generator Version**: 7.14.0
+- **Modified**: 2025-10-14T14:27:07.339508839Z[Etc/UTC]
+- **Generator Version**: 7.16.0
 
 <details>
 <summary><strong>⚠️ Important Disclaimer & Limitation of Liability</strong></summary>
@@ -45,7 +45,6 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 </details>
 """  # noqa: E501
 
-
 from __future__ import annotations
 import pprint
 import re  # noqa: F401
@@ -54,7 +53,7 @@ import json
 from pydantic import BaseModel, ConfigDict, Field
 from typing import Any, ClassVar, Dict, List
 from typing_extensions import Annotated
-from dc_rest.models.action_row_component_for_modal_request import ActionRowComponentForModalRequest
+from dc_rest.models.modal_interaction_callback_request_data_components_inner import ModalInteractionCallbackRequestDataComponentsInner
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -62,9 +61,9 @@ class ModalInteractionCallbackRequestData(BaseModel):
     """
     ModalInteractionCallbackRequestData
     """ # noqa: E501
-    custom_id: Annotated[str, Field(strict=True, max_length=100)]
-    title: Annotated[str, Field(strict=True, max_length=45)]
-    components: Annotated[List[ActionRowComponentForModalRequest], Field(min_length=1, max_length=40)]
+    custom_id: Annotated[str, Field(min_length=1, strict=True, max_length=100)]
+    title: Annotated[str, Field(min_length=1, strict=True, max_length=45)]
+    components: Annotated[List[ModalInteractionCallbackRequestDataComponentsInner], Field(min_length=1, max_length=40)]
     __properties: ClassVar[List[str]] = ["custom_id", "title", "components"]
 
     model_config = ConfigDict(
@@ -132,7 +131,7 @@ class ModalInteractionCallbackRequestData(BaseModel):
         _obj = cls.model_validate({
             "custom_id": obj.get("custom_id"),
             "title": obj.get("title"),
-            "components": [ActionRowComponentForModalRequest.from_dict(_item) for _item in obj["components"]] if obj.get("components") is not None else None
+            "components": [ModalInteractionCallbackRequestDataComponentsInner.from_dict(_item) for _item in obj["components"]] if obj.get("components") is not None else None
         })
         return _obj
 

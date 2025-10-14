@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **custom_id** | **str** |  | 
 **title** | **str** |  | 
-**components** | [**List[ActionRowComponentForModalRequest]**](ActionRowComponentForModalRequest.md) |  | 
+**components** | [**List[ModalInteractionCallbackRequestDataComponentsInner]**](ModalInteractionCallbackRequestDataComponentsInner.md) |  | 
 
 ## Example
 

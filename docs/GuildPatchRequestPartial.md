@@ -16,7 +16,6 @@ Name | Type | Description | Notes
 **afk_timeout** | **int** |  | [optional] 
 **afk_channel_id** | **str** |  | [optional] 
 **system_channel_id** | **str** |  | [optional] 
-**owner_id** | **str** |  | [optional] 
 **splash** | **str** |  | [optional] 
 **banner** | **str** |  | [optional] 
 **system_channel_flags** | **int** |  | [optional] 

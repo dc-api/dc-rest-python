@@ -9,8 +9,8 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
-- **Generator Version**: 7.14.0
+- **Modified**: 2025-10-14T14:27:07.339508839Z[Etc/UTC]
+- **Generator Version**: 7.16.0
 
 <details>
 <summary><strong>⚠️ Important Disclaimer & Limitation of Liability</strong></summary>
@@ -45,13 +45,12 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 </details>
 """  # noqa: E501
 
-
 from __future__ import annotations
 import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, StrictInt, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
 from typing import Optional, Set
@@ -65,7 +64,18 @@ class CreateOrJoinLobbyRequest(BaseModel):
     lobby_metadata: Optional[Dict[str, Annotated[str, Field(strict=True, max_length=1024)]]] = None
     member_metadata: Optional[Dict[str, Annotated[str, Field(strict=True, max_length=1024)]]] = None
     secret: Annotated[str, Field(strict=True, max_length=250)]
-    __properties: ClassVar[List[str]] = ["idle_timeout_seconds", "lobby_metadata", "member_metadata", "secret"]
+    flags: Optional[StrictInt] = None
+    __properties: ClassVar[List[str]] = ["idle_timeout_seconds", "lobby_metadata", "member_metadata", "secret", "flags"]
+
+    @field_validator('flags')
+    def flags_validate_enum(cls, value):
+        """Validates the enum"""
+        if value is None:
+            return value
+
+        if value not in set([1]):
+            raise ValueError("must be one of enum values (1)")
+        return value
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -111,6 +121,11 @@ class CreateOrJoinLobbyRequest(BaseModel):
         if self.idle_timeout_seconds is None and "idle_timeout_seconds" in self.model_fields_set:
             _dict['idle_timeout_seconds'] = None
 
+        # set to None if flags (nullable) is None
+        # and model_fields_set contains the field
+        if self.flags is None and "flags" in self.model_fields_set:
+            _dict['flags'] = None
+
         return _dict
 
     @classmethod
@@ -131,7 +146,8 @@ class CreateOrJoinLobbyRequest(BaseModel):
             "idle_timeout_seconds": obj.get("idle_timeout_seconds"),
             "lobby_metadata": obj.get("lobby_metadata"),
             "member_metadata": obj.get("member_metadata"),
-            "secret": obj.get("secret")
+            "secret": obj.get("secret"),
+            "flags": obj.get("flags")
         })
         return _obj
 

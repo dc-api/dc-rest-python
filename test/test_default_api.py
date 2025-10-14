@@ -9,8 +9,8 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
-- **Generator Version**: 7.14.0
+- **Modified**: 2025-10-14T14:27:07.339508839Z[Etc/UTC]
+- **Generator Version**: 7.16.0
 
 <details>
 <summary><strong>⚠️ Important Disclaimer & Limitation of Liability</strong></summary>
@@ -44,7 +44,6 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 
 </details>
 """  # noqa: E501
-
 
 import unittest
 
@@ -104,6 +103,18 @@ class TestDefaultApi(unittest.IsolatedAsyncioTestCase):
 
     async def test_ban_user_from_guild(self) -> None:
         """Test case for ban_user_from_guild
+
+        """
+        pass
+
+    async def test_bot_partner_sdk_token(self) -> None:
+        """Test case for bot_partner_sdk_token
+
+        """
+        pass
+
+    async def test_bot_partner_sdk_unmerge_provisional_account(self) -> None:
+        """Test case for bot_partner_sdk_unmerge_provisional_account
 
         """
         pass
@@ -192,12 +203,6 @@ class TestDefaultApi(unittest.IsolatedAsyncioTestCase):
         """
         pass
 
-    async def test_create_guild(self) -> None:
-        """Test case for create_guild
-
-        """
-        pass
-
     async def test_create_guild_application_command(self) -> None:
         """Test case for create_guild_application_command
 
@@ -212,12 +217,6 @@ class TestDefaultApi(unittest.IsolatedAsyncioTestCase):
 
     async def test_create_guild_emoji(self) -> None:
         """Test case for create_guild_emoji
-
-        """
-        pass
-
-    async def test_create_guild_from_template(self) -> None:
-        """Test case for create_guild_from_template
 
         """
         pass
@@ -254,6 +253,18 @@ class TestDefaultApi(unittest.IsolatedAsyncioTestCase):
 
     async def test_create_interaction_response(self) -> None:
         """Test case for create_interaction_response
+
+        """
+        pass
+
+    async def test_create_linked_lobby_guild_invite_for_self(self) -> None:
+        """Test case for create_linked_lobby_guild_invite_for_self
+
+        """
+        pass
+
+    async def test_create_linked_lobby_guild_invite_for_user(self) -> None:
+        """Test case for create_linked_lobby_guild_invite_for_user
 
         """
         pass
@@ -374,12 +385,6 @@ class TestDefaultApi(unittest.IsolatedAsyncioTestCase):
 
     async def test_delete_group_dm_user(self) -> None:
         """Test case for delete_group_dm_user
-
-        """
-        pass
-
-    async def test_delete_guild(self) -> None:
-        """Test case for delete_guild
 
         """
         pass
@@ -1178,12 +1183,6 @@ class TestDefaultApi(unittest.IsolatedAsyncioTestCase):
 
     async def test_set_guild_application_command_permissions(self) -> None:
         """Test case for set_guild_application_command_permissions
-
-        """
-        pass
-
-    async def test_set_guild_mfa_level(self) -> None:
-        """Test case for set_guild_mfa_level
 
         """
         pass

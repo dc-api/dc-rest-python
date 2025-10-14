@@ -9,8 +9,8 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
-- **Generator Version**: 7.14.0
+- **Modified**: 2025-10-14T14:27:07.339508839Z[Etc/UTC]
+- **Generator Version**: 7.16.0
 
 <details>
 <summary><strong>⚠️ Important Disclaimer & Limitation of Liability</strong></summary>
@@ -44,7 +44,6 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 
 </details>
 """  # noqa: E501
-
 
 from __future__ import annotations
 import pprint
@@ -107,16 +106,6 @@ class PollMediaResponse(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of emoji
         if self.emoji:
             _dict['emoji'] = self.emoji.to_dict()
-        # set to None if text (nullable) is None
-        # and model_fields_set contains the field
-        if self.text is None and "text" in self.model_fields_set:
-            _dict['text'] = None
-
-        # set to None if emoji (nullable) is None
-        # and model_fields_set contains the field
-        if self.emoji is None and "emoji" in self.model_fields_set:
-            _dict['emoji'] = None
-
         return _dict
 
     @classmethod

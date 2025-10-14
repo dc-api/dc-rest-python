@@ -9,8 +9,8 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
-- **Generator Version**: 7.14.0
+- **Modified**: 2025-10-14T14:27:07.339508839Z[Etc/UTC]
+- **Generator Version**: 7.16.0
 
 <details>
 <summary><strong>⚠️ Important Disclaimer & Limitation of Liability</strong></summary>
@@ -45,7 +45,6 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 </details>
 """  # noqa: E501
 
-
 import unittest
 
 from dc_rest.models.container_component_for_message_request_components_inner import ContainerComponentForMessageRequestComponentsInner
@@ -70,9 +69,11 @@ class TestContainerComponentForMessageRequestComponentsInner(unittest.TestCase):
         if include_optional:
             return ContainerComponentForMessageRequestComponentsInner(
                 type = 56,
+                id = 0,
                 components = [
                     dc_rest.models.text_display_component_for_message_request.TextDisplayComponentForMessageRequest(
                         type = 10, 
+                        id = 0, 
                         content = '0', )
                     ],
                 spoiler = True,
@@ -96,6 +97,7 @@ class TestContainerComponentForMessageRequestComponentsInner(unittest.TestCase):
                 components = [
                     dc_rest.models.text_display_component_for_message_request.TextDisplayComponentForMessageRequest(
                         type = 10, 
+                        id = 0, 
                         content = '0', )
                     ],
                 file = dc_rest.models.unfurled_media_request_with_attachment_reference_required.UnfurledMediaRequestWithAttachmentReferenceRequired(

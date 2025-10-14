@@ -6,9 +6,10 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **type** | **int** |  | 
+**id** | **int** |  | [optional] 
 **custom_id** | **str** |  | 
 **style** | **int** |  | 
-**label** | **str** |  | 
+**label** | **str** |  | [optional] 
 **value** | **str** |  | [optional] 
 **placeholder** | **str** |  | [optional] 
 **required** | **bool** |  | [optional] 

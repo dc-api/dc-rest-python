@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **type** | **int** |  | 
 **id** | **int** |  | 
-**components** | [**List[ActionRowComponentResponseComponentsInner]**](ActionRowComponentResponseComponentsInner.md) |  | [optional] 
+**components** | [**List[ActionRowComponentResponseComponentsInner]**](ActionRowComponentResponseComponentsInner.md) |  | 
 
 ## Example
 

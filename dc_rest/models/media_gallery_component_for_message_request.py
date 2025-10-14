@@ -9,8 +9,8 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
-- **Generator Version**: 7.14.0
+- **Modified**: 2025-10-14T14:27:07.339508839Z[Etc/UTC]
+- **Generator Version**: 7.16.0
 
 <details>
 <summary><strong>⚠️ Important Disclaimer & Limitation of Liability</strong></summary>
@@ -45,14 +45,13 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 </details>
 """  # noqa: E501
 
-
 from __future__ import annotations
 import pprint
 import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictInt
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
 from dc_rest.models.media_gallery_item_request import MediaGalleryItemRequest
 from typing import Optional, Set
@@ -63,8 +62,9 @@ class MediaGalleryComponentForMessageRequest(BaseModel):
     MediaGalleryComponentForMessageRequest
     """ # noqa: E501
     type: StrictInt
+    id: Optional[Annotated[int, Field(strict=True, ge=0)]] = None
     items: Annotated[List[MediaGalleryItemRequest], Field(min_length=1, max_length=10)]
-    __properties: ClassVar[List[str]] = ["type", "items"]
+    __properties: ClassVar[List[str]] = ["type", "id", "items"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -112,6 +112,11 @@ class MediaGalleryComponentForMessageRequest(BaseModel):
                 if _item_items:
                     _items.append(_item_items.to_dict())
             _dict['items'] = _items
+        # set to None if id (nullable) is None
+        # and model_fields_set contains the field
+        if self.id is None and "id" in self.model_fields_set:
+            _dict['id'] = None
+
         return _dict
 
     @classmethod
@@ -130,6 +135,7 @@ class MediaGalleryComponentForMessageRequest(BaseModel):
 
         _obj = cls.model_validate({
             "type": obj.get("type"),
+            "id": obj.get("id"),
             "items": [MediaGalleryItemRequest.from_dict(_item) for _item in obj["items"]] if obj.get("items") is not None else None
         })
         return _obj

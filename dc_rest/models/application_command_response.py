@@ -9,8 +9,8 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
-- **Generator Version**: 7.14.0
+- **Modified**: 2025-10-14T14:27:07.339508839Z[Etc/UTC]
+- **Generator Version**: 7.16.0
 
 <details>
 <summary><strong>⚠️ Important Disclaimer & Limitation of Liability</strong></summary>
@@ -44,7 +44,6 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 
 </details>
 """  # noqa: E501
-
 
 from __future__ import annotations
 import pprint
@@ -163,40 +162,10 @@ class ApplicationCommandResponse(BaseModel):
         if self.default_member_permissions is None and "default_member_permissions" in self.model_fields_set:
             _dict['default_member_permissions'] = None
 
-        # set to None if name_localized (nullable) is None
-        # and model_fields_set contains the field
-        if self.name_localized is None and "name_localized" in self.model_fields_set:
-            _dict['name_localized'] = None
-
-        # set to None if description_localized (nullable) is None
-        # and model_fields_set contains the field
-        if self.description_localized is None and "description_localized" in self.model_fields_set:
-            _dict['description_localized'] = None
-
-        # set to None if dm_permission (nullable) is None
-        # and model_fields_set contains the field
-        if self.dm_permission is None and "dm_permission" in self.model_fields_set:
-            _dict['dm_permission'] = None
-
         # set to None if contexts (nullable) is None
         # and model_fields_set contains the field
         if self.contexts is None and "contexts" in self.model_fields_set:
             _dict['contexts'] = None
-
-        # set to None if integration_types (nullable) is None
-        # and model_fields_set contains the field
-        if self.integration_types is None and "integration_types" in self.model_fields_set:
-            _dict['integration_types'] = None
-
-        # set to None if options (nullable) is None
-        # and model_fields_set contains the field
-        if self.options is None and "options" in self.model_fields_set:
-            _dict['options'] = None
-
-        # set to None if nsfw (nullable) is None
-        # and model_fields_set contains the field
-        if self.nsfw is None and "nsfw" in self.model_fields_set:
-            _dict['nsfw'] = None
 
         return _dict
 

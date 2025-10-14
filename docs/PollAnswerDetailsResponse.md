@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**users** | [**List[UserResponse]**](UserResponse.md) |  | [optional] 
+**users** | [**List[UserResponse]**](UserResponse.md) |  | 
 
 ## Example
 

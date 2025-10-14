@@ -6,6 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **type** | **int** |  | 
+**id** | **int** |  | [optional] 
 **description** | **str** |  | [optional] 
 **spoiler** | **bool** |  | [optional] 
 **media** | [**UnfurledMediaRequest**](UnfurledMediaRequest.md) |  | 

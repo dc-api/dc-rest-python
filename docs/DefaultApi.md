@@ -12,6 +12,8 @@ Method | HTTP request | Description
 [**add_thread_member**](DefaultApi.md#add_thread_member) | **PUT** /channels/{channel_id}/thread-members/{user_id} | 
 [**applications_get_activity_instance**](DefaultApi.md#applications_get_activity_instance) | **GET** /applications/{application_id}/activity-instances/{instance_id} | 
 [**ban_user_from_guild**](DefaultApi.md#ban_user_from_guild) | **PUT** /guilds/{guild_id}/bans/{user_id} | 
+[**bot_partner_sdk_token**](DefaultApi.md#bot_partner_sdk_token) | **POST** /partner-sdk/token/bot | 
+[**bot_partner_sdk_unmerge_provisional_account**](DefaultApi.md#bot_partner_sdk_unmerge_provisional_account) | **POST** /partner-sdk/provisional-accounts/unmerge/bot | 
 [**bulk_ban_users_from_guild**](DefaultApi.md#bulk_ban_users_from_guild) | **POST** /guilds/{guild_id}/bulk-ban | 
 [**bulk_delete_messages**](DefaultApi.md#bulk_delete_messages) | **POST** /channels/{channel_id}/messages/bulk-delete | 
 [**bulk_set_application_commands**](DefaultApi.md#bulk_set_application_commands) | **PUT** /applications/{application_id}/commands | 
@@ -26,17 +28,17 @@ Method | HTTP request | Description
 [**create_channel_invite**](DefaultApi.md#create_channel_invite) | **POST** /channels/{channel_id}/invites | 
 [**create_dm**](DefaultApi.md#create_dm) | **POST** /users/@me/channels | 
 [**create_entitlement**](DefaultApi.md#create_entitlement) | **POST** /applications/{application_id}/entitlements | 
-[**create_guild**](DefaultApi.md#create_guild) | **POST** /guilds | 
 [**create_guild_application_command**](DefaultApi.md#create_guild_application_command) | **POST** /applications/{application_id}/guilds/{guild_id}/commands | 
 [**create_guild_channel**](DefaultApi.md#create_guild_channel) | **POST** /guilds/{guild_id}/channels | 
 [**create_guild_emoji**](DefaultApi.md#create_guild_emoji) | **POST** /guilds/{guild_id}/emojis | 
-[**create_guild_from_template**](DefaultApi.md#create_guild_from_template) | **POST** /guilds/templates/{code} | 
 [**create_guild_role**](DefaultApi.md#create_guild_role) | **POST** /guilds/{guild_id}/roles | 
 [**create_guild_scheduled_event**](DefaultApi.md#create_guild_scheduled_event) | **POST** /guilds/{guild_id}/scheduled-events | 
 [**create_guild_soundboard_sound**](DefaultApi.md#create_guild_soundboard_sound) | **POST** /guilds/{guild_id}/soundboard-sounds | 
 [**create_guild_sticker**](DefaultApi.md#create_guild_sticker) | **POST** /guilds/{guild_id}/stickers | 
 [**create_guild_template**](DefaultApi.md#create_guild_template) | **POST** /guilds/{guild_id}/templates | 
 [**create_interaction_response**](DefaultApi.md#create_interaction_response) | **POST** /interactions/{interaction_id}/{interaction_token}/callback | 
+[**create_linked_lobby_guild_invite_for_self**](DefaultApi.md#create_linked_lobby_guild_invite_for_self) | **POST** /lobbies/{lobby_id}/members/@me/invites | 
+[**create_linked_lobby_guild_invite_for_user**](DefaultApi.md#create_linked_lobby_guild_invite_for_user) | **POST** /lobbies/{lobby_id}/members/{user_id}/invites | 
 [**create_lobby**](DefaultApi.md#create_lobby) | **POST** /lobbies | 
 [**create_lobby_message**](DefaultApi.md#create_lobby_message) | **POST** /lobbies/{lobby_id}/messages | 
 [**create_message**](DefaultApi.md#create_message) | **POST** /channels/{channel_id}/messages | 
@@ -57,7 +59,6 @@ Method | HTTP request | Description
 [**delete_channel_permission_overwrite**](DefaultApi.md#delete_channel_permission_overwrite) | **DELETE** /channels/{channel_id}/permissions/{overwrite_id} | 
 [**delete_entitlement**](DefaultApi.md#delete_entitlement) | **DELETE** /applications/{application_id}/entitlements/{entitlement_id} | 
 [**delete_group_dm_user**](DefaultApi.md#delete_group_dm_user) | **DELETE** /channels/{channel_id}/recipients/{user_id} | 
-[**delete_guild**](DefaultApi.md#delete_guild) | **DELETE** /guilds/{guild_id} | 
 [**delete_guild_application_command**](DefaultApi.md#delete_guild_application_command) | **DELETE** /applications/{application_id}/guilds/{guild_id}/commands/{command_id} | 
 [**delete_guild_emoji**](DefaultApi.md#delete_guild_emoji) | **DELETE** /guilds/{guild_id}/emojis/{emoji_id} | 
 [**delete_guild_integration**](DefaultApi.md#delete_guild_integration) | **DELETE** /guilds/{guild_id}/integrations/{integration_id} | 
@@ -191,7 +192,6 @@ Method | HTTP request | Description
 [**send_soundboard_sound**](DefaultApi.md#send_soundboard_sound) | **POST** /channels/{channel_id}/send-soundboard-sound | 
 [**set_channel_permission_overwrite**](DefaultApi.md#set_channel_permission_overwrite) | **PUT** /channels/{channel_id}/permissions/{overwrite_id} | 
 [**set_guild_application_command_permissions**](DefaultApi.md#set_guild_application_command_permissions) | **PUT** /applications/{application_id}/guilds/{guild_id}/commands/{command_id}/permissions | 
-[**set_guild_mfa_level**](DefaultApi.md#set_guild_mfa_level) | **POST** /guilds/{guild_id}/mfa | 
 [**sync_guild_template**](DefaultApi.md#sync_guild_template) | **PUT** /guilds/{guild_id}/templates/{code} | 
 [**thread_search**](DefaultApi.md#thread_search) | **GET** /channels/{channel_id}/threads/search | 
 [**trigger_typing_indicator**](DefaultApi.md#trigger_typing_indicator) | **POST** /channels/{channel_id}/typing | 
@@ -258,7 +258,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -274,7 +273,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->add_group_dm_user: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -303,14 +301,15 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**201** | 201 response for add_group_dm_user |  -  |
-**204** | 204 response for add_group_dm_user |  -  |
-**4XX** | Client error response |  -  |
+**201** | 201 response for add_group_dm_user |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**204** | 204 response for add_group_dm_user |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **add_guild_member**
-> GuildMemberResponse add_guild_member(guild_id, user_id, add_guild_member_request)
+> GuildMemberResponse add_guild_member(guild_id, user_id, bot_add_guild_member_request)
 
 ### Example
 
@@ -318,7 +317,7 @@ Name | Type | Description  | Notes
 
 ```python
 import dc_rest
-from dc_rest.models.add_guild_member_request import AddGuildMemberRequest
+from dc_rest.models.bot_add_guild_member_request import BotAddGuildMemberRequest
 from dc_rest.models.guild_member_response import GuildMemberResponse
 from dc_rest.rest import ApiException
 from pprint import pprint
@@ -339,23 +338,21 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = dc_rest.DefaultApi(api_client)
     guild_id = 'guild_id_example' # str | 
     user_id = 'user_id_example' # str | 
-    add_guild_member_request = dc_rest.AddGuildMemberRequest() # AddGuildMemberRequest | 
+    bot_add_guild_member_request = dc_rest.BotAddGuildMemberRequest() # BotAddGuildMemberRequest | 
 
     try:
-        api_response = await api_instance.add_guild_member(guild_id, user_id, add_guild_member_request)
+        api_response = await api_instance.add_guild_member(guild_id, user_id, bot_add_guild_member_request)
         print("The response of DefaultApi->add_guild_member:\n")
         pprint(api_response)
     except Exception as e:
         print("Exception when calling DefaultApi->add_guild_member: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -365,7 +362,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guild_id** | **str**|  | 
  **user_id** | **str**|  | 
- **add_guild_member_request** | [**AddGuildMemberRequest**](AddGuildMemberRequest.md)|  | 
+ **bot_add_guild_member_request** | [**BotAddGuildMemberRequest**](BotAddGuildMemberRequest.md)|  | 
 
 ### Return type
 
@@ -384,9 +381,10 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**201** | 201 response for add_guild_member |  -  |
-**204** | 204 response for add_guild_member |  -  |
-**4XX** | Client error response |  -  |
+**201** | 201 response for add_guild_member |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**204** | 204 response for add_guild_member |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -418,7 +416,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -432,7 +429,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->add_guild_member_role: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -461,8 +457,9 @@ void (empty response body)
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**204** | 204 response for add_guild_member_role |  -  |
-**4XX** | Client error response |  -  |
+**204** | 204 response for add_guild_member_role |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -496,7 +493,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -512,7 +508,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->add_lobby_member: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -541,8 +536,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for add_lobby_member |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for add_lobby_member |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -574,7 +570,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -588,7 +583,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->add_my_message_reaction: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -617,8 +611,9 @@ void (empty response body)
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**204** | 204 response for add_my_message_reaction |  -  |
-**4XX** | Client error response |  -  |
+**204** | 204 response for add_my_message_reaction |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -650,7 +645,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -663,7 +657,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->add_thread_member: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -691,8 +684,9 @@ void (empty response body)
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**204** | 204 response for add_thread_member |  -  |
-**4XX** | Client error response |  -  |
+**204** | 204 response for add_thread_member |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -725,7 +719,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -740,7 +733,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->applications_get_activity_instance: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -768,8 +760,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for applications_get_activity_instance |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for applications_get_activity_instance |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -802,7 +795,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -816,7 +808,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->ban_user_from_guild: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -845,13 +836,14 @@ void (empty response body)
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**204** | 204 response for ban_user_from_guild |  -  |
-**4XX** | Client error response |  -  |
+**204** | 204 response for ban_user_from_guild |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **bulk_ban_users_from_guild**
-> BulkBanUsersResponse bulk_ban_users_from_guild(guild_id, bulk_ban_users_from_guild_request)
+# **bot_partner_sdk_token**
+> ProvisionalTokenResponse bot_partner_sdk_token(bot_partner_sdk_token_request)
 
 ### Example
 
@@ -859,7 +851,154 @@ void (empty response body)
 
 ```python
 import dc_rest
-from dc_rest.models.bulk_ban_users_from_guild_request import BulkBanUsersFromGuildRequest
+from dc_rest.models.bot_partner_sdk_token_request import BotPartnerSdkTokenRequest
+from dc_rest.models.provisional_token_response import ProvisionalTokenResponse
+from dc_rest.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://discord.com/api/v10
+# See configuration.py for a list of all supported configuration parameters.
+configuration = dc_rest.Configuration(
+    host = "https://discord.com/api/v10"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: BotToken
+configuration.api_key['BotToken'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['BotToken'] = 'Bearer'
+# Enter a context with an instance of the API client
+async with dc_rest.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = dc_rest.DefaultApi(api_client)
+    bot_partner_sdk_token_request = dc_rest.BotPartnerSdkTokenRequest() # BotPartnerSdkTokenRequest | 
+
+    try:
+        api_response = await api_instance.bot_partner_sdk_token(bot_partner_sdk_token_request)
+        print("The response of DefaultApi->bot_partner_sdk_token:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling DefaultApi->bot_partner_sdk_token: %s\n" % e)
+```
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **bot_partner_sdk_token_request** | [**BotPartnerSdkTokenRequest**](BotPartnerSdkTokenRequest.md)|  | 
+
+### Return type
+
+[**ProvisionalTokenResponse**](ProvisionalTokenResponse.md)
+
+### Authorization
+
+[BotToken](../README.md#BotToken)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | 200 response for bot_partner_sdk_token |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **bot_partner_sdk_unmerge_provisional_account**
+> bot_partner_sdk_unmerge_provisional_account(bot_partner_sdk_unmerge_provisional_account_request)
+
+### Example
+
+* Api Key Authentication (BotToken):
+
+```python
+import dc_rest
+from dc_rest.models.bot_partner_sdk_unmerge_provisional_account_request import BotPartnerSdkUnmergeProvisionalAccountRequest
+from dc_rest.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://discord.com/api/v10
+# See configuration.py for a list of all supported configuration parameters.
+configuration = dc_rest.Configuration(
+    host = "https://discord.com/api/v10"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: BotToken
+configuration.api_key['BotToken'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['BotToken'] = 'Bearer'
+# Enter a context with an instance of the API client
+async with dc_rest.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = dc_rest.DefaultApi(api_client)
+    bot_partner_sdk_unmerge_provisional_account_request = dc_rest.BotPartnerSdkUnmergeProvisionalAccountRequest() # BotPartnerSdkUnmergeProvisionalAccountRequest | 
+
+    try:
+        await api_instance.bot_partner_sdk_unmerge_provisional_account(bot_partner_sdk_unmerge_provisional_account_request)
+    except Exception as e:
+        print("Exception when calling DefaultApi->bot_partner_sdk_unmerge_provisional_account: %s\n" % e)
+```
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **bot_partner_sdk_unmerge_provisional_account_request** | [**BotPartnerSdkUnmergeProvisionalAccountRequest**](BotPartnerSdkUnmergeProvisionalAccountRequest.md)|  | 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[BotToken](../README.md#BotToken)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**204** | 204 response for bot_partner_sdk_unmerge_provisional_account |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **bulk_ban_users_from_guild**
+> BulkBanUsersResponse bulk_ban_users_from_guild(guild_id, bulk_ban_users_request)
+
+### Example
+
+* Api Key Authentication (BotToken):
+
+```python
+import dc_rest
+from dc_rest.models.bulk_ban_users_request import BulkBanUsersRequest
 from dc_rest.models.bulk_ban_users_response import BulkBanUsersResponse
 from dc_rest.rest import ApiException
 from pprint import pprint
@@ -880,22 +1019,20 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = dc_rest.DefaultApi(api_client)
     guild_id = 'guild_id_example' # str | 
-    bulk_ban_users_from_guild_request = dc_rest.BulkBanUsersFromGuildRequest() # BulkBanUsersFromGuildRequest | 
+    bulk_ban_users_request = dc_rest.BulkBanUsersRequest() # BulkBanUsersRequest | 
 
     try:
-        api_response = await api_instance.bulk_ban_users_from_guild(guild_id, bulk_ban_users_from_guild_request)
+        api_response = await api_instance.bulk_ban_users_from_guild(guild_id, bulk_ban_users_request)
         print("The response of DefaultApi->bulk_ban_users_from_guild:\n")
         pprint(api_response)
     except Exception as e:
         print("Exception when calling DefaultApi->bulk_ban_users_from_guild: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -904,7 +1041,7 @@ async with dc_rest.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guild_id** | **str**|  | 
- **bulk_ban_users_from_guild_request** | [**BulkBanUsersFromGuildRequest**](BulkBanUsersFromGuildRequest.md)|  | 
+ **bulk_ban_users_request** | [**BulkBanUsersRequest**](BulkBanUsersRequest.md)|  | 
 
 ### Return type
 
@@ -923,8 +1060,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for bulk_ban_users_from_guild |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for bulk_ban_users_from_guild |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -957,7 +1095,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -970,7 +1107,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->bulk_delete_messages: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -998,8 +1134,9 @@ void (empty response body)
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**204** | 204 response for bulk_delete_messages |  -  |
-**4XX** | Client error response |  -  |
+**204** | 204 response for bulk_delete_messages |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -1042,7 +1179,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -1057,7 +1193,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->bulk_set_application_commands: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -1085,8 +1220,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for bulk_set_application_commands |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for bulk_set_application_commands |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -1129,7 +1265,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -1145,7 +1280,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->bulk_set_guild_application_commands: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -1174,8 +1308,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for bulk_set_guild_application_commands |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for bulk_set_guild_application_commands |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -1208,7 +1343,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -1221,7 +1355,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->bulk_update_guild_channels: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -1249,13 +1382,14 @@ void (empty response body)
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**204** | 204 response for bulk_update_guild_channels |  -  |
-**4XX** | Client error response |  -  |
+**204** | 204 response for bulk_update_guild_channels |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **bulk_update_guild_roles**
-> List[GuildRoleResponse] bulk_update_guild_roles(guild_id, bulk_update_guild_roles_request_inner)
+> List[GuildRoleResponse] bulk_update_guild_roles(guild_id, update_role_positions_request)
 
 ### Example
 
@@ -1263,8 +1397,8 @@ void (empty response body)
 
 ```python
 import dc_rest
-from dc_rest.models.bulk_update_guild_roles_request_inner import BulkUpdateGuildRolesRequestInner
 from dc_rest.models.guild_role_response import GuildRoleResponse
+from dc_rest.models.update_role_positions_request import UpdateRolePositionsRequest
 from dc_rest.rest import ApiException
 from pprint import pprint
 
@@ -1284,22 +1418,20 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = dc_rest.DefaultApi(api_client)
     guild_id = 'guild_id_example' # str | 
-    bulk_update_guild_roles_request_inner = [dc_rest.BulkUpdateGuildRolesRequestInner()] # List[BulkUpdateGuildRolesRequestInner] | 
+    update_role_positions_request = [dc_rest.UpdateRolePositionsRequest()] # List[UpdateRolePositionsRequest] | 
 
     try:
-        api_response = await api_instance.bulk_update_guild_roles(guild_id, bulk_update_guild_roles_request_inner)
+        api_response = await api_instance.bulk_update_guild_roles(guild_id, update_role_positions_request)
         print("The response of DefaultApi->bulk_update_guild_roles:\n")
         pprint(api_response)
     except Exception as e:
         print("Exception when calling DefaultApi->bulk_update_guild_roles: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -1308,7 +1440,7 @@ async with dc_rest.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guild_id** | **str**|  | 
- **bulk_update_guild_roles_request_inner** | [**List[BulkUpdateGuildRolesRequestInner]**](BulkUpdateGuildRolesRequestInner.md)|  | 
+ **update_role_positions_request** | [**List[UpdateRolePositionsRequest]**](UpdateRolePositionsRequest.md)|  | 
 
 ### Return type
 
@@ -1327,8 +1459,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for bulk_update_guild_roles |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for bulk_update_guild_roles |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -1362,7 +1495,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -1377,7 +1509,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->bulk_update_lobby_members: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -1405,8 +1536,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for bulk_update_lobby_members |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for bulk_update_lobby_members |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -1447,7 +1579,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -1460,7 +1591,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->consume_entitlement: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -1488,8 +1618,9 @@ void (empty response body)
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**204** | 204 response for consume_entitlement |  -  |
-**4XX** | Client error response |  -  |
+**204** | 204 response for consume_entitlement |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -1532,7 +1663,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -1547,7 +1677,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->create_application_command: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -1575,9 +1704,10 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for create_application_command |  -  |
-**201** | 201 response for create_application_command |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for create_application_command |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**201** | 201 response for create_application_command |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -1611,7 +1741,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -1626,7 +1755,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->create_application_emoji: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -1654,8 +1782,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**201** | 201 response for create_application_emoji |  -  |
-**4XX** | Client error response |  -  |
+**201** | 201 response for create_application_emoji |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -1689,7 +1818,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -1704,7 +1832,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->create_auto_moderation_rule: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -1732,13 +1859,14 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for create_auto_moderation_rule |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for create_auto_moderation_rule |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_channel_invite**
-> ListChannelInvites200ResponseInner create_channel_invite(channel_id, create_channel_invite_request)
+> CreateChannelInvite200Response create_channel_invite(channel_id, create_channel_invite_request)
 
 ### Example
 
@@ -1746,8 +1874,8 @@ Name | Type | Description  | Notes
 
 ```python
 import dc_rest
+from dc_rest.models.create_channel_invite200_response import CreateChannelInvite200Response
 from dc_rest.models.create_channel_invite_request import CreateChannelInviteRequest
-from dc_rest.models.list_channel_invites200_response_inner import ListChannelInvites200ResponseInner
 from dc_rest.rest import ApiException
 from pprint import pprint
 
@@ -1767,7 +1895,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -1784,7 +1911,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
 ```
 
 
-
 ### Parameters
 
 
@@ -1795,7 +1921,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ListChannelInvites200ResponseInner**](ListChannelInvites200ResponseInner.md)
+[**CreateChannelInvite200Response**](CreateChannelInvite200Response.md)
 
 ### Authorization
 
@@ -1803,16 +1929,17 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
+ - **Content-Type**: application/json, application/x-www-form-urlencoded, multipart/form-data
  - **Accept**: application/json
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for create_channel_invite |  -  |
-**204** | 204 response for create_channel_invite |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for create_channel_invite |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**204** | 204 response for create_channel_invite |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -1846,7 +1973,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -1860,7 +1986,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->create_dm: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -1887,8 +2012,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for create_dm |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for create_dm |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -1922,7 +2048,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -1937,7 +2062,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->create_entitlement: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -1965,84 +2089,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for create_entitlement |  -  |
-**4XX** | Client error response |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **create_guild**
-> GuildResponse create_guild(guild_create_request)
-
-### Example
-
-* Api Key Authentication (BotToken):
-
-```python
-import dc_rest
-from dc_rest.models.guild_create_request import GuildCreateRequest
-from dc_rest.models.guild_response import GuildResponse
-from dc_rest.rest import ApiException
-from pprint import pprint
-
-# Defining the host is optional and defaults to https://discord.com/api/v10
-# See configuration.py for a list of all supported configuration parameters.
-configuration = dc_rest.Configuration(
-    host = "https://discord.com/api/v10"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure API key authorization: BotToken
-configuration.api_key['BotToken'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['BotToken'] = 'Bearer'
-
-# Enter a context with an instance of the API client
-async with dc_rest.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = dc_rest.DefaultApi(api_client)
-    guild_create_request = dc_rest.GuildCreateRequest() # GuildCreateRequest | 
-
-    try:
-        api_response = await api_instance.create_guild(guild_create_request)
-        print("The response of DefaultApi->create_guild:\n")
-        pprint(api_response)
-    except Exception as e:
-        print("Exception when calling DefaultApi->create_guild: %s\n" % e)
-```
-
-
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **guild_create_request** | [**GuildCreateRequest**](GuildCreateRequest.md)|  | 
-
-### Return type
-
-[**GuildResponse**](GuildResponse.md)
-
-### Authorization
-
-[BotToken](../README.md#BotToken)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-### HTTP response details
-
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**201** | 201 response for create_guild |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for create_entitlement |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -2085,7 +2134,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -2101,7 +2149,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->create_guild_application_command: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -2130,9 +2177,10 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for create_guild_application_command |  -  |
-**201** | 201 response for create_guild_application_command |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for create_guild_application_command |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**201** | 201 response for create_guild_application_command |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -2166,7 +2214,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -2181,7 +2228,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->create_guild_channel: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -2209,8 +2255,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**201** | 201 response for create_guild_channel |  -  |
-**4XX** | Client error response |  -  |
+**201** | 201 response for create_guild_channel |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -2244,7 +2291,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -2259,7 +2305,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->create_guild_emoji: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -2287,91 +2332,14 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**201** | 201 response for create_guild_emoji |  -  |
-**4XX** | Client error response |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **create_guild_from_template**
-> GuildResponse create_guild_from_template(code, create_guild_from_template_request)
-
-### Example
-
-* Api Key Authentication (BotToken):
-
-```python
-import dc_rest
-from dc_rest.models.create_guild_from_template_request import CreateGuildFromTemplateRequest
-from dc_rest.models.guild_response import GuildResponse
-from dc_rest.rest import ApiException
-from pprint import pprint
-
-# Defining the host is optional and defaults to https://discord.com/api/v10
-# See configuration.py for a list of all supported configuration parameters.
-configuration = dc_rest.Configuration(
-    host = "https://discord.com/api/v10"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure API key authorization: BotToken
-configuration.api_key['BotToken'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['BotToken'] = 'Bearer'
-
-# Enter a context with an instance of the API client
-async with dc_rest.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = dc_rest.DefaultApi(api_client)
-    code = 'code_example' # str | 
-    create_guild_from_template_request = dc_rest.CreateGuildFromTemplateRequest() # CreateGuildFromTemplateRequest | 
-
-    try:
-        api_response = await api_instance.create_guild_from_template(code, create_guild_from_template_request)
-        print("The response of DefaultApi->create_guild_from_template:\n")
-        pprint(api_response)
-    except Exception as e:
-        print("Exception when calling DefaultApi->create_guild_from_template: %s\n" % e)
-```
-
-
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **code** | **str**|  | 
- **create_guild_from_template_request** | [**CreateGuildFromTemplateRequest**](CreateGuildFromTemplateRequest.md)|  | 
-
-### Return type
-
-[**GuildResponse**](GuildResponse.md)
-
-### Authorization
-
-[BotToken](../README.md#BotToken)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-### HTTP response details
-
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**201** | 201 response for create_guild_from_template |  -  |
-**4XX** | Client error response |  -  |
+**201** | 201 response for create_guild_emoji |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_guild_role**
-> GuildRoleResponse create_guild_role(guild_id, create_guild_role_request)
+> GuildRoleResponse create_guild_role(guild_id, create_role_request)
 
 ### Example
 
@@ -2379,7 +2347,7 @@ Name | Type | Description  | Notes
 
 ```python
 import dc_rest
-from dc_rest.models.create_guild_role_request import CreateGuildRoleRequest
+from dc_rest.models.create_role_request import CreateRoleRequest
 from dc_rest.models.guild_role_response import GuildRoleResponse
 from dc_rest.rest import ApiException
 from pprint import pprint
@@ -2400,22 +2368,20 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = dc_rest.DefaultApi(api_client)
     guild_id = 'guild_id_example' # str | 
-    create_guild_role_request = dc_rest.CreateGuildRoleRequest() # CreateGuildRoleRequest | 
+    create_role_request = dc_rest.CreateRoleRequest() # CreateRoleRequest | 
 
     try:
-        api_response = await api_instance.create_guild_role(guild_id, create_guild_role_request)
+        api_response = await api_instance.create_guild_role(guild_id, create_role_request)
         print("The response of DefaultApi->create_guild_role:\n")
         pprint(api_response)
     except Exception as e:
         print("Exception when calling DefaultApi->create_guild_role: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -2424,7 +2390,7 @@ async with dc_rest.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guild_id** | **str**|  | 
- **create_guild_role_request** | [**CreateGuildRoleRequest**](CreateGuildRoleRequest.md)|  | 
+ **create_role_request** | [**CreateRoleRequest**](CreateRoleRequest.md)|  | 
 
 ### Return type
 
@@ -2443,8 +2409,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for create_guild_role |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for create_guild_role |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -2478,7 +2445,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -2493,7 +2459,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->create_guild_scheduled_event: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -2521,8 +2486,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for create_guild_scheduled_event |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for create_guild_scheduled_event |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -2556,7 +2522,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -2571,7 +2536,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->create_guild_soundboard_sound: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -2599,8 +2563,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**201** | 201 response for create_guild_soundboard_sound |  -  |
-**4XX** | Client error response |  -  |
+**201** | 201 response for create_guild_soundboard_sound |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -2633,7 +2598,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -2651,7 +2615,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->create_guild_sticker: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -2682,8 +2645,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**201** | 201 response for create_guild_sticker |  -  |
-**4XX** | Client error response |  -  |
+**201** | 201 response for create_guild_sticker |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -2717,7 +2681,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -2732,7 +2695,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->create_guild_template: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -2760,8 +2722,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for create_guild_template |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for create_guild_template |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -2795,7 +2758,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -2812,7 +2774,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->create_interaction_response: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -2842,9 +2803,169 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for create_interaction_response |  -  |
-**204** | 204 response for create_interaction_response |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for create_interaction_response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**204** | 204 response for create_interaction_response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **create_linked_lobby_guild_invite_for_self**
+> LobbyGuildInviteResponse create_linked_lobby_guild_invite_for_self(lobby_id)
+
+### Example
+
+* OAuth Authentication (OAuth2):
+* OAuth Authentication (OAuth2):
+* OAuth Authentication (OAuth2):
+* Api Key Authentication (BotToken):
+
+```python
+import dc_rest
+from dc_rest.models.lobby_guild_invite_response import LobbyGuildInviteResponse
+from dc_rest.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://discord.com/api/v10
+# See configuration.py for a list of all supported configuration parameters.
+configuration = dc_rest.Configuration(
+    host = "https://discord.com/api/v10"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+configuration.access_token = os.environ["ACCESS_TOKEN"]
+
+# Configure API key authorization: BotToken
+configuration.api_key['BotToken'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['BotToken'] = 'Bearer'
+# Enter a context with an instance of the API client
+async with dc_rest.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = dc_rest.DefaultApi(api_client)
+    lobby_id = 'lobby_id_example' # str | 
+
+    try:
+        api_response = await api_instance.create_linked_lobby_guild_invite_for_self(lobby_id)
+        print("The response of DefaultApi->create_linked_lobby_guild_invite_for_self:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling DefaultApi->create_linked_lobby_guild_invite_for_self: %s\n" % e)
+```
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **lobby_id** | **str**|  | 
+
+### Return type
+
+[**LobbyGuildInviteResponse**](LobbyGuildInviteResponse.md)
+
+### Authorization
+
+[OAuth2](../README.md#OAuth2), [OAuth2](../README.md#OAuth2), [OAuth2](../README.md#OAuth2), [BotToken](../README.md#BotToken)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | 200 response for create_linked_lobby_guild_invite_for_self |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **create_linked_lobby_guild_invite_for_user**
+> LobbyGuildInviteResponse create_linked_lobby_guild_invite_for_user(lobby_id, user_id)
+
+### Example
+
+* Api Key Authentication (BotToken):
+
+```python
+import dc_rest
+from dc_rest.models.lobby_guild_invite_response import LobbyGuildInviteResponse
+from dc_rest.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://discord.com/api/v10
+# See configuration.py for a list of all supported configuration parameters.
+configuration = dc_rest.Configuration(
+    host = "https://discord.com/api/v10"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: BotToken
+configuration.api_key['BotToken'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['BotToken'] = 'Bearer'
+# Enter a context with an instance of the API client
+async with dc_rest.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = dc_rest.DefaultApi(api_client)
+    lobby_id = 'lobby_id_example' # str | 
+    user_id = 'user_id_example' # str | 
+
+    try:
+        api_response = await api_instance.create_linked_lobby_guild_invite_for_user(lobby_id, user_id)
+        print("The response of DefaultApi->create_linked_lobby_guild_invite_for_user:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling DefaultApi->create_linked_lobby_guild_invite_for_user: %s\n" % e)
+```
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **lobby_id** | **str**|  | 
+ **user_id** | **str**|  | 
+
+### Return type
+
+[**LobbyGuildInviteResponse**](LobbyGuildInviteResponse.md)
+
+### Authorization
+
+[BotToken](../README.md#BotToken)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | 200 response for create_linked_lobby_guild_invite_for_user |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -2878,7 +2999,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -2892,7 +3012,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->create_lobby: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -2919,8 +3038,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**201** | 201 response for create_lobby |  -  |
-**4XX** | Client error response |  -  |
+**201** | 201 response for create_lobby |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -2963,7 +3083,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -2978,7 +3097,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->create_lobby_message: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -3006,8 +3124,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**201** | 201 response for create_lobby_message |  -  |
-**4XX** | Client error response |  -  |
+**201** | 201 response for create_lobby_message |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -3041,7 +3160,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -3056,7 +3174,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->create_message: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -3084,8 +3201,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for create_message |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for create_message |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -3128,7 +3246,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -3142,7 +3259,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->create_or_join_lobby: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -3169,8 +3285,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for create_or_join_lobby |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for create_or_join_lobby |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -3202,7 +3319,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -3215,7 +3331,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->create_pin: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -3243,8 +3358,9 @@ void (empty response body)
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**204** | 204 response for create_pin |  -  |
-**4XX** | Client error response |  -  |
+**204** | 204 response for create_pin |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -3278,7 +3394,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -3292,7 +3407,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->create_stage_instance: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -3319,8 +3433,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for create_stage_instance |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for create_stage_instance |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -3354,7 +3469,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -3369,7 +3483,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->create_thread: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -3397,8 +3510,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**201** | 201 response for create_thread |  -  |
-**4XX** | Client error response |  -  |
+**201** | 201 response for create_thread |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -3432,7 +3546,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -3448,7 +3561,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->create_thread_from_message: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -3477,8 +3589,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**201** | 201 response for create_thread_from_message |  -  |
-**4XX** | Client error response |  -  |
+**201** | 201 response for create_thread_from_message |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -3512,7 +3625,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -3527,7 +3639,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->create_webhook: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -3555,8 +3666,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for create_webhook |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for create_webhook |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -3589,7 +3701,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -3604,7 +3715,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->crosspost_message: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -3632,8 +3742,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for crosspost_message |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for crosspost_message |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -3665,7 +3776,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -3678,7 +3788,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->delete_all_message_reactions: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -3706,8 +3815,9 @@ void (empty response body)
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**204** | 204 response for delete_all_message_reactions |  -  |
-**4XX** | Client error response |  -  |
+**204** | 204 response for delete_all_message_reactions |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -3739,7 +3849,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -3753,7 +3862,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->delete_all_message_reactions_by_emoji: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -3782,8 +3890,9 @@ void (empty response body)
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**204** | 204 response for delete_all_message_reactions_by_emoji |  -  |
-**4XX** | Client error response |  -  |
+**204** | 204 response for delete_all_message_reactions_by_emoji |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -3824,7 +3933,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -3837,7 +3945,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->delete_application_command: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -3865,8 +3972,9 @@ void (empty response body)
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**204** | 204 response for delete_application_command |  -  |
-**4XX** | Client error response |  -  |
+**204** | 204 response for delete_application_command |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -3898,7 +4006,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -3911,7 +4018,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->delete_application_emoji: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -3939,8 +4045,9 @@ void (empty response body)
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**204** | 204 response for delete_application_emoji |  -  |
-**4XX** | Client error response |  -  |
+**204** | 204 response for delete_application_emoji |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -3974,7 +4081,6 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 configuration.access_token = os.environ["ACCESS_TOKEN"]
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -3986,7 +4092,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->delete_application_user_role_connection: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -4013,8 +4118,9 @@ void (empty response body)
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**204** | 204 response for delete_application_user_role_connection |  -  |
-**4XX** | Client error response |  -  |
+**204** | 204 response for delete_application_user_role_connection |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -4046,7 +4152,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -4059,7 +4164,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->delete_auto_moderation_rule: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -4087,8 +4191,9 @@ void (empty response body)
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**204** | 204 response for delete_auto_moderation_rule |  -  |
-**4XX** | Client error response |  -  |
+**204** | 204 response for delete_auto_moderation_rule |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -4121,7 +4226,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -4135,7 +4239,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->delete_channel: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -4162,8 +4265,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for delete_channel |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for delete_channel |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -4195,7 +4299,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -4208,7 +4311,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->delete_channel_permission_overwrite: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -4236,8 +4338,9 @@ void (empty response body)
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**204** | 204 response for delete_channel_permission_overwrite |  -  |
-**4XX** | Client error response |  -  |
+**204** | 204 response for delete_channel_permission_overwrite |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -4278,7 +4381,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -4291,7 +4393,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->delete_entitlement: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -4319,8 +4420,9 @@ void (empty response body)
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**204** | 204 response for delete_entitlement |  -  |
-**4XX** | Client error response |  -  |
+**204** | 204 response for delete_entitlement |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -4352,7 +4454,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -4365,7 +4466,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->delete_group_dm_user: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -4393,80 +4493,9 @@ void (empty response body)
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**204** | 204 response for delete_group_dm_user |  -  |
-**4XX** | Client error response |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **delete_guild**
-> delete_guild(guild_id)
-
-### Example
-
-* Api Key Authentication (BotToken):
-
-```python
-import dc_rest
-from dc_rest.rest import ApiException
-from pprint import pprint
-
-# Defining the host is optional and defaults to https://discord.com/api/v10
-# See configuration.py for a list of all supported configuration parameters.
-configuration = dc_rest.Configuration(
-    host = "https://discord.com/api/v10"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure API key authorization: BotToken
-configuration.api_key['BotToken'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['BotToken'] = 'Bearer'
-
-# Enter a context with an instance of the API client
-async with dc_rest.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = dc_rest.DefaultApi(api_client)
-    guild_id = 'guild_id_example' # str | 
-
-    try:
-        await api_instance.delete_guild(guild_id)
-    except Exception as e:
-        print("Exception when calling DefaultApi->delete_guild: %s\n" % e)
-```
-
-
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **guild_id** | **str**|  | 
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-[BotToken](../README.md#BotToken)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-### HTTP response details
-
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**204** | 204 response for delete_guild |  -  |
-**4XX** | Client error response |  -  |
+**204** | 204 response for delete_group_dm_user |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -4507,7 +4536,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -4521,7 +4549,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->delete_guild_application_command: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -4550,8 +4577,9 @@ void (empty response body)
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**204** | 204 response for delete_guild_application_command |  -  |
-**4XX** | Client error response |  -  |
+**204** | 204 response for delete_guild_application_command |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -4583,7 +4611,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -4596,7 +4623,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->delete_guild_emoji: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -4624,8 +4650,9 @@ void (empty response body)
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**204** | 204 response for delete_guild_emoji |  -  |
-**4XX** | Client error response |  -  |
+**204** | 204 response for delete_guild_emoji |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -4657,7 +4684,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -4670,7 +4696,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->delete_guild_integration: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -4698,8 +4723,9 @@ void (empty response body)
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**204** | 204 response for delete_guild_integration |  -  |
-**4XX** | Client error response |  -  |
+**204** | 204 response for delete_guild_integration |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -4731,7 +4757,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -4744,7 +4769,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->delete_guild_member: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -4772,8 +4796,9 @@ void (empty response body)
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**204** | 204 response for delete_guild_member |  -  |
-**4XX** | Client error response |  -  |
+**204** | 204 response for delete_guild_member |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -4805,7 +4830,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -4819,7 +4843,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->delete_guild_member_role: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -4848,8 +4871,9 @@ void (empty response body)
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**204** | 204 response for delete_guild_member_role |  -  |
-**4XX** | Client error response |  -  |
+**204** | 204 response for delete_guild_member_role |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -4881,7 +4905,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -4894,7 +4917,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->delete_guild_role: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -4922,8 +4944,9 @@ void (empty response body)
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**204** | 204 response for delete_guild_role |  -  |
-**4XX** | Client error response |  -  |
+**204** | 204 response for delete_guild_role |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -4955,7 +4978,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -4968,7 +4990,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->delete_guild_scheduled_event: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -4996,8 +5017,9 @@ void (empty response body)
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**204** | 204 response for delete_guild_scheduled_event |  -  |
-**4XX** | Client error response |  -  |
+**204** | 204 response for delete_guild_scheduled_event |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -5029,7 +5051,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -5042,7 +5063,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->delete_guild_soundboard_sound: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -5070,8 +5090,9 @@ void (empty response body)
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**204** | 204 response for delete_guild_soundboard_sound |  -  |
-**4XX** | Client error response |  -  |
+**204** | 204 response for delete_guild_soundboard_sound |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -5103,7 +5124,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -5116,7 +5136,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->delete_guild_sticker: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -5144,8 +5163,9 @@ void (empty response body)
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**204** | 204 response for delete_guild_sticker |  -  |
-**4XX** | Client error response |  -  |
+**204** | 204 response for delete_guild_sticker |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -5178,7 +5198,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -5193,7 +5212,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->delete_guild_template: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -5221,8 +5239,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for delete_guild_template |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for delete_guild_template |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -5254,7 +5273,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -5267,7 +5285,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->delete_lobby_member: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -5295,8 +5312,9 @@ void (empty response body)
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**204** | 204 response for delete_lobby_member |  -  |
-**4XX** | Client error response |  -  |
+**204** | 204 response for delete_lobby_member |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -5328,7 +5346,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -5341,7 +5358,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->delete_message: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -5369,8 +5385,9 @@ void (empty response body)
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**204** | 204 response for delete_message |  -  |
-**4XX** | Client error response |  -  |
+**204** | 204 response for delete_message |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -5402,7 +5419,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -5416,7 +5432,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->delete_my_message_reaction: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -5445,8 +5460,9 @@ void (empty response body)
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**204** | 204 response for delete_my_message_reaction |  -  |
-**4XX** | Client error response |  -  |
+**204** | 204 response for delete_my_message_reaction |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -5478,7 +5494,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -5492,7 +5507,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->delete_original_webhook_message: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -5521,8 +5535,9 @@ void (empty response body)
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**204** | 204 response for delete_original_webhook_message |  -  |
-**4XX** | Client error response |  -  |
+**204** | 204 response for delete_original_webhook_message |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -5554,7 +5569,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -5567,7 +5581,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->delete_pin: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -5595,8 +5608,9 @@ void (empty response body)
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**204** | 204 response for delete_pin |  -  |
-**4XX** | Client error response |  -  |
+**204** | 204 response for delete_pin |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -5628,7 +5642,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -5640,7 +5653,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->delete_stage_instance: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -5667,8 +5679,9 @@ void (empty response body)
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**204** | 204 response for delete_stage_instance |  -  |
-**4XX** | Client error response |  -  |
+**204** | 204 response for delete_stage_instance |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -5700,7 +5713,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -5713,7 +5725,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->delete_thread_member: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -5741,8 +5752,9 @@ void (empty response body)
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**204** | 204 response for delete_thread_member |  -  |
-**4XX** | Client error response |  -  |
+**204** | 204 response for delete_thread_member |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -5774,7 +5786,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -5789,7 +5800,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->delete_user_message_reaction: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -5819,8 +5829,9 @@ void (empty response body)
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**204** | 204 response for delete_user_message_reaction |  -  |
-**4XX** | Client error response |  -  |
+**204** | 204 response for delete_user_message_reaction |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -5852,7 +5863,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -5864,7 +5874,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->delete_webhook: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -5891,8 +5900,9 @@ void (empty response body)
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**204** | 204 response for delete_webhook |  -  |
-**4XX** | Client error response |  -  |
+**204** | 204 response for delete_webhook |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -5924,7 +5934,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -5937,7 +5946,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->delete_webhook_by_token: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -5965,8 +5973,9 @@ void (empty response body)
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**204** | 204 response for delete_webhook_by_token |  -  |
-**4XX** | Client error response |  -  |
+**204** | 204 response for delete_webhook_by_token |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -5998,7 +6007,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -6013,7 +6021,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->delete_webhook_message: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -6043,8 +6050,9 @@ void (empty response body)
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**204** | 204 response for delete_webhook_message |  -  |
-**4XX** | Client error response |  -  |
+**204** | 204 response for delete_webhook_message |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -6076,7 +6084,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -6089,7 +6096,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->deprecated_create_pin: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -6117,8 +6123,9 @@ void (empty response body)
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**204** | 204 response for deprecated_create_pin |  -  |
-**4XX** | Client error response |  -  |
+**204** | 204 response for deprecated_create_pin |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -6150,7 +6157,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -6163,7 +6169,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->deprecated_delete_pin: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -6191,8 +6196,9 @@ void (empty response body)
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**204** | 204 response for deprecated_delete_pin |  -  |
-**4XX** | Client error response |  -  |
+**204** | 204 response for deprecated_delete_pin |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -6225,7 +6231,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -6239,7 +6244,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->deprecated_list_pins: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -6266,8 +6270,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for deprecated_list_pins |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for deprecated_list_pins |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -6301,7 +6306,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -6316,7 +6320,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->edit_lobby: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -6344,8 +6347,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for edit_lobby |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for edit_lobby |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -6388,7 +6392,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -6403,7 +6406,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->edit_lobby_channel_link: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -6431,8 +6433,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for edit_lobby_channel_link |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for edit_lobby_channel_link |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -6465,7 +6468,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -6481,7 +6483,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->execute_github_compatible_webhook: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -6512,8 +6513,9 @@ void (empty response body)
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**204** | 204 response for execute_github_compatible_webhook |  -  |
-**4XX** | Client error response |  -  |
+**204** | 204 response for execute_github_compatible_webhook |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -6546,7 +6548,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -6564,7 +6565,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->execute_slack_compatible_webhook: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -6595,8 +6595,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for execute_slack_compatible_webhook |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for execute_slack_compatible_webhook |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -6630,7 +6631,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -6649,7 +6649,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->execute_webhook: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -6681,9 +6680,10 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for execute_webhook |  -  |
-**204** | 204 response for execute_webhook |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for execute_webhook |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**204** | 204 response for execute_webhook |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -6717,7 +6717,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -6732,7 +6731,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->follow_channel: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -6760,8 +6758,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for follow_channel |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for follow_channel |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -6794,7 +6793,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -6808,7 +6806,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->get_active_guild_threads: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -6835,8 +6832,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for get_active_guild_threads |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for get_active_guild_threads |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -6869,7 +6867,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -6887,7 +6884,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->get_answer_voters: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -6918,8 +6914,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for get_answer_voters |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for get_answer_voters |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -6952,7 +6949,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -6966,7 +6962,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->get_application: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -6993,8 +6988,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for get_application |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for get_application |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -7036,7 +7032,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -7051,7 +7046,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->get_application_command: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -7079,8 +7073,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for get_application_command |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for get_application_command |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -7113,7 +7108,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -7128,7 +7122,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->get_application_emoji: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -7156,8 +7149,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for get_application_emoji |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for get_application_emoji |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -7190,7 +7184,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -7204,7 +7197,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->get_application_role_connections_metadata: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -7231,8 +7223,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for get_application_role_connections_metadata |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for get_application_role_connections_metadata |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -7267,7 +7260,6 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 configuration.access_token = os.environ["ACCESS_TOKEN"]
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -7281,7 +7273,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->get_application_user_role_connection: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -7308,8 +7299,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for get_application_user_role_connection |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for get_application_user_role_connection |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -7342,7 +7334,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -7357,7 +7348,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->get_auto_moderation_rule: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -7385,8 +7375,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for get_auto_moderation_rule |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for get_auto_moderation_rule |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -7419,7 +7410,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -7432,7 +7422,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->get_bot_gateway: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -7456,8 +7445,9 @@ This endpoint does not need any parameter.
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for get_bot_gateway |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for get_bot_gateway |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -7490,7 +7480,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -7504,7 +7493,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->get_channel: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -7531,8 +7519,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for get_channel |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for get_channel |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -7574,7 +7563,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -7589,7 +7577,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->get_entitlement: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -7617,13 +7604,14 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for get_entitlement |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for get_entitlement |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_entitlements**
-> List[Optional[EntitlementResponse]] get_entitlements(sku_ids, application_id, user_id=user_id, guild_id=guild_id, before=before, after=after, limit=limit, exclude_ended=exclude_ended, exclude_deleted=exclude_deleted, only_active=only_active)
+> List[Optional[EntitlementResponse]] get_entitlements(application_id, user_id=user_id, sku_ids=sku_ids, guild_id=guild_id, before=before, after=after, limit=limit, exclude_ended=exclude_ended, exclude_deleted=exclude_deleted, only_active=only_active)
 
 ### Example
 
@@ -7660,14 +7648,13 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = dc_rest.DefaultApi(api_client)
-    sku_ids = dc_rest.GetEntitlementsSkuIdsParameter() # GetEntitlementsSkuIdsParameter | 
     application_id = 'application_id_example' # str | 
     user_id = 'user_id_example' # str |  (optional)
+    sku_ids = dc_rest.GetEntitlementsSkuIdsParameter() # GetEntitlementsSkuIdsParameter |  (optional)
     guild_id = 'guild_id_example' # str |  (optional)
     before = 'before_example' # str |  (optional)
     after = 'after_example' # str |  (optional)
@@ -7677,7 +7664,7 @@ async with dc_rest.ApiClient(configuration) as api_client:
     only_active = True # bool |  (optional)
 
     try:
-        api_response = await api_instance.get_entitlements(sku_ids, application_id, user_id=user_id, guild_id=guild_id, before=before, after=after, limit=limit, exclude_ended=exclude_ended, exclude_deleted=exclude_deleted, only_active=only_active)
+        api_response = await api_instance.get_entitlements(application_id, user_id=user_id, sku_ids=sku_ids, guild_id=guild_id, before=before, after=after, limit=limit, exclude_ended=exclude_ended, exclude_deleted=exclude_deleted, only_active=only_active)
         print("The response of DefaultApi->get_entitlements:\n")
         pprint(api_response)
     except Exception as e:
@@ -7685,15 +7672,14 @@ async with dc_rest.ApiClient(configuration) as api_client:
 ```
 
 
-
 ### Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **sku_ids** | [**GetEntitlementsSkuIdsParameter**](.md)|  | 
  **application_id** | **str**|  | 
  **user_id** | **str**|  | [optional] 
+ **sku_ids** | [**GetEntitlementsSkuIdsParameter**](.md)|  | [optional] 
  **guild_id** | **str**|  | [optional] 
  **before** | **str**|  | [optional] 
  **after** | **str**|  | [optional] 
@@ -7719,8 +7705,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for get_entitlements |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for get_entitlements |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -7753,7 +7740,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -7766,7 +7752,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->get_gateway: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -7790,8 +7775,9 @@ This endpoint does not need any parameter.
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for get_gateway |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for get_gateway |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -7824,7 +7810,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -7839,7 +7824,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->get_guild: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -7867,8 +7851,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for get_guild |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for get_guild |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -7910,7 +7895,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -7926,7 +7910,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->get_guild_application_command: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -7955,8 +7938,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for get_guild_application_command |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for get_guild_application_command |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -7998,7 +7982,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -8014,7 +7997,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->get_guild_application_command_permissions: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -8043,8 +8025,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for get_guild_application_command_permissions |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for get_guild_application_command_permissions |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -8077,7 +8060,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -8092,7 +8074,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->get_guild_ban: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -8120,8 +8101,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for get_guild_ban |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for get_guild_ban |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -8154,7 +8136,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -8169,7 +8150,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->get_guild_emoji: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -8197,8 +8177,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for get_guild_emoji |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for get_guild_emoji |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -8231,7 +8212,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -8246,7 +8226,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->get_guild_member: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -8274,8 +8253,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for get_guild_member |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for get_guild_member |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -8308,7 +8288,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -8322,7 +8301,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->get_guild_new_member_welcome: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -8349,9 +8327,10 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for get_guild_new_member_welcome |  -  |
-**204** | 204 response for get_guild_new_member_welcome |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for get_guild_new_member_welcome |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**204** | 204 response for get_guild_new_member_welcome |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -8384,7 +8363,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -8398,7 +8376,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->get_guild_preview: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -8425,8 +8402,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for get_guild_preview |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for get_guild_preview |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -8459,7 +8437,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -8474,7 +8451,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->get_guild_role: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -8502,8 +8478,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for get_guild_role |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for get_guild_role |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -8536,7 +8513,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -8552,7 +8528,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->get_guild_scheduled_event: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -8581,8 +8556,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for get_guild_scheduled_event |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for get_guild_scheduled_event |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -8615,7 +8591,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -8630,7 +8605,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->get_guild_soundboard_sound: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -8658,8 +8632,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for get_guild_soundboard_sound |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for get_guild_soundboard_sound |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -8692,7 +8667,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -8707,7 +8681,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->get_guild_sticker: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -8735,8 +8708,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for get_guild_sticker |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for get_guild_sticker |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -8769,7 +8743,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -8783,7 +8756,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->get_guild_template: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -8810,8 +8782,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for get_guild_template |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for get_guild_template |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -8844,7 +8817,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -8858,7 +8830,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->get_guild_vanity_url: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -8885,8 +8856,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for get_guild_vanity_url |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for get_guild_vanity_url |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -8919,7 +8891,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -8933,7 +8904,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->get_guild_webhooks: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -8960,8 +8930,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for get_guild_webhooks |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for get_guild_webhooks |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -8994,7 +8965,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -9008,7 +8978,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->get_guild_welcome_screen: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -9035,8 +9004,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for get_guild_welcome_screen |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for get_guild_welcome_screen |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -9069,7 +9039,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -9083,7 +9052,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->get_guild_widget: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -9110,8 +9078,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for get_guild_widget |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for get_guild_widget |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -9143,7 +9112,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -9158,7 +9126,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->get_guild_widget_png: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -9186,8 +9153,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for get_guild_widget_png |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for get_guild_widget_png |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -9220,7 +9188,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -9234,7 +9201,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->get_guild_widget_settings: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -9261,8 +9227,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for get_guild_widget_settings |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for get_guild_widget_settings |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -9295,7 +9262,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -9309,7 +9275,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->get_guilds_onboarding: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -9336,8 +9301,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for get_guilds_onboarding |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for get_guilds_onboarding |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -9370,7 +9336,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -9384,7 +9349,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->get_lobby: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -9411,8 +9375,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for get_lobby |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for get_lobby |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -9454,7 +9419,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -9469,7 +9433,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->get_lobby_messages: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -9497,8 +9460,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for get_lobby_messages |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for get_lobby_messages |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -9531,7 +9495,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -9546,7 +9509,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->get_message: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -9574,8 +9536,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for get_message |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for get_message |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -9608,7 +9571,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -9621,7 +9583,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->get_my_application: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -9645,8 +9606,9 @@ This endpoint does not need any parameter.
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for get_my_application |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for get_my_application |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -9681,7 +9643,6 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 configuration.access_token = os.environ["ACCESS_TOKEN"]
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -9695,7 +9656,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->get_my_guild_member: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -9722,8 +9682,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for get_my_guild_member |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for get_my_guild_member |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -9756,7 +9717,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -9769,7 +9729,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->get_my_oauth2_application: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -9793,8 +9752,9 @@ This endpoint does not need any parameter.
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for get_my_oauth2_application |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for get_my_oauth2_application |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -9836,7 +9796,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -9849,7 +9808,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->get_my_oauth2_authorization: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -9873,8 +9831,9 @@ This endpoint does not need any parameter.
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for get_my_oauth2_authorization |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for get_my_oauth2_authorization |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -9916,7 +9875,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -9929,7 +9887,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->get_my_user: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -9953,8 +9910,9 @@ This endpoint does not need any parameter.
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for get_my_user |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for get_my_user |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -9996,7 +9954,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -10009,7 +9966,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->get_openid_connect_userinfo: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -10033,8 +9989,9 @@ This endpoint does not need any parameter.
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for get_openid_connect_userinfo |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for get_openid_connect_userinfo |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -10067,7 +10024,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -10083,7 +10039,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->get_original_webhook_message: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -10112,8 +10067,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for get_original_webhook_message |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for get_original_webhook_message |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -10146,7 +10102,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -10159,7 +10114,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->get_public_keys: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -10183,8 +10137,9 @@ This endpoint does not need any parameter.
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for get_public_keys |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for get_public_keys |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -10217,7 +10172,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -10231,7 +10185,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->get_self_voice_state: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -10258,8 +10211,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for get_self_voice_state |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for get_self_voice_state |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -10292,7 +10246,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -10305,7 +10258,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->get_soundboard_default_sounds: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -10329,8 +10281,9 @@ This endpoint does not need any parameter.
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for get_soundboard_default_sounds |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for get_soundboard_default_sounds |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -10363,7 +10316,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -10377,7 +10329,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->get_stage_instance: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -10404,8 +10355,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for get_stage_instance |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for get_stage_instance |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -10438,7 +10390,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -10452,7 +10403,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->get_sticker: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -10479,8 +10429,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for get_sticker |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for get_sticker |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -10513,7 +10464,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -10527,7 +10477,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->get_sticker_pack: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -10554,8 +10503,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for get_sticker_pack |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for get_sticker_pack |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -10588,7 +10538,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -10604,7 +10553,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->get_thread_member: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -10633,8 +10581,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for get_thread_member |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for get_thread_member |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -10667,7 +10616,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -10681,7 +10629,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->get_user: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -10708,8 +10655,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for get_user |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for get_user |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -10742,7 +10690,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -10757,7 +10704,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->get_voice_state: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -10785,8 +10731,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for get_voice_state |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for get_voice_state |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -10819,7 +10766,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -10833,7 +10779,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->get_webhook: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -10860,8 +10805,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for get_webhook |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for get_webhook |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -10894,7 +10840,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -10909,7 +10854,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->get_webhook_by_token: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -10937,8 +10881,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for get_webhook_by_token |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for get_webhook_by_token |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -10971,7 +10916,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -10988,7 +10932,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->get_webhook_message: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -11018,13 +10961,14 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for get_webhook_message |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for get_webhook_message |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **invite_resolve**
-> ListChannelInvites200ResponseInner invite_resolve(code, with_counts=with_counts, guild_scheduled_event_id=guild_scheduled_event_id)
+> CreateChannelInvite200Response invite_resolve(code, with_counts=with_counts, guild_scheduled_event_id=guild_scheduled_event_id)
 
 ### Example
 
@@ -11032,7 +10976,7 @@ Name | Type | Description  | Notes
 
 ```python
 import dc_rest
-from dc_rest.models.list_channel_invites200_response_inner import ListChannelInvites200ResponseInner
+from dc_rest.models.create_channel_invite200_response import CreateChannelInvite200Response
 from dc_rest.rest import ApiException
 from pprint import pprint
 
@@ -11052,7 +10996,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -11070,7 +11013,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
 ```
 
 
-
 ### Parameters
 
 
@@ -11082,7 +11024,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ListChannelInvites200ResponseInner**](ListChannelInvites200ResponseInner.md)
+[**CreateChannelInvite200Response**](CreateChannelInvite200Response.md)
 
 ### Authorization
 
@@ -11097,13 +11039,14 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for invite_resolve |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for invite_resolve |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **invite_revoke**
-> ListChannelInvites200ResponseInner invite_revoke(code)
+> CreateChannelInvite200Response invite_revoke(code)
 
 ### Example
 
@@ -11111,7 +11054,7 @@ Name | Type | Description  | Notes
 
 ```python
 import dc_rest
-from dc_rest.models.list_channel_invites200_response_inner import ListChannelInvites200ResponseInner
+from dc_rest.models.create_channel_invite200_response import CreateChannelInvite200Response
 from dc_rest.rest import ApiException
 from pprint import pprint
 
@@ -11131,7 +11074,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -11147,7 +11089,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
 ```
 
 
-
 ### Parameters
 
 
@@ -11157,7 +11098,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ListChannelInvites200ResponseInner**](ListChannelInvites200ResponseInner.md)
+[**CreateChannelInvite200Response**](CreateChannelInvite200Response.md)
 
 ### Authorization
 
@@ -11172,8 +11113,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for invite_revoke |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for invite_revoke |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -11205,7 +11147,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -11217,7 +11158,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->join_thread: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -11244,8 +11184,9 @@ void (empty response body)
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**204** | 204 response for join_thread |  -  |
-**4XX** | Client error response |  -  |
+**204** | 204 response for join_thread |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -11277,7 +11218,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -11289,7 +11229,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->leave_guild: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -11316,8 +11255,9 @@ void (empty response body)
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**204** | 204 response for leave_guild |  -  |
-**4XX** | Client error response |  -  |
+**204** | 204 response for leave_guild |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -11358,7 +11298,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -11370,7 +11309,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->leave_lobby: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -11397,8 +11335,9 @@ void (empty response body)
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**204** | 204 response for leave_lobby |  -  |
-**4XX** | Client error response |  -  |
+**204** | 204 response for leave_lobby |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -11430,7 +11369,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -11442,7 +11380,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->leave_thread: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -11469,8 +11406,9 @@ void (empty response body)
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**204** | 204 response for leave_thread |  -  |
-**4XX** | Client error response |  -  |
+**204** | 204 response for leave_thread |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -11512,7 +11450,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -11527,7 +11464,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->list_application_commands: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -11555,8 +11491,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for list_application_commands |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for list_application_commands |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -11589,7 +11526,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -11603,7 +11539,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->list_application_emojis: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -11630,8 +11565,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for list_application_emojis |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for list_application_emojis |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -11664,7 +11600,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -11678,7 +11613,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->list_auto_moderation_rules: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -11705,8 +11639,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for list_auto_moderation_rules |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for list_auto_moderation_rules |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -11739,7 +11674,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -11753,7 +11687,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->list_channel_invites: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -11780,8 +11713,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for list_channel_invites |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for list_channel_invites |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -11814,7 +11748,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -11828,7 +11761,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->list_channel_webhooks: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -11855,8 +11787,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for list_channel_webhooks |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for list_channel_webhooks |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -11898,7 +11831,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -11913,7 +11845,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->list_guild_application_command_permissions: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -11941,8 +11872,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for list_guild_application_command_permissions |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for list_guild_application_command_permissions |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -11984,7 +11916,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -12000,7 +11931,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->list_guild_application_commands: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -12029,8 +11959,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for list_guild_application_commands |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for list_guild_application_commands |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -12063,7 +11994,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -12083,7 +12013,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->list_guild_audit_log_entries: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -12116,8 +12045,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for list_guild_audit_log_entries |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for list_guild_audit_log_entries |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -12150,7 +12080,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -12167,7 +12096,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->list_guild_bans: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -12197,8 +12125,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for list_guild_bans |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for list_guild_bans |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -12240,7 +12169,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -12254,7 +12182,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->list_guild_channels: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -12281,8 +12208,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for list_guild_channels |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for list_guild_channels |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -12315,7 +12243,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -12329,7 +12256,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->list_guild_emojis: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -12356,8 +12282,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for list_guild_emojis |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for list_guild_emojis |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -12390,7 +12317,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -12404,7 +12330,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->list_guild_integrations: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -12431,8 +12356,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for list_guild_integrations |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for list_guild_integrations |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -12465,7 +12391,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -12479,7 +12404,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->list_guild_invites: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -12506,8 +12430,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for list_guild_invites |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for list_guild_invites |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -12540,7 +12465,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -12556,7 +12480,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->list_guild_members: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -12585,8 +12508,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for list_guild_members |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for list_guild_members |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -12619,7 +12543,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -12633,7 +12556,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->list_guild_roles: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -12660,8 +12582,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for list_guild_roles |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for list_guild_roles |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -12694,7 +12617,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -12713,7 +12635,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->list_guild_scheduled_event_users: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -12745,8 +12666,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for list_guild_scheduled_event_users |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for list_guild_scheduled_event_users |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -12779,7 +12701,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -12794,7 +12715,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->list_guild_scheduled_events: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -12822,8 +12742,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for list_guild_scheduled_events |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for list_guild_scheduled_events |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -12856,7 +12777,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -12870,7 +12790,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->list_guild_soundboard_sounds: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -12897,8 +12816,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for list_guild_soundboard_sounds |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for list_guild_soundboard_sounds |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -12931,7 +12851,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -12945,7 +12864,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->list_guild_stickers: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -12972,8 +12890,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for list_guild_stickers |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for list_guild_stickers |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -13006,7 +12925,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -13020,7 +12938,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->list_guild_templates: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -13047,8 +12964,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for list_guild_templates |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for list_guild_templates |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -13081,7 +12999,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -13095,7 +13012,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->list_guild_voice_regions: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -13122,8 +13038,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for list_guild_voice_regions |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for list_guild_voice_regions |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -13156,7 +13073,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -13175,7 +13091,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->list_message_reactions_by_emoji: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -13207,8 +13122,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for list_message_reactions_by_emoji |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for list_message_reactions_by_emoji |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -13241,7 +13157,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -13259,7 +13174,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->list_messages: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -13290,8 +13204,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for list_messages |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for list_messages |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -13333,7 +13248,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -13346,7 +13260,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->list_my_connections: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -13370,8 +13283,9 @@ This endpoint does not need any parameter.
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for list_my_connections |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for list_my_connections |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -13413,7 +13327,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -13430,7 +13343,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->list_my_guilds: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -13460,8 +13372,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for list_my_guilds |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for list_my_guilds |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -13494,7 +13407,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -13510,7 +13422,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->list_my_private_archived_threads: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -13539,8 +13450,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for list_my_private_archived_threads |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for list_my_private_archived_threads |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -13573,7 +13485,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -13589,7 +13500,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->list_pins: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -13618,8 +13528,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for list_pins |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for list_pins |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -13652,7 +13563,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -13668,7 +13578,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->list_private_archived_threads: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -13697,8 +13606,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for list_private_archived_threads |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for list_private_archived_threads |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -13731,7 +13641,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -13747,7 +13656,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->list_public_archived_threads: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -13776,8 +13684,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for list_public_archived_threads |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for list_public_archived_threads |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -13810,7 +13719,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -13823,7 +13731,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->list_sticker_packs: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -13847,8 +13754,9 @@ This endpoint does not need any parameter.
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for list_sticker_packs |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for list_sticker_packs |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -13881,7 +13789,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -13898,7 +13805,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->list_thread_members: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -13928,8 +13834,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for list_thread_members |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for list_thread_members |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -13962,7 +13869,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -13975,7 +13881,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->list_voice_regions: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -13999,8 +13904,9 @@ This endpoint does not need any parameter.
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for list_voice_regions |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for list_voice_regions |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -14034,7 +13940,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -14048,7 +13953,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->partner_sdk_token: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -14075,8 +13979,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for partner_sdk_token |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for partner_sdk_token |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -14109,7 +14014,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -14121,7 +14025,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->partner_sdk_unmerge_provisional_account: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -14148,8 +14051,9 @@ void (empty response body)
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**204** | 204 response for partner_sdk_unmerge_provisional_account |  -  |
-**4XX** | Client error response |  -  |
+**204** | 204 response for partner_sdk_unmerge_provisional_account |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -14182,7 +14086,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -14197,7 +14100,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->poll_expire: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -14225,8 +14127,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for poll_expire |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for poll_expire |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -14259,7 +14162,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -14275,7 +14177,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->preview_prune_guild: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -14304,8 +14205,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for preview_prune_guild |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for preview_prune_guild |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -14339,7 +14241,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -14354,7 +14255,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->prune_guild: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -14382,8 +14282,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for prune_guild |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for prune_guild |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -14417,7 +14318,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -14432,7 +14332,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->put_guilds_onboarding: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -14460,13 +14359,14 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for put_guilds_onboarding |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for put_guilds_onboarding |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **search_guild_members**
-> List[GuildMemberResponse] search_guild_members(limit, query, guild_id)
+> List[GuildMemberResponse] search_guild_members(query, guild_id, limit=limit)
 
 ### Example
 
@@ -14494,17 +14394,16 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = dc_rest.DefaultApi(api_client)
-    limit = 56 # int | 
     query = 'query_example' # str | 
     guild_id = 'guild_id_example' # str | 
+    limit = 56 # int |  (optional)
 
     try:
-        api_response = await api_instance.search_guild_members(limit, query, guild_id)
+        api_response = await api_instance.search_guild_members(query, guild_id, limit=limit)
         print("The response of DefaultApi->search_guild_members:\n")
         pprint(api_response)
     except Exception as e:
@@ -14512,15 +14411,14 @@ async with dc_rest.ApiClient(configuration) as api_client:
 ```
 
 
-
 ### Parameters
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **limit** | **int**|  | 
  **query** | **str**|  | 
  **guild_id** | **str**|  | 
+ **limit** | **int**|  | [optional] 
 
 ### Return type
 
@@ -14539,8 +14437,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for search_guild_members |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for search_guild_members |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -14573,7 +14472,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -14586,7 +14484,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->send_soundboard_sound: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -14614,8 +14511,9 @@ void (empty response body)
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**204** | 204 response for send_soundboard_sound |  -  |
-**4XX** | Client error response |  -  |
+**204** | 204 response for send_soundboard_sound |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -14648,7 +14546,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -14662,7 +14559,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->set_channel_permission_overwrite: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -14691,8 +14587,9 @@ void (empty response body)
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**204** | 204 response for set_channel_permission_overwrite |  -  |
-**4XX** | Client error response |  -  |
+**204** | 204 response for set_channel_permission_overwrite |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -14735,7 +14632,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -14752,7 +14648,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->set_guild_application_command_permissions: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -14782,86 +14677,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for set_guild_application_command_permissions |  -  |
-**4XX** | Client error response |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **set_guild_mfa_level**
-> GuildMFALevelResponse set_guild_mfa_level(guild_id, set_guild_mfa_level_request)
-
-### Example
-
-* Api Key Authentication (BotToken):
-
-```python
-import dc_rest
-from dc_rest.models.guild_mfa_level_response import GuildMFALevelResponse
-from dc_rest.models.set_guild_mfa_level_request import SetGuildMfaLevelRequest
-from dc_rest.rest import ApiException
-from pprint import pprint
-
-# Defining the host is optional and defaults to https://discord.com/api/v10
-# See configuration.py for a list of all supported configuration parameters.
-configuration = dc_rest.Configuration(
-    host = "https://discord.com/api/v10"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure API key authorization: BotToken
-configuration.api_key['BotToken'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['BotToken'] = 'Bearer'
-
-# Enter a context with an instance of the API client
-async with dc_rest.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = dc_rest.DefaultApi(api_client)
-    guild_id = 'guild_id_example' # str | 
-    set_guild_mfa_level_request = dc_rest.SetGuildMfaLevelRequest() # SetGuildMfaLevelRequest | 
-
-    try:
-        api_response = await api_instance.set_guild_mfa_level(guild_id, set_guild_mfa_level_request)
-        print("The response of DefaultApi->set_guild_mfa_level:\n")
-        pprint(api_response)
-    except Exception as e:
-        print("Exception when calling DefaultApi->set_guild_mfa_level: %s\n" % e)
-```
-
-
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **guild_id** | **str**|  | 
- **set_guild_mfa_level_request** | [**SetGuildMfaLevelRequest**](SetGuildMfaLevelRequest.md)|  | 
-
-### Return type
-
-[**GuildMFALevelResponse**](GuildMFALevelResponse.md)
-
-### Authorization
-
-[BotToken](../README.md#BotToken)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-### HTTP response details
-
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | 200 response for set_guild_mfa_level |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for set_guild_application_command_permissions |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -14894,7 +14712,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -14909,7 +14726,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->sync_guild_template: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -14937,8 +14753,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for sync_guild_template |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for sync_guild_template |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -14971,7 +14788,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -14996,7 +14812,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->thread_search: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -15034,8 +14849,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for thread_search |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for thread_search |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -15067,7 +14883,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -15081,7 +14896,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->trigger_typing_indicator: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -15108,14 +14922,15 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for trigger_typing_indicator |  -  |
-**204** | 204 response for trigger_typing_indicator |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for trigger_typing_indicator |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**204** | 204 response for trigger_typing_indicator |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **unban_user_from_guild**
-> unban_user_from_guild(guild_id, user_id)
+> unban_user_from_guild(guild_id, user_id, body)
 
 ### Example
 
@@ -15142,20 +14957,19 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = dc_rest.DefaultApi(api_client)
     guild_id = 'guild_id_example' # str | 
     user_id = 'user_id_example' # str | 
+    body = None # object | 
 
     try:
-        await api_instance.unban_user_from_guild(guild_id, user_id)
+        await api_instance.unban_user_from_guild(guild_id, user_id, body)
     except Exception as e:
         print("Exception when calling DefaultApi->unban_user_from_guild: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -15165,6 +14979,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guild_id** | **str**|  | 
  **user_id** | **str**|  | 
+ **body** | **object**|  | 
 
 ### Return type
 
@@ -15176,15 +14991,16 @@ void (empty response body)
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**204** | 204 response for unban_user_from_guild |  -  |
-**4XX** | Client error response |  -  |
+**204** | 204 response for unban_user_from_guild |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -15218,7 +15034,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -15233,7 +15048,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->update_application: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -15261,8 +15075,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for update_application |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for update_application |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -15305,7 +15120,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -15321,7 +15135,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->update_application_command: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -15350,8 +15163,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for update_application_command |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for update_application_command |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -15385,7 +15199,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -15401,7 +15214,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->update_application_emoji: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -15430,8 +15242,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for update_application_emoji |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for update_application_emoji |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -15465,7 +15278,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -15480,7 +15292,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->update_application_role_connections_metadata: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -15508,8 +15319,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for update_application_role_connections_metadata |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for update_application_role_connections_metadata |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -15545,7 +15357,6 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 configuration.access_token = os.environ["ACCESS_TOKEN"]
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -15560,7 +15371,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->update_application_user_role_connection: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -15588,8 +15398,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for update_application_user_role_connection |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for update_application_user_role_connection |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -15623,7 +15434,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -15639,7 +15449,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->update_auto_moderation_rule: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -15668,8 +15477,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for update_auto_moderation_rule |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for update_auto_moderation_rule |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -15703,7 +15513,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -15718,7 +15527,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->update_channel: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -15746,8 +15554,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for update_channel |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for update_channel |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -15781,7 +15590,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -15796,7 +15604,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->update_guild: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -15824,8 +15631,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for update_guild |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for update_guild |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -15868,7 +15676,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -15885,7 +15692,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->update_guild_application_command: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -15915,8 +15721,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for update_guild_application_command |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for update_guild_application_command |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -15950,7 +15757,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -15966,7 +15772,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->update_guild_emoji: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -15995,8 +15800,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for update_guild_emoji |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for update_guild_emoji |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -16030,7 +15836,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -16046,7 +15851,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->update_guild_member: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -16075,14 +15879,15 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for update_guild_member |  -  |
-**204** | 204 response for update_guild_member |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for update_guild_member |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**204** | 204 response for update_guild_member |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_guild_role**
-> GuildRoleResponse update_guild_role(guild_id, role_id, create_guild_role_request)
+> GuildRoleResponse update_guild_role(guild_id, role_id, update_role_request_partial)
 
 ### Example
 
@@ -16090,8 +15895,8 @@ Name | Type | Description  | Notes
 
 ```python
 import dc_rest
-from dc_rest.models.create_guild_role_request import CreateGuildRoleRequest
 from dc_rest.models.guild_role_response import GuildRoleResponse
+from dc_rest.models.update_role_request_partial import UpdateRoleRequestPartial
 from dc_rest.rest import ApiException
 from pprint import pprint
 
@@ -16111,23 +15916,21 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = dc_rest.DefaultApi(api_client)
     guild_id = 'guild_id_example' # str | 
     role_id = 'role_id_example' # str | 
-    create_guild_role_request = dc_rest.CreateGuildRoleRequest() # CreateGuildRoleRequest | 
+    update_role_request_partial = dc_rest.UpdateRoleRequestPartial() # UpdateRoleRequestPartial | 
 
     try:
-        api_response = await api_instance.update_guild_role(guild_id, role_id, create_guild_role_request)
+        api_response = await api_instance.update_guild_role(guild_id, role_id, update_role_request_partial)
         print("The response of DefaultApi->update_guild_role:\n")
         pprint(api_response)
     except Exception as e:
         print("Exception when calling DefaultApi->update_guild_role: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -16137,7 +15940,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guild_id** | **str**|  | 
  **role_id** | **str**|  | 
- **create_guild_role_request** | [**CreateGuildRoleRequest**](CreateGuildRoleRequest.md)|  | 
+ **update_role_request_partial** | [**UpdateRoleRequestPartial**](UpdateRoleRequestPartial.md)|  | 
 
 ### Return type
 
@@ -16156,8 +15959,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for update_guild_role |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for update_guild_role |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -16191,7 +15995,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -16207,7 +16010,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->update_guild_scheduled_event: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -16236,8 +16038,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for update_guild_scheduled_event |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for update_guild_scheduled_event |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -16271,7 +16074,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -16287,7 +16089,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->update_guild_soundboard_sound: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -16316,8 +16117,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for update_guild_soundboard_sound |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for update_guild_soundboard_sound |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -16351,7 +16153,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -16367,7 +16168,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->update_guild_sticker: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -16396,8 +16196,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for update_guild_sticker |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for update_guild_sticker |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -16431,7 +16232,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -16447,7 +16247,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->update_guild_template: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -16476,8 +16275,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for update_guild_template |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for update_guild_template |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -16511,7 +16311,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -16526,7 +16325,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->update_guild_welcome_screen: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -16554,8 +16352,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for update_guild_welcome_screen |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for update_guild_welcome_screen |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -16589,7 +16388,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -16604,7 +16402,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->update_guild_widget_settings: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -16632,8 +16429,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for update_guild_widget_settings |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for update_guild_widget_settings |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -16667,7 +16465,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -16683,7 +16480,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->update_message: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -16712,8 +16508,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for update_message |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for update_message |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -16747,7 +16544,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -16761,7 +16557,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->update_my_application: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -16788,8 +16583,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for update_my_application |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for update_my_application |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -16823,7 +16619,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -16838,7 +16633,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->update_my_guild_member: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -16866,8 +16660,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for update_my_guild_member |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for update_my_guild_member |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -16901,7 +16696,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -16915,7 +16709,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->update_my_user: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -16942,8 +16735,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for update_my_user |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for update_my_user |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -16977,7 +16771,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -16995,7 +16788,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->update_original_webhook_message: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -17026,13 +16818,14 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for update_original_webhook_message |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for update_original_webhook_message |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_self_voice_state**
-> update_self_voice_state(guild_id, update_self_voice_state_request)
+> update_self_voice_state(guild_id, update_self_voice_state_request_partial)
 
 ### Example
 
@@ -17040,7 +16833,7 @@ Name | Type | Description  | Notes
 
 ```python
 import dc_rest
-from dc_rest.models.update_self_voice_state_request import UpdateSelfVoiceStateRequest
+from dc_rest.models.update_self_voice_state_request_partial import UpdateSelfVoiceStateRequestPartial
 from dc_rest.rest import ApiException
 from pprint import pprint
 
@@ -17060,20 +16853,18 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = dc_rest.DefaultApi(api_client)
     guild_id = 'guild_id_example' # str | 
-    update_self_voice_state_request = dc_rest.UpdateSelfVoiceStateRequest() # UpdateSelfVoiceStateRequest | 
+    update_self_voice_state_request_partial = dc_rest.UpdateSelfVoiceStateRequestPartial() # UpdateSelfVoiceStateRequestPartial | 
 
     try:
-        await api_instance.update_self_voice_state(guild_id, update_self_voice_state_request)
+        await api_instance.update_self_voice_state(guild_id, update_self_voice_state_request_partial)
     except Exception as e:
         print("Exception when calling DefaultApi->update_self_voice_state: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -17082,7 +16873,7 @@ async with dc_rest.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guild_id** | **str**|  | 
- **update_self_voice_state_request** | [**UpdateSelfVoiceStateRequest**](UpdateSelfVoiceStateRequest.md)|  | 
+ **update_self_voice_state_request_partial** | [**UpdateSelfVoiceStateRequestPartial**](UpdateSelfVoiceStateRequestPartial.md)|  | 
 
 ### Return type
 
@@ -17101,8 +16892,9 @@ void (empty response body)
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**204** | 204 response for update_self_voice_state |  -  |
-**4XX** | Client error response |  -  |
+**204** | 204 response for update_self_voice_state |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -17136,7 +16928,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -17151,7 +16942,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->update_stage_instance: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -17179,13 +16969,14 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for update_stage_instance |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for update_stage_instance |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_voice_state**
-> update_voice_state(guild_id, user_id, update_voice_state_request)
+> update_voice_state(guild_id, user_id, update_voice_state_request_partial)
 
 ### Example
 
@@ -17193,7 +16984,7 @@ Name | Type | Description  | Notes
 
 ```python
 import dc_rest
-from dc_rest.models.update_voice_state_request import UpdateVoiceStateRequest
+from dc_rest.models.update_voice_state_request_partial import UpdateVoiceStateRequestPartial
 from dc_rest.rest import ApiException
 from pprint import pprint
 
@@ -17213,21 +17004,19 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = dc_rest.DefaultApi(api_client)
     guild_id = 'guild_id_example' # str | 
     user_id = 'user_id_example' # str | 
-    update_voice_state_request = dc_rest.UpdateVoiceStateRequest() # UpdateVoiceStateRequest | 
+    update_voice_state_request_partial = dc_rest.UpdateVoiceStateRequestPartial() # UpdateVoiceStateRequestPartial | 
 
     try:
-        await api_instance.update_voice_state(guild_id, user_id, update_voice_state_request)
+        await api_instance.update_voice_state(guild_id, user_id, update_voice_state_request_partial)
     except Exception as e:
         print("Exception when calling DefaultApi->update_voice_state: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -17237,7 +17026,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **guild_id** | **str**|  | 
  **user_id** | **str**|  | 
- **update_voice_state_request** | [**UpdateVoiceStateRequest**](UpdateVoiceStateRequest.md)|  | 
+ **update_voice_state_request_partial** | [**UpdateVoiceStateRequestPartial**](UpdateVoiceStateRequestPartial.md)|  | 
 
 ### Return type
 
@@ -17256,8 +17045,9 @@ void (empty response body)
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**204** | 204 response for update_voice_state |  -  |
-**4XX** | Client error response |  -  |
+**204** | 204 response for update_voice_state |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -17291,7 +17081,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -17306,7 +17095,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->update_webhook: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -17334,8 +17122,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for update_webhook |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for update_webhook |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -17369,7 +17158,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -17385,7 +17173,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->update_webhook_by_token: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -17414,8 +17201,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for update_webhook_by_token |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for update_webhook_by_token |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -17449,7 +17237,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -17468,7 +17255,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->update_webhook_message: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -17500,8 +17286,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for update_webhook_message |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for update_webhook_message |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -17543,7 +17330,6 @@ configuration.api_key['BotToken'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['BotToken'] = 'Bearer'
-
 # Enter a context with an instance of the API client
 async with dc_rest.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -17558,7 +17344,6 @@ async with dc_rest.ApiClient(configuration) as api_client:
     except Exception as e:
         print("Exception when calling DefaultApi->upload_application_attachment: %s\n" % e)
 ```
-
 
 
 ### Parameters
@@ -17586,8 +17371,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | 200 response for upload_application_attachment |  -  |
-**4XX** | Client error response |  -  |
+**200** | 200 response for upload_application_attachment |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**429** | Client ratelimited response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
+**4XX** | Client error response |  * X-RateLimit-Limit -  <br>  * X-RateLimit-Remaining -  <br>  * X-RateLimit-Reset -  <br>  * X-RateLimit-Reset-After -  <br>  * X-RateLimit-Bucket -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

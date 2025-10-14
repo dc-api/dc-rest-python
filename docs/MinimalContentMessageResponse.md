@@ -15,7 +15,6 @@ Name | Type | Description | Notes
 **edited_timestamp** | **datetime** |  | [optional] 
 **flags** | **int** |  | 
 **components** | [**List[BasicMessageResponseComponentsInner]**](BasicMessageResponseComponentsInner.md) |  | 
-**resolved** | [**ResolvedObjectsResponse**](ResolvedObjectsResponse.md) |  | [optional] 
 **stickers** | [**List[GetSticker200Response]**](GetSticker200Response.md) |  | [optional] 
 **sticker_items** | [**List[MessageStickerItemResponse]**](MessageStickerItemResponse.md) |  | [optional] 
 

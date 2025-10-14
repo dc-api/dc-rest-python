@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **application_id** | **str** |  | 
 **instance_id** | **str** |  | 
 **launch_id** | **str** |  | 
-**location** | [**EmbeddedActivityInstanceLocation**](EmbeddedActivityInstanceLocation.md) |  | [optional] 
+**location** | [**EmbeddedActivityInstanceLocation**](EmbeddedActivityInstanceLocation.md) |  | 
 **users** | **List[str]** |  | 
 
 ## Example

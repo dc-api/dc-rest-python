@@ -9,8 +9,8 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
-- **Generator Version**: 7.14.0
+- **Modified**: 2025-10-14T14:27:07.339508839Z[Etc/UTC]
+- **Generator Version**: 7.16.0
 
 <details>
 <summary><strong>⚠️ Important Disclaimer & Limitation of Liability</strong></summary>
@@ -45,7 +45,6 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 </details>
 """  # noqa: E501
 
-
 from __future__ import annotations
 import pprint
 import re  # noqa: F401
@@ -63,7 +62,7 @@ class UpdateGuildMemberRequest(BaseModel):
     UpdateGuildMemberRequest
     """ # noqa: E501
     nick: Optional[Annotated[str, Field(strict=True, max_length=32)]] = None
-    roles: Optional[Annotated[List[Annotated[str, Field(strict=True)]], Field(max_length=1521)]] = None
+    roles: Optional[Annotated[List[Annotated[str, Field(strict=True)]], Field(max_length=350)]] = None
     mute: Optional[StrictBool] = None
     deaf: Optional[StrictBool] = None
     channel_id: Optional[Annotated[str, Field(strict=True)]] = None
