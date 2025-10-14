@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **int** |  | 
 **count** | **int** |  | 
-**me_voted** | **bool** |  | [optional] 
+**me_voted** | **bool** |  | 
 
 ## Example
 

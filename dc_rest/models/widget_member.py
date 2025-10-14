@@ -9,8 +9,8 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
-- **Generator Version**: 7.14.0
+- **Modified**: 2025-10-14T14:27:07.339508839Z[Etc/UTC]
+- **Generator Version**: 7.16.0
 
 <details>
 <summary><strong>⚠️ Important Disclaimer & Limitation of Liability</strong></summary>
@@ -44,7 +44,6 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 
 </details>
 """  # noqa: E501
-
 
 from __future__ import annotations
 import pprint
@@ -138,36 +137,6 @@ class WidgetMember(BaseModel):
         # and model_fields_set contains the field
         if self.avatar is None and "avatar" in self.model_fields_set:
             _dict['avatar'] = None
-
-        # set to None if activity (nullable) is None
-        # and model_fields_set contains the field
-        if self.activity is None and "activity" in self.model_fields_set:
-            _dict['activity'] = None
-
-        # set to None if deaf (nullable) is None
-        # and model_fields_set contains the field
-        if self.deaf is None and "deaf" in self.model_fields_set:
-            _dict['deaf'] = None
-
-        # set to None if mute (nullable) is None
-        # and model_fields_set contains the field
-        if self.mute is None and "mute" in self.model_fields_set:
-            _dict['mute'] = None
-
-        # set to None if self_deaf (nullable) is None
-        # and model_fields_set contains the field
-        if self.self_deaf is None and "self_deaf" in self.model_fields_set:
-            _dict['self_deaf'] = None
-
-        # set to None if self_mute (nullable) is None
-        # and model_fields_set contains the field
-        if self.self_mute is None and "self_mute" in self.model_fields_set:
-            _dict['self_mute'] = None
-
-        # set to None if suppress (nullable) is None
-        # and model_fields_set contains the field
-        if self.suppress is None and "suppress" in self.model_fields_set:
-            _dict['suppress'] = None
 
         return _dict
 

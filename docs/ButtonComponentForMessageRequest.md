@@ -6,13 +6,14 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **type** | **int** |  | 
+**id** | **int** |  | [optional] 
 **custom_id** | **str** |  | [optional] 
 **style** | **int** |  | 
 **label** | **str** |  | [optional] 
 **disabled** | **bool** |  | [optional] 
 **url** | **str** |  | [optional] 
 **sku_id** | **str** |  | [optional] 
-**emoji** | [**ComponentEmojiForMessageRequest**](ComponentEmojiForMessageRequest.md) |  | [optional] 
+**emoji** | [**ComponentEmojiForRequest**](ComponentEmojiForRequest.md) |  | [optional] 
 
 ## Example
 

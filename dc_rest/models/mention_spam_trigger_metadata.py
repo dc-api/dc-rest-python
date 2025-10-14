@@ -9,8 +9,8 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
-- **Generator Version**: 7.14.0
+- **Modified**: 2025-10-14T14:27:07.339508839Z[Etc/UTC]
+- **Generator Version**: 7.16.0
 
 <details>
 <summary><strong>⚠️ Important Disclaimer & Limitation of Liability</strong></summary>
@@ -45,7 +45,6 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 </details>
 """  # noqa: E501
 
-
 from __future__ import annotations
 import pprint
 import re  # noqa: F401
@@ -61,7 +60,7 @@ class MentionSpamTriggerMetadata(BaseModel):
     """
     MentionSpamTriggerMetadata
     """ # noqa: E501
-    mention_total_limit: Annotated[int, Field(le=50, strict=True, ge=0)]
+    mention_total_limit: Optional[Annotated[int, Field(le=50, strict=True, ge=0)]] = None
     mention_raid_protection_enabled: Optional[StrictBool] = None
     __properties: ClassVar[List[str]] = ["mention_total_limit", "mention_raid_protection_enabled"]
 
@@ -104,6 +103,11 @@ class MentionSpamTriggerMetadata(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if mention_total_limit (nullable) is None
+        # and model_fields_set contains the field
+        if self.mention_total_limit is None and "mention_total_limit" in self.model_fields_set:
+            _dict['mention_total_limit'] = None
+
         # set to None if mention_raid_protection_enabled (nullable) is None
         # and model_fields_set contains the field
         if self.mention_raid_protection_enabled is None and "mention_raid_protection_enabled" in self.model_fields_set:

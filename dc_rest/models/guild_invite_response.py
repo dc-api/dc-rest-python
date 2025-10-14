@@ -9,8 +9,8 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
-- **Generator Version**: 7.14.0
+- **Modified**: 2025-10-14T14:27:07.339508839Z[Etc/UTC]
+- **Generator Version**: 7.16.0
 
 <details>
 <summary><strong>⚠️ Important Disclaimer & Limitation of Liability</strong></summary>
@@ -45,7 +45,6 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 </details>
 """  # noqa: E501
 
-
 from __future__ import annotations
 import pprint
 import re  # noqa: F401
@@ -67,7 +66,7 @@ class GuildInviteResponse(BaseModel):
     """
     GuildInviteResponse
     """ # noqa: E501
-    type: Optional[StrictInt] = None
+    type: Optional[StrictInt]
     code: StrictStr
     inviter: Optional[UserResponse] = None
     max_age: Optional[StrictInt] = None
@@ -75,9 +74,9 @@ class GuildInviteResponse(BaseModel):
     expires_at: Optional[datetime] = None
     is_contact: Optional[StrictBool] = None
     flags: Optional[StrictInt] = None
-    guild: Optional[InviteGuildResponse] = None
-    guild_id: Optional[Annotated[str, Field(strict=True)]] = None
-    channel: Optional[InviteChannelResponse] = None
+    guild: InviteGuildResponse
+    guild_id: Annotated[str, Field(strict=True)]
+    channel: InviteChannelResponse
     target_type: Optional[StrictInt] = None
     target_user: Optional[UserResponse] = None
     target_application: Optional[InviteApplicationResponse] = None
@@ -93,9 +92,6 @@ class GuildInviteResponse(BaseModel):
     @field_validator('guild_id')
     def guild_id_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        if value is None:
-            return value
-
         if not re.match(r"^(0|[1-9][0-9]*)$", value):
             raise ValueError(r"must validate the regular expression /^(0|[1-9][0-9]*)$/")
         return value
@@ -162,80 +158,15 @@ class GuildInviteResponse(BaseModel):
         if self.type is None and "type" in self.model_fields_set:
             _dict['type'] = None
 
-        # set to None if inviter (nullable) is None
-        # and model_fields_set contains the field
-        if self.inviter is None and "inviter" in self.model_fields_set:
-            _dict['inviter'] = None
-
-        # set to None if max_age (nullable) is None
-        # and model_fields_set contains the field
-        if self.max_age is None and "max_age" in self.model_fields_set:
-            _dict['max_age'] = None
-
-        # set to None if created_at (nullable) is None
-        # and model_fields_set contains the field
-        if self.created_at is None and "created_at" in self.model_fields_set:
-            _dict['created_at'] = None
-
         # set to None if expires_at (nullable) is None
         # and model_fields_set contains the field
         if self.expires_at is None and "expires_at" in self.model_fields_set:
             _dict['expires_at'] = None
 
-        # set to None if is_contact (nullable) is None
-        # and model_fields_set contains the field
-        if self.is_contact is None and "is_contact" in self.model_fields_set:
-            _dict['is_contact'] = None
-
-        # set to None if flags (nullable) is None
-        # and model_fields_set contains the field
-        if self.flags is None and "flags" in self.model_fields_set:
-            _dict['flags'] = None
-
-        # set to None if guild (nullable) is None
-        # and model_fields_set contains the field
-        if self.guild is None and "guild" in self.model_fields_set:
-            _dict['guild'] = None
-
-        # set to None if channel (nullable) is None
-        # and model_fields_set contains the field
-        if self.channel is None and "channel" in self.model_fields_set:
-            _dict['channel'] = None
-
         # set to None if target_type (nullable) is None
         # and model_fields_set contains the field
         if self.target_type is None and "target_type" in self.model_fields_set:
             _dict['target_type'] = None
-
-        # set to None if target_user (nullable) is None
-        # and model_fields_set contains the field
-        if self.target_user is None and "target_user" in self.model_fields_set:
-            _dict['target_user'] = None
-
-        # set to None if target_application (nullable) is None
-        # and model_fields_set contains the field
-        if self.target_application is None and "target_application" in self.model_fields_set:
-            _dict['target_application'] = None
-
-        # set to None if guild_scheduled_event (nullable) is None
-        # and model_fields_set contains the field
-        if self.guild_scheduled_event is None and "guild_scheduled_event" in self.model_fields_set:
-            _dict['guild_scheduled_event'] = None
-
-        # set to None if uses (nullable) is None
-        # and model_fields_set contains the field
-        if self.uses is None and "uses" in self.model_fields_set:
-            _dict['uses'] = None
-
-        # set to None if max_uses (nullable) is None
-        # and model_fields_set contains the field
-        if self.max_uses is None and "max_uses" in self.model_fields_set:
-            _dict['max_uses'] = None
-
-        # set to None if temporary (nullable) is None
-        # and model_fields_set contains the field
-        if self.temporary is None and "temporary" in self.model_fields_set:
-            _dict['temporary'] = None
 
         # set to None if approximate_member_count (nullable) is None
         # and model_fields_set contains the field
@@ -246,11 +177,6 @@ class GuildInviteResponse(BaseModel):
         # and model_fields_set contains the field
         if self.approximate_presence_count is None and "approximate_presence_count" in self.model_fields_set:
             _dict['approximate_presence_count'] = None
-
-        # set to None if is_nickname_changeable (nullable) is None
-        # and model_fields_set contains the field
-        if self.is_nickname_changeable is None and "is_nickname_changeable" in self.model_fields_set:
-            _dict['is_nickname_changeable'] = None
 
         return _dict
 

@@ -9,8 +9,8 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
-- **Generator Version**: 7.14.0
+- **Modified**: 2025-10-14T14:27:07.339508839Z[Etc/UTC]
+- **Generator Version**: 7.16.0
 
 <details>
 <summary><strong>⚠️ Important Disclaimer & Limitation of Liability</strong></summary>
@@ -44,7 +44,6 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 
 </details>
 """  # noqa: E501
-
 
 import unittest
 
@@ -245,91 +244,6 @@ class TestBasicMessageResponse(unittest.TestCase):
                 components = [
                     null
                     ],
-                resolved = dc_rest.models.resolved_objects_response.ResolvedObjectsResponse(
-                    users = {
-                        'key' : dc_rest.models.user_response.UserResponse(
-                            id = '9072888001528021798096225500850762068629339333975650685139102691291', 
-                            username = '', 
-                            avatar = '', 
-                            discriminator = '', 
-                            public_flags = 56, 
-                            flags = -9007199254740991, 
-                            bot = True, 
-                            system = True, 
-                            banner = '', 
-                            accent_color = 56, 
-                            global_name = '', 
-                            avatar_decoration_data = dc_rest.models.user_avatar_decoration_response.UserAvatarDecorationResponse(
-                                asset = '', 
-                                sku_id = '9072888001528021798096225500850762068629339333975650685139102691291', ), 
-                            collectibles = dc_rest.models.user_collectibles_response.UserCollectiblesResponse(
-                                nameplate = dc_rest.models.user_nameplate_response.UserNameplateResponse(
-                                    asset = '', 
-                                    label = '', 
-                                    palette = '', ), ), 
-                            primary_guild = dc_rest.models.user_primary_guild_response.UserPrimaryGuildResponse(
-                                identity_guild_id = '9072888001528021798096225500850762068629339333975650685139102691291', 
-                                identity_enabled = True, 
-                                tag = '', 
-                                badge = '', ), )
-                        }, 
-                    members = {
-                        'key' : dc_rest.models.guild_member_response.GuildMemberResponse(
-                            avatar = '', 
-                            banner = '', 
-                            communication_disabled_until = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
-                            flags = 56, 
-                            joined_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
-                            nick = '', 
-                            pending = True, 
-                            premium_since = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
-                            roles = [
-                                '9072888001528021798096225500850762068629339333975650685139102691291'
-                                ], 
-                            user = dc_rest.models.user_response.UserResponse(
-                                id = '9072888001528021798096225500850762068629339333975650685139102691291', 
-                                username = '', 
-                                avatar = '', 
-                                discriminator = '', 
-                                public_flags = 56, 
-                                flags = -9007199254740991, 
-                                bot = True, 
-                                system = True, 
-                                banner = '', 
-                                accent_color = 56, 
-                                global_name = '', ), 
-                            mute = True, 
-                            deaf = True, )
-                        }, 
-                    channels = {
-                        'key' : null
-                        }, 
-                    roles = {
-                        'key' : dc_rest.models.guild_role_response.GuildRoleResponse(
-                            id = , 
-                            name = '', 
-                            description = '', 
-                            permissions = '', 
-                            position = 56, 
-                            color = 56, 
-                            colors = dc_rest.models.guild_role_colors_response.GuildRoleColorsResponse(
-                                primary_color = 56, 
-                                secondary_color = 56, 
-                                tertiary_color = 56, ), 
-                            hoist = True, 
-                            managed = True, 
-                            mentionable = True, 
-                            icon = '', 
-                            unicode_emoji = '', 
-                            tags = dc_rest.models.guild_role_tags_response.GuildRoleTagsResponse(
-                                premium_subscriber = null, 
-                                bot_id = '9072888001528021798096225500850762068629339333975650685139102691291', 
-                                integration_id = '9072888001528021798096225500850762068629339333975650685139102691291', 
-                                subscription_listing_id = '9072888001528021798096225500850762068629339333975650685139102691291', 
-                                available_for_purchase = null, 
-                                guild_connections = null, ), 
-                            flags = 56, )
-                        }, ),
                 stickers = [
                     null
                     ],
@@ -497,6 +411,77 @@ class TestBasicMessageResponse(unittest.TestCase):
                         listing_id = '9072888001528021798096225500850762068629339333975650685139102691291', 
                         product_name = '', ), ),
                 position = 56,
+                resolved = dc_rest.models.resolved_objects_response.ResolvedObjectsResponse(
+                    users = {
+                        'key' : dc_rest.models.user_response.UserResponse(
+                            id = '9072888001528021798096225500850762068629339333975650685139102691291', 
+                            username = '', 
+                            avatar = '', 
+                            discriminator = '', 
+                            public_flags = 56, 
+                            flags = -9007199254740991, 
+                            bot = True, 
+                            system = True, 
+                            banner = '', 
+                            accent_color = 56, 
+                            global_name = '', 
+                            avatar_decoration_data = dc_rest.models.user_avatar_decoration_response.UserAvatarDecorationResponse(
+                                asset = '', 
+                                sku_id = '9072888001528021798096225500850762068629339333975650685139102691291', ), 
+                            collectibles = dc_rest.models.user_collectibles_response.UserCollectiblesResponse(
+                                nameplate = dc_rest.models.user_nameplate_response.UserNameplateResponse(
+                                    asset = '', 
+                                    label = '', 
+                                    palette = '', ), ), 
+                            primary_guild = dc_rest.models.user_primary_guild_response.UserPrimaryGuildResponse(
+                                identity_guild_id = '9072888001528021798096225500850762068629339333975650685139102691291', 
+                                identity_enabled = True, 
+                                tag = '', 
+                                badge = '', ), )
+                        }, 
+                    members = {
+                        'key' : dc_rest.models.basic_guild_member_response.BasicGuildMemberResponse(
+                            avatar = '', 
+                            banner = '', 
+                            communication_disabled_until = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                            flags = 56, 
+                            joined_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                            nick = '', 
+                            pending = True, 
+                            premium_since = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                            roles = [
+                                '9072888001528021798096225500850762068629339333975650685139102691291'
+                                ], )
+                        }, 
+                    channels = {
+                        'key' : null
+                        }, 
+                    roles = {
+                        'key' : dc_rest.models.guild_role_response.GuildRoleResponse(
+                            id = '9072888001528021798096225500850762068629339333975650685139102691291', 
+                            name = '', 
+                            description = '', 
+                            permissions = '', 
+                            position = 56, 
+                            color = 56, 
+                            colors = dc_rest.models.guild_role_colors_response.GuildRoleColorsResponse(
+                                primary_color = 56, 
+                                secondary_color = 56, 
+                                tertiary_color = 56, ), 
+                            hoist = True, 
+                            managed = True, 
+                            mentionable = True, 
+                            icon = '', 
+                            unicode_emoji = '', 
+                            tags = dc_rest.models.guild_role_tags_response.GuildRoleTagsResponse(
+                                premium_subscriber = null, 
+                                bot_id = '9072888001528021798096225500850762068629339333975650685139102691291', 
+                                integration_id = '9072888001528021798096225500850762068629339333975650685139102691291', 
+                                subscription_listing_id = '9072888001528021798096225500850762068629339333975650685139102691291', 
+                                available_for_purchase = null, 
+                                guild_connections = null, ), 
+                            flags = 56, )
+                        }, ),
                 poll = dc_rest.models.poll_response.PollResponse(
                     question = dc_rest.models.poll_media_response.PollMediaResponse(
                         text = '', 
@@ -521,6 +506,13 @@ class TestBasicMessageResponse(unittest.TestCase):
                                 me_voted = True, )
                             ], 
                         is_finalized = True, ), ),
+                shared_client_theme = dc_rest.models.custom_client_theme_response.CustomClientThemeResponse(
+                    colors = [
+                        ''
+                        ], 
+                    gradient_angle = 56, 
+                    base_mix = 56, 
+                    base_theme = 56, ),
                 interaction_metadata = None,
                 message_snapshots = [
                     dc_rest.models.message_snapshot_response.MessageSnapshotResponse(
@@ -675,49 +667,6 @@ class TestBasicMessageResponse(unittest.TestCase):
                             components = [
                                 null
                                 ], 
-                            resolved = dc_rest.models.resolved_objects_response.ResolvedObjectsResponse(
-                                users = {
-                                    'key' : 
-                                    }, 
-                                members = {
-                                    'key' : dc_rest.models.guild_member_response.GuildMemberResponse(
-                                        avatar = '', 
-                                        banner = '', 
-                                        communication_disabled_until = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
-                                        flags = 56, 
-                                        joined_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
-                                        nick = '', 
-                                        pending = True, 
-                                        premium_since = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
-                                        roles = [
-                                            '9072888001528021798096225500850762068629339333975650685139102691291'
-                                            ], 
-                                        user = , 
-                                        mute = True, 
-                                        deaf = True, )
-                                    }, 
-                                channels = {
-                                    'key' : null
-                                    }, 
-                                roles = {
-                                    'key' : dc_rest.models.guild_role_response.GuildRoleResponse(
-                                        id = , 
-                                        name = '', 
-                                        description = '', 
-                                        permissions = '', 
-                                        position = 56, 
-                                        color = 56, 
-                                        colors = dc_rest.models.guild_role_colors_response.GuildRoleColorsResponse(
-                                            primary_color = 56, 
-                                            secondary_color = 56, 
-                                            tertiary_color = 56, ), 
-                                        hoist = True, 
-                                        managed = True, 
-                                        mentionable = True, 
-                                        icon = '', 
-                                        unicode_emoji = '', 
-                                        flags = 56, )
-                                    }, ), 
                             stickers = [
                                 null
                                 ], 

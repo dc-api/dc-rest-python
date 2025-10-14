@@ -9,8 +9,8 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
-- **Generator Version**: 7.14.0
+- **Modified**: 2025-10-14T14:27:07.339508839Z[Etc/UTC]
+- **Generator Version**: 7.16.0
 
 <details>
 <summary><strong>⚠️ Important Disclaimer & Limitation of Liability</strong></summary>
@@ -45,14 +45,13 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 </details>
 """  # noqa: E501
 
-
 from __future__ import annotations
 import pprint
 import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr, field_validator
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, List
 from typing_extensions import Annotated
 from dc_rest.models.default_keyword_list_trigger_metadata_response import DefaultKeywordListTriggerMetadataResponse
 from dc_rest.models.default_keyword_rule_response_actions_inner import DefaultKeywordRuleResponseActionsInner
@@ -70,9 +69,9 @@ class DefaultKeywordRuleResponse(BaseModel):
     event_type: StrictInt
     actions: List[DefaultKeywordRuleResponseActionsInner]
     trigger_type: StrictInt
-    enabled: Optional[StrictBool] = None
-    exempt_roles: Optional[List[Annotated[str, Field(strict=True)]]] = None
-    exempt_channels: Optional[List[Annotated[str, Field(strict=True)]]] = None
+    enabled: StrictBool
+    exempt_roles: List[Annotated[str, Field(strict=True)]]
+    exempt_channels: List[Annotated[str, Field(strict=True)]]
     trigger_metadata: DefaultKeywordListTriggerMetadataResponse
     __properties: ClassVar[List[str]] = ["id", "guild_id", "creator_id", "name", "event_type", "actions", "trigger_type", "enabled", "exempt_roles", "exempt_channels", "trigger_metadata"]
 
@@ -146,21 +145,6 @@ class DefaultKeywordRuleResponse(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of trigger_metadata
         if self.trigger_metadata:
             _dict['trigger_metadata'] = self.trigger_metadata.to_dict()
-        # set to None if enabled (nullable) is None
-        # and model_fields_set contains the field
-        if self.enabled is None and "enabled" in self.model_fields_set:
-            _dict['enabled'] = None
-
-        # set to None if exempt_roles (nullable) is None
-        # and model_fields_set contains the field
-        if self.exempt_roles is None and "exempt_roles" in self.model_fields_set:
-            _dict['exempt_roles'] = None
-
-        # set to None if exempt_channels (nullable) is None
-        # and model_fields_set contains the field
-        if self.exempt_channels is None and "exempt_channels" in self.model_fields_set:
-            _dict['exempt_channels'] = None
-
         return _dict
 
     @classmethod

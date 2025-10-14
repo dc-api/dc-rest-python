@@ -9,8 +9,8 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
-- **Generator Version**: 7.14.0
+- **Modified**: 2025-10-14T14:27:07.339508839Z[Etc/UTC]
+- **Generator Version**: 7.16.0
 
 <details>
 <summary><strong>⚠️ Important Disclaimer & Limitation of Liability</strong></summary>
@@ -44,7 +44,6 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 
 </details>
 """  # noqa: E501
-
 
 import unittest
 
@@ -221,49 +220,6 @@ class TestUpdateMessageInteractionCallbackResponse(unittest.TestCase):
                     components = [
                         null
                         ], 
-                    resolved = dc_rest.models.resolved_objects_response.ResolvedObjectsResponse(
-                        users = {
-                            'key' : 
-                            }, 
-                        members = {
-                            'key' : dc_rest.models.guild_member_response.GuildMemberResponse(
-                                avatar = '', 
-                                banner = '', 
-                                communication_disabled_until = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
-                                flags = 56, 
-                                joined_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
-                                nick = '', 
-                                pending = True, 
-                                premium_since = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
-                                roles = [
-                                    '9072888001528021798096225500850762068629339333975650685139102691291'
-                                    ], 
-                                user = , 
-                                mute = True, 
-                                deaf = True, )
-                            }, 
-                        channels = {
-                            'key' : null
-                            }, 
-                        roles = {
-                            'key' : dc_rest.models.guild_role_response.GuildRoleResponse(
-                                id = , 
-                                name = '', 
-                                description = '', 
-                                permissions = '', 
-                                position = 56, 
-                                color = 56, 
-                                colors = dc_rest.models.guild_role_colors_response.GuildRoleColorsResponse(
-                                    primary_color = 56, 
-                                    secondary_color = 56, 
-                                    tertiary_color = 56, ), 
-                                hoist = True, 
-                                managed = True, 
-                                mentionable = True, 
-                                icon = '', 
-                                unicode_emoji = '', 
-                                flags = 56, )
-                            }, ), 
                     stickers = [
                         null
                         ], 
@@ -297,10 +253,12 @@ class TestUpdateMessageInteractionCallbackResponse(unittest.TestCase):
                         id = , 
                         type = 56, 
                         name = '', 
+                        user = , 
                         name_localized = '', ), 
                     nonce = null, 
                     webhook_id = '9072888001528021798096225500850762068629339333975650685139102691291', 
                     message_reference = dc_rest.models.message_reference_response.MessageReferenceResponse(
+                        type = null, 
                         channel_id = '9072888001528021798096225500850762068629339333975650685139102691291', 
                         message_id = '9072888001528021798096225500850762068629339333975650685139102691291', 
                         guild_id = '9072888001528021798096225500850762068629339333975650685139102691291', ), 
@@ -356,6 +314,46 @@ class TestUpdateMessageInteractionCallbackResponse(unittest.TestCase):
                             listing_id = '9072888001528021798096225500850762068629339333975650685139102691291', 
                             product_name = '', ), ), 
                     position = 56, 
+                    resolved = dc_rest.models.resolved_objects_response.ResolvedObjectsResponse(
+                        users = {
+                            'key' : 
+                            }, 
+                        members = {
+                            'key' : dc_rest.models.basic_guild_member_response.BasicGuildMemberResponse(
+                                avatar = '', 
+                                banner = '', 
+                                communication_disabled_until = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                                flags = 56, 
+                                joined_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                                nick = '', 
+                                pending = True, 
+                                premium_since = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                                roles = [
+                                    '9072888001528021798096225500850762068629339333975650685139102691291'
+                                    ], )
+                            }, 
+                        channels = {
+                            'key' : null
+                            }, 
+                        roles = {
+                            'key' : dc_rest.models.guild_role_response.GuildRoleResponse(
+                                id = , 
+                                name = '', 
+                                description = '', 
+                                permissions = '', 
+                                position = 56, 
+                                color = 56, 
+                                colors = dc_rest.models.guild_role_colors_response.GuildRoleColorsResponse(
+                                    primary_color = 56, 
+                                    secondary_color = 56, 
+                                    tertiary_color = 56, ), 
+                                hoist = True, 
+                                managed = True, 
+                                mentionable = True, 
+                                icon = '', 
+                                unicode_emoji = '', 
+                                flags = 56, )
+                            }, ), 
                     poll = dc_rest.models.poll_response.PollResponse(
                         question = dc_rest.models.poll_media_response.PollMediaResponse(
                             text = '', 
@@ -379,6 +377,13 @@ class TestUpdateMessageInteractionCallbackResponse(unittest.TestCase):
                                     me_voted = True, )
                                 ], 
                             is_finalized = True, ), ), 
+                    shared_client_theme = dc_rest.models.custom_client_theme_response.CustomClientThemeResponse(
+                        colors = [
+                            ''
+                            ], 
+                        gradient_angle = 56, 
+                        base_mix = 56, 
+                        base_theme = 56, ), 
                     interaction_metadata = null, 
                     message_snapshots = [
                         dc_rest.models.message_snapshot_response.MessageSnapshotResponse(
@@ -611,49 +616,6 @@ class TestUpdateMessageInteractionCallbackResponse(unittest.TestCase):
                     components = [
                         null
                         ], 
-                    resolved = dc_rest.models.resolved_objects_response.ResolvedObjectsResponse(
-                        users = {
-                            'key' : 
-                            }, 
-                        members = {
-                            'key' : dc_rest.models.guild_member_response.GuildMemberResponse(
-                                avatar = '', 
-                                banner = '', 
-                                communication_disabled_until = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
-                                flags = 56, 
-                                joined_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
-                                nick = '', 
-                                pending = True, 
-                                premium_since = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
-                                roles = [
-                                    '9072888001528021798096225500850762068629339333975650685139102691291'
-                                    ], 
-                                user = , 
-                                mute = True, 
-                                deaf = True, )
-                            }, 
-                        channels = {
-                            'key' : null
-                            }, 
-                        roles = {
-                            'key' : dc_rest.models.guild_role_response.GuildRoleResponse(
-                                id = , 
-                                name = '', 
-                                description = '', 
-                                permissions = '', 
-                                position = 56, 
-                                color = 56, 
-                                colors = dc_rest.models.guild_role_colors_response.GuildRoleColorsResponse(
-                                    primary_color = 56, 
-                                    secondary_color = 56, 
-                                    tertiary_color = 56, ), 
-                                hoist = True, 
-                                managed = True, 
-                                mentionable = True, 
-                                icon = '', 
-                                unicode_emoji = '', 
-                                flags = 56, )
-                            }, ), 
                     stickers = [
                         null
                         ], 
@@ -687,10 +649,12 @@ class TestUpdateMessageInteractionCallbackResponse(unittest.TestCase):
                         id = , 
                         type = 56, 
                         name = '', 
+                        user = , 
                         name_localized = '', ), 
                     nonce = null, 
                     webhook_id = '9072888001528021798096225500850762068629339333975650685139102691291', 
                     message_reference = dc_rest.models.message_reference_response.MessageReferenceResponse(
+                        type = null, 
                         channel_id = '9072888001528021798096225500850762068629339333975650685139102691291', 
                         message_id = '9072888001528021798096225500850762068629339333975650685139102691291', 
                         guild_id = '9072888001528021798096225500850762068629339333975650685139102691291', ), 
@@ -746,6 +710,46 @@ class TestUpdateMessageInteractionCallbackResponse(unittest.TestCase):
                             listing_id = '9072888001528021798096225500850762068629339333975650685139102691291', 
                             product_name = '', ), ), 
                     position = 56, 
+                    resolved = dc_rest.models.resolved_objects_response.ResolvedObjectsResponse(
+                        users = {
+                            'key' : 
+                            }, 
+                        members = {
+                            'key' : dc_rest.models.basic_guild_member_response.BasicGuildMemberResponse(
+                                avatar = '', 
+                                banner = '', 
+                                communication_disabled_until = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                                flags = 56, 
+                                joined_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                                nick = '', 
+                                pending = True, 
+                                premium_since = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                                roles = [
+                                    '9072888001528021798096225500850762068629339333975650685139102691291'
+                                    ], )
+                            }, 
+                        channels = {
+                            'key' : null
+                            }, 
+                        roles = {
+                            'key' : dc_rest.models.guild_role_response.GuildRoleResponse(
+                                id = , 
+                                name = '', 
+                                description = '', 
+                                permissions = '', 
+                                position = 56, 
+                                color = 56, 
+                                colors = dc_rest.models.guild_role_colors_response.GuildRoleColorsResponse(
+                                    primary_color = 56, 
+                                    secondary_color = 56, 
+                                    tertiary_color = 56, ), 
+                                hoist = True, 
+                                managed = True, 
+                                mentionable = True, 
+                                icon = '', 
+                                unicode_emoji = '', 
+                                flags = 56, )
+                            }, ), 
                     poll = dc_rest.models.poll_response.PollResponse(
                         question = dc_rest.models.poll_media_response.PollMediaResponse(
                             text = '', 
@@ -769,6 +773,13 @@ class TestUpdateMessageInteractionCallbackResponse(unittest.TestCase):
                                     me_voted = True, )
                                 ], 
                             is_finalized = True, ), ), 
+                    shared_client_theme = dc_rest.models.custom_client_theme_response.CustomClientThemeResponse(
+                        colors = [
+                            ''
+                            ], 
+                        gradient_angle = 56, 
+                        base_mix = 56, 
+                        base_theme = 56, ), 
                     interaction_metadata = null, 
                     message_snapshots = [
                         dc_rest.models.message_snapshot_response.MessageSnapshotResponse(

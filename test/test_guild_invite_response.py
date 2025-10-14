@@ -9,8 +9,8 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
-- **Generator Version**: 7.14.0
+- **Modified**: 2025-10-14T14:27:07.339508839Z[Etc/UTC]
+- **Generator Version**: 7.16.0
 
 <details>
 <summary><strong>⚠️ Important Disclaimer & Limitation of Liability</strong></summary>
@@ -44,7 +44,6 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 
 </details>
 """  # noqa: E501
-
 
 import unittest
 
@@ -292,7 +291,33 @@ class TestGuildInviteResponse(unittest.TestCase):
             )
         else:
             return GuildInviteResponse(
+                type = 56,
                 code = '',
+                guild = dc_rest.models.invite_guild_response.InviteGuildResponse(
+                    id = '9072888001528021798096225500850762068629339333975650685139102691291', 
+                    name = '', 
+                    splash = '', 
+                    banner = '', 
+                    description = '', 
+                    icon = '', 
+                    features = [
+                        ''
+                        ], 
+                    verification_level = 56, 
+                    vanity_url_code = '', 
+                    nsfw_level = 56, 
+                    nsfw = True, 
+                    premium_subscription_count = 56, ),
+                guild_id = '9072888001528021798096225500850762068629339333975650685139102691291',
+                channel = dc_rest.models.invite_channel_response.InviteChannelResponse(
+                    id = '9072888001528021798096225500850762068629339333975650685139102691291', 
+                    type = 56, 
+                    name = '', 
+                    icon = '', 
+                    recipients = [
+                        dc_rest.models.invite_channel_recipient_response.InviteChannelRecipientResponse(
+                            username = '', )
+                        ], ),
         )
         """
 

@@ -6,9 +6,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **sku_id** | **str** |  | [optional] 
-**asset** | **str** |  | [optional] 
-**label** | **str** |  | [optional] 
-**palette** | **str** |  | [optional] 
+**asset** | **str** |  | 
+**label** | **str** |  | 
+**palette** | **str** |  | 
 
 ## Example
 

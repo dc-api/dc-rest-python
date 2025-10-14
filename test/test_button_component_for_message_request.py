@@ -9,8 +9,8 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
-- **Generator Version**: 7.14.0
+- **Modified**: 2025-10-14T14:27:07.339508839Z[Etc/UTC]
+- **Generator Version**: 7.16.0
 
 <details>
 <summary><strong>⚠️ Important Disclaimer & Limitation of Liability</strong></summary>
@@ -45,7 +45,6 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 </details>
 """  # noqa: E501
 
-
 import unittest
 
 from dc_rest.models.button_component_for_message_request import ButtonComponentForMessageRequest
@@ -70,13 +69,14 @@ class TestButtonComponentForMessageRequest(unittest.TestCase):
         if include_optional:
             return ButtonComponentForMessageRequest(
                 type = 56,
-                custom_id = '',
+                id = 0,
+                custom_id = '0',
                 style = 56,
                 label = '',
                 disabled = True,
                 url = '',
                 sku_id = '9072888001528021798096225500850762068629339333975650685139102691291',
-                emoji = dc_rest.models.component_emoji_for_message_request.ComponentEmojiForMessageRequest(
+                emoji = dc_rest.models.component_emoji_for_request.ComponentEmojiForRequest(
                     id = '9072888001528021798096225500850762068629339333975650685139102691291', 
                     name = '', )
             )

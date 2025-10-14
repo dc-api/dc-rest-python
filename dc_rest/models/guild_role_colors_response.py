@@ -9,8 +9,8 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
-- **Generator Version**: 7.14.0
+- **Modified**: 2025-10-14T14:27:07.339508839Z[Etc/UTC]
+- **Generator Version**: 7.16.0
 
 <details>
 <summary><strong>⚠️ Important Disclaimer & Limitation of Liability</strong></summary>
@@ -45,7 +45,6 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 </details>
 """  # noqa: E501
 
-
 from __future__ import annotations
 import pprint
 import re  # noqa: F401
@@ -60,7 +59,7 @@ class GuildRoleColorsResponse(BaseModel):
     """
     GuildRoleColorsResponse
     """ # noqa: E501
-    primary_color: Optional[StrictInt] = None
+    primary_color: StrictInt
     secondary_color: Optional[StrictInt] = None
     tertiary_color: Optional[StrictInt] = None
     __properties: ClassVar[List[str]] = ["primary_color", "secondary_color", "tertiary_color"]
@@ -104,11 +103,6 @@ class GuildRoleColorsResponse(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if primary_color (nullable) is None
-        # and model_fields_set contains the field
-        if self.primary_color is None and "primary_color" in self.model_fields_set:
-            _dict['primary_color'] = None
-
         # set to None if secondary_color (nullable) is None
         # and model_fields_set contains the field
         if self.secondary_color is None and "secondary_color" in self.model_fields_set:

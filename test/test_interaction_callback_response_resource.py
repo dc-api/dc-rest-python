@@ -9,8 +9,8 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
-- **Generator Version**: 7.14.0
+- **Modified**: 2025-10-14T14:27:07.339508839Z[Etc/UTC]
+- **Generator Version**: 7.16.0
 
 <details>
 <summary><strong>⚠️ Important Disclaimer & Limitation of Liability</strong></summary>
@@ -44,7 +44,6 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 
 </details>
 """  # noqa: E501
-
 
 import unittest
 
@@ -226,49 +225,6 @@ class TestInteractionCallbackResponseResource(unittest.TestCase):
                     components = [
                         null
                         ], 
-                    resolved = dc_rest.models.resolved_objects_response.ResolvedObjectsResponse(
-                        users = {
-                            'key' : 
-                            }, 
-                        members = {
-                            'key' : dc_rest.models.guild_member_response.GuildMemberResponse(
-                                avatar = '', 
-                                banner = '', 
-                                communication_disabled_until = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
-                                flags = 56, 
-                                joined_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
-                                nick = '', 
-                                pending = True, 
-                                premium_since = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
-                                roles = [
-                                    '9072888001528021798096225500850762068629339333975650685139102691291'
-                                    ], 
-                                user = , 
-                                mute = True, 
-                                deaf = True, )
-                            }, 
-                        channels = {
-                            'key' : null
-                            }, 
-                        roles = {
-                            'key' : dc_rest.models.guild_role_response.GuildRoleResponse(
-                                id = '9072888001528021798096225500850762068629339333975650685139102691291', 
-                                name = '', 
-                                description = '', 
-                                permissions = '', 
-                                position = 56, 
-                                color = 56, 
-                                colors = dc_rest.models.guild_role_colors_response.GuildRoleColorsResponse(
-                                    primary_color = 56, 
-                                    secondary_color = 56, 
-                                    tertiary_color = 56, ), 
-                                hoist = True, 
-                                managed = True, 
-                                mentionable = True, 
-                                icon = '', 
-                                unicode_emoji = '', 
-                                flags = 56, )
-                            }, ), 
                     stickers = [
                         null
                         ], 
@@ -303,6 +259,7 @@ class TestInteractionCallbackResponseResource(unittest.TestCase):
                         id = '9072888001528021798096225500850762068629339333975650685139102691291', 
                         type = 56, 
                         name = '', 
+                        user = , 
                         name_localized = '', ), 
                     nonce = null, 
                     webhook_id = '9072888001528021798096225500850762068629339333975650685139102691291', 
@@ -363,6 +320,46 @@ class TestInteractionCallbackResponseResource(unittest.TestCase):
                             listing_id = '9072888001528021798096225500850762068629339333975650685139102691291', 
                             product_name = '', ), ), 
                     position = 56, 
+                    resolved = dc_rest.models.resolved_objects_response.ResolvedObjectsResponse(
+                        users = {
+                            'key' : 
+                            }, 
+                        members = {
+                            'key' : dc_rest.models.basic_guild_member_response.BasicGuildMemberResponse(
+                                avatar = '', 
+                                banner = '', 
+                                communication_disabled_until = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                                flags = 56, 
+                                joined_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                                nick = '', 
+                                pending = True, 
+                                premium_since = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                                roles = [
+                                    '9072888001528021798096225500850762068629339333975650685139102691291'
+                                    ], )
+                            }, 
+                        channels = {
+                            'key' : null
+                            }, 
+                        roles = {
+                            'key' : dc_rest.models.guild_role_response.GuildRoleResponse(
+                                id = '9072888001528021798096225500850762068629339333975650685139102691291', 
+                                name = '', 
+                                description = '', 
+                                permissions = '', 
+                                position = 56, 
+                                color = 56, 
+                                colors = dc_rest.models.guild_role_colors_response.GuildRoleColorsResponse(
+                                    primary_color = 56, 
+                                    secondary_color = 56, 
+                                    tertiary_color = 56, ), 
+                                hoist = True, 
+                                managed = True, 
+                                mentionable = True, 
+                                icon = '', 
+                                unicode_emoji = '', 
+                                flags = 56, )
+                            }, ), 
                     poll = dc_rest.models.poll_response.PollResponse(
                         question = dc_rest.models.poll_media_response.PollMediaResponse(
                             text = '', 
@@ -387,9 +384,57 @@ class TestInteractionCallbackResponseResource(unittest.TestCase):
                                     me_voted = True, )
                                 ], 
                             is_finalized = True, ), ), 
+                    shared_client_theme = dc_rest.models.custom_client_theme_response.CustomClientThemeResponse(
+                        colors = [
+                            ''
+                            ], 
+                        gradient_angle = 56, 
+                        base_mix = 56, 
+                        base_theme = 56, ), 
                     interaction_metadata = null, 
                     message_snapshots = [
-                        dc_rest.models.message_snapshot_response.MessageSnapshotResponse()
+                        dc_rest.models.message_snapshot_response.MessageSnapshotResponse(
+                            message = dc_rest.models.minimal_content_message_response.MinimalContentMessageResponse(
+                                type = 56, 
+                                content = '', 
+                                mentions = [
+                                    
+                                    ], 
+                                mention_roles = [
+                                    '9072888001528021798096225500850762068629339333975650685139102691291'
+                                    ], 
+                                attachments = [
+                                    dc_rest.models.attachment_response.AttachmentResponse(
+                                        id = '9072888001528021798096225500850762068629339333975650685139102691291', 
+                                        filename = '', 
+                                        size = 56, 
+                                        url = '', 
+                                        proxy_url = '', 
+                                        width = 56, 
+                                        height = 56, 
+                                        duration_secs = 1.337, 
+                                        waveform = '', 
+                                        description = '', 
+                                        content_type = '', 
+                                        ephemeral = True, 
+                                        title = '', 
+                                        clip_created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), )
+                                    ], 
+                                embeds = [
+                                    dc_rest.models.message_embed_response.MessageEmbedResponse(
+                                        type = '', 
+                                        url = '', 
+                                        title = '', 
+                                        description = '', 
+                                        color = 56, 
+                                        timestamp = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), )
+                                    ], 
+                                timestamp = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                                edited_timestamp = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                                flags = 56, 
+                                components = [
+                                    null
+                                    ], ), )
                         ], 
                     reactions = [
                         dc_rest.models.message_reaction_response.MessageReactionResponse(
@@ -410,44 +455,14 @@ class TestInteractionCallbackResponseResource(unittest.TestCase):
                     referenced_message = dc_rest.models.basic_message_response.BasicMessageResponse(
                         type = 56, 
                         content = '', 
-                        mentions = [
-                            
-                            ], 
-                        mention_roles = [
-                            '9072888001528021798096225500850762068629339333975650685139102691291'
-                            ], 
-                        attachments = [
-                            dc_rest.models.attachment_response.AttachmentResponse(
-                                id = '9072888001528021798096225500850762068629339333975650685139102691291', 
-                                filename = '', 
-                                size = 56, 
-                                url = '', 
-                                proxy_url = '', 
-                                width = 56, 
-                                height = 56, 
-                                duration_secs = 1.337, 
-                                waveform = '', 
-                                description = '', 
-                                content_type = '', 
-                                ephemeral = True, 
-                                title = '', 
-                                clip_created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), )
-                            ], 
-                        embeds = [
-                            dc_rest.models.message_embed_response.MessageEmbedResponse(
-                                type = '', 
-                                url = '', 
-                                title = '', 
-                                description = '', 
-                                color = 56, 
-                                timestamp = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), )
-                            ], 
+                        mentions = , 
+                        mention_roles = , 
+                        attachments = , 
+                        embeds = , 
                         timestamp = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
                         edited_timestamp = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
                         flags = 56, 
-                        components = [
-                            null
-                            ], 
+                        components = , 
                         id = '9072888001528021798096225500850762068629339333975650685139102691291', 
                         channel_id = '9072888001528021798096225500850762068629339333975650685139102691291', 
                         author = , 
@@ -618,49 +633,6 @@ class TestInteractionCallbackResponseResource(unittest.TestCase):
                     components = [
                         null
                         ], 
-                    resolved = dc_rest.models.resolved_objects_response.ResolvedObjectsResponse(
-                        users = {
-                            'key' : 
-                            }, 
-                        members = {
-                            'key' : dc_rest.models.guild_member_response.GuildMemberResponse(
-                                avatar = '', 
-                                banner = '', 
-                                communication_disabled_until = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
-                                flags = 56, 
-                                joined_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
-                                nick = '', 
-                                pending = True, 
-                                premium_since = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
-                                roles = [
-                                    '9072888001528021798096225500850762068629339333975650685139102691291'
-                                    ], 
-                                user = , 
-                                mute = True, 
-                                deaf = True, )
-                            }, 
-                        channels = {
-                            'key' : null
-                            }, 
-                        roles = {
-                            'key' : dc_rest.models.guild_role_response.GuildRoleResponse(
-                                id = '9072888001528021798096225500850762068629339333975650685139102691291', 
-                                name = '', 
-                                description = '', 
-                                permissions = '', 
-                                position = 56, 
-                                color = 56, 
-                                colors = dc_rest.models.guild_role_colors_response.GuildRoleColorsResponse(
-                                    primary_color = 56, 
-                                    secondary_color = 56, 
-                                    tertiary_color = 56, ), 
-                                hoist = True, 
-                                managed = True, 
-                                mentionable = True, 
-                                icon = '', 
-                                unicode_emoji = '', 
-                                flags = 56, )
-                            }, ), 
                     stickers = [
                         null
                         ], 
@@ -695,6 +667,7 @@ class TestInteractionCallbackResponseResource(unittest.TestCase):
                         id = '9072888001528021798096225500850762068629339333975650685139102691291', 
                         type = 56, 
                         name = '', 
+                        user = , 
                         name_localized = '', ), 
                     nonce = null, 
                     webhook_id = '9072888001528021798096225500850762068629339333975650685139102691291', 
@@ -755,6 +728,46 @@ class TestInteractionCallbackResponseResource(unittest.TestCase):
                             listing_id = '9072888001528021798096225500850762068629339333975650685139102691291', 
                             product_name = '', ), ), 
                     position = 56, 
+                    resolved = dc_rest.models.resolved_objects_response.ResolvedObjectsResponse(
+                        users = {
+                            'key' : 
+                            }, 
+                        members = {
+                            'key' : dc_rest.models.basic_guild_member_response.BasicGuildMemberResponse(
+                                avatar = '', 
+                                banner = '', 
+                                communication_disabled_until = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                                flags = 56, 
+                                joined_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                                nick = '', 
+                                pending = True, 
+                                premium_since = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                                roles = [
+                                    '9072888001528021798096225500850762068629339333975650685139102691291'
+                                    ], )
+                            }, 
+                        channels = {
+                            'key' : null
+                            }, 
+                        roles = {
+                            'key' : dc_rest.models.guild_role_response.GuildRoleResponse(
+                                id = '9072888001528021798096225500850762068629339333975650685139102691291', 
+                                name = '', 
+                                description = '', 
+                                permissions = '', 
+                                position = 56, 
+                                color = 56, 
+                                colors = dc_rest.models.guild_role_colors_response.GuildRoleColorsResponse(
+                                    primary_color = 56, 
+                                    secondary_color = 56, 
+                                    tertiary_color = 56, ), 
+                                hoist = True, 
+                                managed = True, 
+                                mentionable = True, 
+                                icon = '', 
+                                unicode_emoji = '', 
+                                flags = 56, )
+                            }, ), 
                     poll = dc_rest.models.poll_response.PollResponse(
                         question = dc_rest.models.poll_media_response.PollMediaResponse(
                             text = '', 
@@ -779,9 +792,57 @@ class TestInteractionCallbackResponseResource(unittest.TestCase):
                                     me_voted = True, )
                                 ], 
                             is_finalized = True, ), ), 
+                    shared_client_theme = dc_rest.models.custom_client_theme_response.CustomClientThemeResponse(
+                        colors = [
+                            ''
+                            ], 
+                        gradient_angle = 56, 
+                        base_mix = 56, 
+                        base_theme = 56, ), 
                     interaction_metadata = null, 
                     message_snapshots = [
-                        dc_rest.models.message_snapshot_response.MessageSnapshotResponse()
+                        dc_rest.models.message_snapshot_response.MessageSnapshotResponse(
+                            message = dc_rest.models.minimal_content_message_response.MinimalContentMessageResponse(
+                                type = 56, 
+                                content = '', 
+                                mentions = [
+                                    
+                                    ], 
+                                mention_roles = [
+                                    '9072888001528021798096225500850762068629339333975650685139102691291'
+                                    ], 
+                                attachments = [
+                                    dc_rest.models.attachment_response.AttachmentResponse(
+                                        id = '9072888001528021798096225500850762068629339333975650685139102691291', 
+                                        filename = '', 
+                                        size = 56, 
+                                        url = '', 
+                                        proxy_url = '', 
+                                        width = 56, 
+                                        height = 56, 
+                                        duration_secs = 1.337, 
+                                        waveform = '', 
+                                        description = '', 
+                                        content_type = '', 
+                                        ephemeral = True, 
+                                        title = '', 
+                                        clip_created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), )
+                                    ], 
+                                embeds = [
+                                    dc_rest.models.message_embed_response.MessageEmbedResponse(
+                                        type = '', 
+                                        url = '', 
+                                        title = '', 
+                                        description = '', 
+                                        color = 56, 
+                                        timestamp = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), )
+                                    ], 
+                                timestamp = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                                edited_timestamp = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                                flags = 56, 
+                                components = [
+                                    null
+                                    ], ), )
                         ], 
                     reactions = [
                         dc_rest.models.message_reaction_response.MessageReactionResponse(
@@ -802,44 +863,14 @@ class TestInteractionCallbackResponseResource(unittest.TestCase):
                     referenced_message = dc_rest.models.basic_message_response.BasicMessageResponse(
                         type = 56, 
                         content = '', 
-                        mentions = [
-                            
-                            ], 
-                        mention_roles = [
-                            '9072888001528021798096225500850762068629339333975650685139102691291'
-                            ], 
-                        attachments = [
-                            dc_rest.models.attachment_response.AttachmentResponse(
-                                id = '9072888001528021798096225500850762068629339333975650685139102691291', 
-                                filename = '', 
-                                size = 56, 
-                                url = '', 
-                                proxy_url = '', 
-                                width = 56, 
-                                height = 56, 
-                                duration_secs = 1.337, 
-                                waveform = '', 
-                                description = '', 
-                                content_type = '', 
-                                ephemeral = True, 
-                                title = '', 
-                                clip_created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), )
-                            ], 
-                        embeds = [
-                            dc_rest.models.message_embed_response.MessageEmbedResponse(
-                                type = '', 
-                                url = '', 
-                                title = '', 
-                                description = '', 
-                                color = 56, 
-                                timestamp = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), )
-                            ], 
+                        mentions = , 
+                        mention_roles = , 
+                        attachments = , 
+                        embeds = , 
                         timestamp = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
                         edited_timestamp = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
                         flags = 56, 
-                        components = [
-                            null
-                            ], 
+                        components = , 
                         id = '9072888001528021798096225500850762068629339333975650685139102691291', 
                         channel_id = '9072888001528021798096225500850762068629339333975650685139102691291', 
                         author = , 

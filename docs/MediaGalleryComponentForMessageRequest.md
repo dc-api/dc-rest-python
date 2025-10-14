@@ -6,6 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **type** | **int** |  | 
+**id** | **int** |  | [optional] 
 **items** | [**List[MediaGalleryItemRequest]**](MediaGalleryItemRequest.md) |  | 
 
 ## Example
