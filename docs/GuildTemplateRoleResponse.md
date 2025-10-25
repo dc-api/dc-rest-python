@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **name** | **str** |  | 
 **permissions** | **str** |  | 
 **color** | **int** |  | 
+**colors** | [**GuildTemplateRoleColorsResponse**](GuildTemplateRoleColorsResponse.md) |  | [optional] 
 **hoist** | **bool** |  | 
 **mentionable** | **bool** |  | 
 **icon** | **str** |  | [optional] 

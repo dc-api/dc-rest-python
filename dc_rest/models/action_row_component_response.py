@@ -9,8 +9,8 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
-- **Generator Version**: 7.14.0
+- **Modified**: 2025-10-25T01:29:53.774185207Z[Etc/UTC]
+- **Generator Version**: 7.16.0
 
 <details>
 <summary><strong>⚠️ Important Disclaimer & Limitation of Liability</strong></summary>
@@ -45,14 +45,13 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 </details>
 """  # noqa: E501
 
-
 from __future__ import annotations
 import pprint
 import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, StrictInt
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, List
 from dc_rest.models.action_row_component_response_components_inner import ActionRowComponentResponseComponentsInner
 from typing import Optional, Set
 from typing_extensions import Self
@@ -63,7 +62,7 @@ class ActionRowComponentResponse(BaseModel):
     """ # noqa: E501
     type: StrictInt
     id: StrictInt
-    components: Optional[List[ActionRowComponentResponseComponentsInner]] = None
+    components: List[ActionRowComponentResponseComponentsInner]
     __properties: ClassVar[List[str]] = ["type", "id", "components"]
 
     model_config = ConfigDict(
@@ -112,11 +111,6 @@ class ActionRowComponentResponse(BaseModel):
                 if _item_components:
                     _items.append(_item_components.to_dict())
             _dict['components'] = _items
-        # set to None if components (nullable) is None
-        # and model_fields_set contains the field
-        if self.components is None and "components" in self.model_fields_set:
-            _dict['components'] = None
-
         return _dict
 
     @classmethod

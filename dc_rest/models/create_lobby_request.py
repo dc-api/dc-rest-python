@@ -9,8 +9,8 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
-- **Generator Version**: 7.14.0
+- **Modified**: 2025-10-25T01:29:53.774185207Z[Etc/UTC]
+- **Generator Version**: 7.16.0
 
 <details>
 <summary><strong>⚠️ Important Disclaimer & Limitation of Liability</strong></summary>
@@ -45,13 +45,12 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 </details>
 """  # noqa: E501
 
-
 from __future__ import annotations
 import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, StrictInt, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
 from dc_rest.models.lobby_member_request import LobbyMemberRequest
@@ -65,7 +64,19 @@ class CreateLobbyRequest(BaseModel):
     idle_timeout_seconds: Optional[Annotated[int, Field(le=604800, strict=True, ge=5)]] = None
     members: Optional[Annotated[List[LobbyMemberRequest], Field(max_length=25)]] = None
     metadata: Optional[Dict[str, Annotated[str, Field(strict=True, max_length=1024)]]] = None
-    __properties: ClassVar[List[str]] = ["idle_timeout_seconds", "members", "metadata"]
+    flags: Optional[StrictInt] = None
+    override_event_webhooks_url: Optional[Annotated[str, Field(strict=True, max_length=512)]] = None
+    __properties: ClassVar[List[str]] = ["idle_timeout_seconds", "members", "metadata", "flags", "override_event_webhooks_url"]
+
+    @field_validator('flags')
+    def flags_validate_enum(cls, value):
+        """Validates the enum"""
+        if value is None:
+            return value
+
+        if value not in set([1]):
+            raise ValueError("must be one of enum values (1)")
+        return value
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -123,6 +134,16 @@ class CreateLobbyRequest(BaseModel):
         if self.members is None and "members" in self.model_fields_set:
             _dict['members'] = None
 
+        # set to None if flags (nullable) is None
+        # and model_fields_set contains the field
+        if self.flags is None and "flags" in self.model_fields_set:
+            _dict['flags'] = None
+
+        # set to None if override_event_webhooks_url (nullable) is None
+        # and model_fields_set contains the field
+        if self.override_event_webhooks_url is None and "override_event_webhooks_url" in self.model_fields_set:
+            _dict['override_event_webhooks_url'] = None
+
         return _dict
 
     @classmethod
@@ -142,7 +163,9 @@ class CreateLobbyRequest(BaseModel):
         _obj = cls.model_validate({
             "idle_timeout_seconds": obj.get("idle_timeout_seconds"),
             "members": [LobbyMemberRequest.from_dict(_item) for _item in obj["members"]] if obj.get("members") is not None else None,
-            "metadata": obj.get("metadata")
+            "metadata": obj.get("metadata"),
+            "flags": obj.get("flags"),
+            "override_event_webhooks_url": obj.get("override_event_webhooks_url")
         })
         return _obj
 

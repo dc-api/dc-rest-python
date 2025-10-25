@@ -9,8 +9,8 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
-- **Generator Version**: 7.14.0
+- **Modified**: 2025-10-25T01:29:53.774185207Z[Etc/UTC]
+- **Generator Version**: 7.16.0
 
 <details>
 <summary><strong>⚠️ Important Disclaimer & Limitation of Liability</strong></summary>
@@ -44,7 +44,6 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 
 </details>
 """  # noqa: E501
-
 
 from __future__ import annotations
 import pprint
@@ -88,9 +87,9 @@ class GuildResponse(BaseModel):
     mfa_level: StrictInt
     explicit_content_filter: StrictInt
     max_presences: Optional[StrictInt] = None
-    max_members: Optional[StrictInt] = None
-    max_stage_video_channel_users: Optional[StrictInt] = None
-    max_video_channel_users: Optional[StrictInt] = None
+    max_members: StrictInt
+    max_stage_video_channel_users: StrictInt
+    max_video_channel_users: StrictInt
     vanity_url_code: Optional[StrictStr] = None
     premium_tier: StrictInt
     premium_subscription_count: StrictInt
@@ -288,21 +287,6 @@ class GuildResponse(BaseModel):
         # and model_fields_set contains the field
         if self.max_presences is None and "max_presences" in self.model_fields_set:
             _dict['max_presences'] = None
-
-        # set to None if max_members (nullable) is None
-        # and model_fields_set contains the field
-        if self.max_members is None and "max_members" in self.model_fields_set:
-            _dict['max_members'] = None
-
-        # set to None if max_stage_video_channel_users (nullable) is None
-        # and model_fields_set contains the field
-        if self.max_stage_video_channel_users is None and "max_stage_video_channel_users" in self.model_fields_set:
-            _dict['max_stage_video_channel_users'] = None
-
-        # set to None if max_video_channel_users (nullable) is None
-        # and model_fields_set contains the field
-        if self.max_video_channel_users is None and "max_video_channel_users" in self.model_fields_set:
-            _dict['max_video_channel_users'] = None
 
         # set to None if vanity_url_code (nullable) is None
         # and model_fields_set contains the field

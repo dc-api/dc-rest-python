@@ -9,8 +9,8 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
-- **Generator Version**: 7.14.0
+- **Modified**: 2025-10-25T01:29:53.774185207Z[Etc/UTC]
+- **Generator Version**: 7.16.0
 
 <details>
 <summary><strong>⚠️ Important Disclaimer & Limitation of Liability</strong></summary>
@@ -45,14 +45,13 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 </details>
 """  # noqa: E501
 
-
 from __future__ import annotations
 import pprint
 import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictInt
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
 from dc_rest.models.section_component_for_message_request_accessory import SectionComponentForMessageRequestAccessory
 from dc_rest.models.text_display_component_for_message_request import TextDisplayComponentForMessageRequest
@@ -64,9 +63,10 @@ class SectionComponentForMessageRequest(BaseModel):
     SectionComponentForMessageRequest
     """ # noqa: E501
     type: StrictInt
+    id: Optional[Annotated[int, Field(strict=True, ge=0)]] = None
     components: Annotated[List[TextDisplayComponentForMessageRequest], Field(min_length=1, max_length=3)]
     accessory: SectionComponentForMessageRequestAccessory
-    __properties: ClassVar[List[str]] = ["type", "components", "accessory"]
+    __properties: ClassVar[List[str]] = ["type", "id", "components", "accessory"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -117,6 +117,11 @@ class SectionComponentForMessageRequest(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of accessory
         if self.accessory:
             _dict['accessory'] = self.accessory.to_dict()
+        # set to None if id (nullable) is None
+        # and model_fields_set contains the field
+        if self.id is None and "id" in self.model_fields_set:
+            _dict['id'] = None
+
         return _dict
 
     @classmethod
@@ -135,6 +140,7 @@ class SectionComponentForMessageRequest(BaseModel):
 
         _obj = cls.model_validate({
             "type": obj.get("type"),
+            "id": obj.get("id"),
             "components": [TextDisplayComponentForMessageRequest.from_dict(_item) for _item in obj["components"]] if obj.get("components") is not None else None,
             "accessory": SectionComponentForMessageRequestAccessory.from_dict(obj["accessory"]) if obj.get("accessory") is not None else None
         })

@@ -17,6 +17,7 @@ Name | Type | Description | Notes
 **fulfilled_at** | **datetime** |  | [optional] 
 **fulfillment_status** | **int** |  | [optional] 
 **consumed** | **bool** |  | [optional] 
+**gifter_user_id** | **str** |  | [optional] 
 
 ## Example
 

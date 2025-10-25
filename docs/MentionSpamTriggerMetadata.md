@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**mention_total_limit** | **int** |  | 
+**mention_total_limit** | **int** |  | [optional] 
 **mention_raid_protection_enabled** | **bool** |  | [optional] 
 
 ## Example

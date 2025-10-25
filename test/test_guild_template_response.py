@@ -9,8 +9,8 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
-- **Generator Version**: 7.14.0
+- **Modified**: 2025-10-25T01:29:53.774185207Z[Etc/UTC]
+- **Generator Version**: 7.16.0
 
 <details>
 <summary><strong>⚠️ Important Disclaimer & Limitation of Liability</strong></summary>
@@ -44,7 +44,6 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 
 </details>
 """  # noqa: E501
-
 
 import unittest
 
@@ -120,6 +119,10 @@ class TestGuildTemplateResponse(unittest.TestCase):
                             name = '', 
                             permissions = '', 
                             color = 56, 
+                            colors = dc_rest.models.guild_role_colors_response.GuildRoleColorsResponse(
+                                primary_color = 56, 
+                                secondary_color = 56, 
+                                tertiary_color = 56, ), 
                             hoist = True, 
                             mentionable = True, 
                             icon = '', 
@@ -147,6 +150,7 @@ class TestGuildTemplateResponse(unittest.TestCase):
                                 ], 
                             available_tags = [
                                 dc_rest.models.guild_template_channel_tags.GuildTemplateChannelTags(
+                                    id = 56, 
                                     name = '', 
                                     emoji_id = '9072888001528021798096225500850762068629339333975650685139102691291', 
                                     emoji_name = '', 
@@ -192,6 +196,10 @@ class TestGuildTemplateResponse(unittest.TestCase):
                             name = '', 
                             permissions = '', 
                             color = 56, 
+                            colors = dc_rest.models.guild_role_colors_response.GuildRoleColorsResponse(
+                                primary_color = 56, 
+                                secondary_color = 56, 
+                                tertiary_color = 56, ), 
                             hoist = True, 
                             mentionable = True, 
                             icon = '', 
@@ -219,6 +227,7 @@ class TestGuildTemplateResponse(unittest.TestCase):
                                 ], 
                             available_tags = [
                                 dc_rest.models.guild_template_channel_tags.GuildTemplateChannelTags(
+                                    id = 56, 
                                     name = '', 
                                     emoji_id = '9072888001528021798096225500850762068629339333975650685139102691291', 
                                     emoji_name = '', 

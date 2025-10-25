@@ -9,8 +9,8 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
-- **Generator Version**: 7.14.0
+- **Modified**: 2025-10-25T01:29:53.774185207Z[Etc/UTC]
+- **Generator Version**: 7.16.0
 
 <details>
 <summary><strong>⚠️ Important Disclaimer & Limitation of Liability</strong></summary>
@@ -45,7 +45,6 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 </details>
 """  # noqa: E501
 
-
 from __future__ import annotations
 import json
 import pprint
@@ -56,7 +55,7 @@ from pydantic import StrictStr, Field
 from typing import Union, List, Set, Optional, Dict
 from typing_extensions import Literal, Self
 
-PRUNEGUILDREQUESTINCLUDEROLES_ONE_OF_SCHEMAS = ["List[Optional[str]]", "str"]
+PRUNEGUILDREQUESTINCLUDEROLES_ONE_OF_SCHEMAS = ["List[str]", "str"]
 
 class PruneGuildRequestIncludeRoles(BaseModel):
     """
@@ -64,10 +63,10 @@ class PruneGuildRequestIncludeRoles(BaseModel):
     """
     # data type: str
     oneof_schema_1_validator: Optional[StrictStr] = None
-    # data type: List[Optional[str]]
+    # data type: List[str]
     oneof_schema_2_validator: Optional[Annotated[List[Annotated[str, Field(strict=True)]], Field(max_length=100)]] = None
-    actual_instance: Optional[Union[List[Optional[str]], str]] = None
-    one_of_schemas: Set[str] = { "List[Optional[str]]", "str" }
+    actual_instance: Optional[Union[List[str], str]] = None
+    one_of_schemas: Set[str] = { "List[str]", "str" }
 
     model_config = ConfigDict(
         validate_assignment=True,
@@ -99,7 +98,7 @@ class PruneGuildRequestIncludeRoles(BaseModel):
             match += 1
         except (ValidationError, ValueError) as e:
             error_messages.append(str(e))
-        # validate data type: List[Optional[str]]
+        # validate data type: List[str]
         try:
             instance.oneof_schema_2_validator = v
             match += 1
@@ -107,10 +106,10 @@ class PruneGuildRequestIncludeRoles(BaseModel):
             error_messages.append(str(e))
         if match > 1:
             # more than 1 match
-            raise ValueError("Multiple matches found when setting `actual_instance` in PruneGuildRequestIncludeRoles with oneOf schemas: List[Optional[str]], str. Details: " + ", ".join(error_messages))
+            raise ValueError("Multiple matches found when setting `actual_instance` in PruneGuildRequestIncludeRoles with oneOf schemas: List[str], str. Details: " + ", ".join(error_messages))
         elif match == 0:
             # no match
-            raise ValueError("No match found when setting `actual_instance` in PruneGuildRequestIncludeRoles with oneOf schemas: List[Optional[str]], str. Details: " + ", ".join(error_messages))
+            raise ValueError("No match found when setting `actual_instance` in PruneGuildRequestIncludeRoles with oneOf schemas: List[str], str. Details: " + ", ".join(error_messages))
         else:
             return v
 
@@ -137,7 +136,7 @@ class PruneGuildRequestIncludeRoles(BaseModel):
             match += 1
         except (ValidationError, ValueError) as e:
             error_messages.append(str(e))
-        # deserialize data into List[Optional[str]]
+        # deserialize data into List[str]
         try:
             # validation
             instance.oneof_schema_2_validator = json.loads(json_str)
@@ -149,10 +148,10 @@ class PruneGuildRequestIncludeRoles(BaseModel):
 
         if match > 1:
             # more than 1 match
-            raise ValueError("Multiple matches found when deserializing the JSON string into PruneGuildRequestIncludeRoles with oneOf schemas: List[Optional[str]], str. Details: " + ", ".join(error_messages))
+            raise ValueError("Multiple matches found when deserializing the JSON string into PruneGuildRequestIncludeRoles with oneOf schemas: List[str], str. Details: " + ", ".join(error_messages))
         elif match == 0:
             # no match
-            raise ValueError("No match found when deserializing the JSON string into PruneGuildRequestIncludeRoles with oneOf schemas: List[Optional[str]], str. Details: " + ", ".join(error_messages))
+            raise ValueError("No match found when deserializing the JSON string into PruneGuildRequestIncludeRoles with oneOf schemas: List[str], str. Details: " + ", ".join(error_messages))
         else:
             return instance
 
@@ -166,7 +165,7 @@ class PruneGuildRequestIncludeRoles(BaseModel):
         else:
             return json.dumps(self.actual_instance)
 
-    def to_dict(self) -> Optional[Union[Dict[str, Any], List[Optional[str]], str]]:
+    def to_dict(self) -> Optional[Union[Dict[str, Any], List[str], str]]:
         """Returns the dict representation of the actual instance"""
         if self.actual_instance is None:
             return None

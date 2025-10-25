@@ -12,9 +12,9 @@ Name | Type | Description | Notes
 **event_type** | **int** |  | 
 **actions** | [**List[DefaultKeywordRuleResponseActionsInner]**](DefaultKeywordRuleResponseActionsInner.md) |  | 
 **trigger_type** | **int** |  | 
-**enabled** | **bool** |  | [optional] 
-**exempt_roles** | **List[str]** |  | [optional] 
-**exempt_channels** | **List[str]** |  | [optional] 
+**enabled** | **bool** |  | 
+**exempt_roles** | **List[str]** |  | 
+**exempt_channels** | **List[str]** |  | 
 **trigger_metadata** | [**KeywordTriggerMetadataResponse**](KeywordTriggerMetadataResponse.md) |  | 
 
 ## Example

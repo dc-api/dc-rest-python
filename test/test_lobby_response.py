@@ -9,8 +9,8 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
-- **Generator Version**: 7.14.0
+- **Modified**: 2025-10-25T01:29:53.774185207Z[Etc/UTC]
+- **Generator Version**: 7.16.0
 
 <details>
 <summary><strong>⚠️ Important Disclaimer & Limitation of Liability</strong></summary>
@@ -44,7 +44,6 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 
 </details>
 """  # noqa: E501
-
 
 import unittest
 
@@ -124,12 +123,23 @@ class TestLobbyResponse(unittest.TestCase):
                     default_forum_layout = 56, 
                     default_tag_setting = '', 
                     hd_streaming_until = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
-                    hd_streaming_buyer_id = '9072888001528021798096225500850762068629339333975650685139102691291', )
+                    hd_streaming_buyer_id = '9072888001528021798096225500850762068629339333975650685139102691291', ),
+                flags = 0,
+                override_event_webhooks_url = ''
             )
         else:
             return LobbyResponse(
                 id = '9072888001528021798096225500850762068629339333975650685139102691291',
                 application_id = '9072888001528021798096225500850762068629339333975650685139102691291',
+                members = [
+                    dc_rest.models.lobby_member_response.LobbyMemberResponse(
+                        id = '9072888001528021798096225500850762068629339333975650685139102691291', 
+                        metadata = {
+                            'key' : ''
+                            }, 
+                        flags = 56, )
+                    ],
+                flags = 0,
         )
         """
 

@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **lobby_metadata** | **Dict[str, str]** |  | [optional] 
 **member_metadata** | **Dict[str, str]** |  | [optional] 
 **secret** | **str** |  | 
+**flags** | **int** |  | [optional] 
 
 ## Example
 

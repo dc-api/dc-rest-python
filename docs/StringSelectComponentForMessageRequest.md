@@ -6,12 +6,14 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **type** | **int** |  | 
+**id** | **int** |  | [optional] 
 **custom_id** | **str** |  | 
 **placeholder** | **str** |  | [optional] 
 **min_values** | **int** |  | [optional] 
 **max_values** | **int** |  | [optional] 
 **disabled** | **bool** |  | [optional] 
-**options** | [**List[StringSelectOptionForMessageRequest]**](StringSelectOptionForMessageRequest.md) |  | 
+**required** | **bool** |  | [optional] 
+**options** | [**List[StringSelectOptionForRequest]**](StringSelectOptionForRequest.md) |  | 
 
 ## Example
 

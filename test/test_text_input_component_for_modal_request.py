@@ -9,8 +9,8 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
-- **Generator Version**: 7.14.0
+- **Modified**: 2025-10-25T01:29:53.774185207Z[Etc/UTC]
+- **Generator Version**: 7.16.0
 
 <details>
 <summary><strong>⚠️ Important Disclaimer & Limitation of Liability</strong></summary>
@@ -45,7 +45,6 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 </details>
 """  # noqa: E501
 
-
 import unittest
 
 from dc_rest.models.text_input_component_for_modal_request import TextInputComponentForModalRequest
@@ -70,7 +69,8 @@ class TestTextInputComponentForModalRequest(unittest.TestCase):
         if include_optional:
             return TextInputComponentForModalRequest(
                 type = 56,
-                custom_id = '',
+                id = 0,
+                custom_id = '0',
                 style = 56,
                 label = '',
                 value = '',
@@ -82,9 +82,8 @@ class TestTextInputComponentForModalRequest(unittest.TestCase):
         else:
             return TextInputComponentForModalRequest(
                 type = 56,
-                custom_id = '',
+                custom_id = '0',
                 style = 56,
-                label = '',
         )
         """
 

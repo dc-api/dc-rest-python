@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **permissions** | **str** |  | 
 **position** | **int** |  | 
 **color** | **int** |  | 
-**colors** | [**GuildRoleColorsResponse**](GuildRoleColorsResponse.md) |  | [optional] 
+**colors** | [**GuildRoleColorsResponse**](GuildRoleColorsResponse.md) |  | 
 **hoist** | **bool** |  | 
 **managed** | **bool** |  | 
 **mentionable** | **bool** |  | 

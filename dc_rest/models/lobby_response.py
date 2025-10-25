@@ -9,8 +9,8 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
-- **Generator Version**: 7.14.0
+- **Modified**: 2025-10-25T01:29:53.774185207Z[Etc/UTC]
+- **Generator Version**: 7.16.0
 
 <details>
 <summary><strong>⚠️ Important Disclaimer & Limitation of Liability</strong></summary>
@@ -45,7 +45,6 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 </details>
 """  # noqa: E501
 
-
 from __future__ import annotations
 import pprint
 import re  # noqa: F401
@@ -66,9 +65,11 @@ class LobbyResponse(BaseModel):
     id: Annotated[str, Field(strict=True)]
     application_id: Annotated[str, Field(strict=True)]
     metadata: Optional[Dict[str, StrictStr]] = None
-    members: Optional[List[LobbyMemberResponse]] = None
+    members: List[LobbyMemberResponse]
     linked_channel: Optional[GuildChannelResponse] = None
-    __properties: ClassVar[List[str]] = ["id", "application_id", "metadata", "members", "linked_channel"]
+    flags: Annotated[int, Field(le=4294967295, strict=True, ge=0)]
+    override_event_webhooks_url: Optional[StrictStr] = None
+    __properties: ClassVar[List[str]] = ["id", "application_id", "metadata", "members", "linked_channel", "flags", "override_event_webhooks_url"]
 
     @field_validator('id')
     def id_validate_regular_expression(cls, value):
@@ -133,15 +134,10 @@ class LobbyResponse(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of linked_channel
         if self.linked_channel:
             _dict['linked_channel'] = self.linked_channel.to_dict()
-        # set to None if members (nullable) is None
+        # set to None if override_event_webhooks_url (nullable) is None
         # and model_fields_set contains the field
-        if self.members is None and "members" in self.model_fields_set:
-            _dict['members'] = None
-
-        # set to None if linked_channel (nullable) is None
-        # and model_fields_set contains the field
-        if self.linked_channel is None and "linked_channel" in self.model_fields_set:
-            _dict['linked_channel'] = None
+        if self.override_event_webhooks_url is None and "override_event_webhooks_url" in self.model_fields_set:
+            _dict['override_event_webhooks_url'] = None
 
         return _dict
 
@@ -164,7 +160,9 @@ class LobbyResponse(BaseModel):
             "application_id": obj.get("application_id"),
             "metadata": obj.get("metadata"),
             "members": [LobbyMemberResponse.from_dict(_item) for _item in obj["members"]] if obj.get("members") is not None else None,
-            "linked_channel": GuildChannelResponse.from_dict(obj["linked_channel"]) if obj.get("linked_channel") is not None else None
+            "linked_channel": GuildChannelResponse.from_dict(obj["linked_channel"]) if obj.get("linked_channel") is not None else None,
+            "flags": obj.get("flags"),
+            "override_event_webhooks_url": obj.get("override_event_webhooks_url")
         })
         return _obj
 

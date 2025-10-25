@@ -9,8 +9,8 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
-- **Generator Version**: 7.14.0
+- **Modified**: 2025-10-25T01:29:53.774185207Z[Etc/UTC]
+- **Generator Version**: 7.16.0
 
 <details>
 <summary><strong>⚠️ Important Disclaimer & Limitation of Liability</strong></summary>
@@ -44,7 +44,6 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 
 </details>
 """  # noqa: E501
-
 
 from __future__ import annotations
 import pprint
@@ -177,65 +176,10 @@ class InviteApplicationResponse(BaseModel):
         if self.type is None and "type" in self.model_fields_set:
             _dict['type'] = None
 
-        # set to None if cover_image (nullable) is None
-        # and model_fields_set contains the field
-        if self.cover_image is None and "cover_image" in self.model_fields_set:
-            _dict['cover_image'] = None
-
-        # set to None if bot (nullable) is None
-        # and model_fields_set contains the field
-        if self.bot is None and "bot" in self.model_fields_set:
-            _dict['bot'] = None
-
-        # set to None if slug (nullable) is None
-        # and model_fields_set contains the field
-        if self.slug is None and "slug" in self.model_fields_set:
-            _dict['slug'] = None
-
-        # set to None if rpc_origins (nullable) is None
-        # and model_fields_set contains the field
-        if self.rpc_origins is None and "rpc_origins" in self.model_fields_set:
-            _dict['rpc_origins'] = None
-
-        # set to None if bot_public (nullable) is None
-        # and model_fields_set contains the field
-        if self.bot_public is None and "bot_public" in self.model_fields_set:
-            _dict['bot_public'] = None
-
-        # set to None if bot_require_code_grant (nullable) is None
-        # and model_fields_set contains the field
-        if self.bot_require_code_grant is None and "bot_require_code_grant" in self.model_fields_set:
-            _dict['bot_require_code_grant'] = None
-
-        # set to None if terms_of_service_url (nullable) is None
-        # and model_fields_set contains the field
-        if self.terms_of_service_url is None and "terms_of_service_url" in self.model_fields_set:
-            _dict['terms_of_service_url'] = None
-
-        # set to None if privacy_policy_url (nullable) is None
-        # and model_fields_set contains the field
-        if self.privacy_policy_url is None and "privacy_policy_url" in self.model_fields_set:
-            _dict['privacy_policy_url'] = None
-
-        # set to None if custom_install_url (nullable) is None
-        # and model_fields_set contains the field
-        if self.custom_install_url is None and "custom_install_url" in self.model_fields_set:
-            _dict['custom_install_url'] = None
-
-        # set to None if install_params (nullable) is None
-        # and model_fields_set contains the field
-        if self.install_params is None and "install_params" in self.model_fields_set:
-            _dict['install_params'] = None
-
         # set to None if max_participants (nullable) is None
         # and model_fields_set contains the field
         if self.max_participants is None and "max_participants" in self.model_fields_set:
             _dict['max_participants'] = None
-
-        # set to None if tags (nullable) is None
-        # and model_fields_set contains the field
-        if self.tags is None and "tags" in self.model_fields_set:
-            _dict['tags'] = None
 
         return _dict
 

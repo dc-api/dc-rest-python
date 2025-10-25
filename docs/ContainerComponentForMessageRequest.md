@@ -6,6 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **type** | **int** |  | 
+**id** | **int** |  | [optional] 
 **accent_color** | **int** |  | [optional] 
 **components** | [**List[ContainerComponentForMessageRequestComponentsInner]**](ContainerComponentForMessageRequestComponentsInner.md) |  | 
 **spoiler** | **bool** |  | [optional] 

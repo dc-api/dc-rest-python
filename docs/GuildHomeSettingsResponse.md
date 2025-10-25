@@ -8,8 +8,8 @@ Name | Type | Description | Notes
 **guild_id** | **str** |  | 
 **enabled** | **bool** |  | 
 **welcome_message** | [**WelcomeMessageResponse**](WelcomeMessageResponse.md) |  | [optional] 
-**new_member_actions** | [**List[Optional[NewMemberActionResponse]]**](NewMemberActionResponse.md) |  | [optional] 
-**resource_channels** | [**List[Optional[ResourceChannelResponse]]**](ResourceChannelResponse.md) |  | [optional] 
+**new_member_actions** | [**List[Optional[NewMemberActionResponse]]**](NewMemberActionResponse.md) |  | 
+**resource_channels** | [**List[Optional[ResourceChannelResponse]]**](ResourceChannelResponse.md) |  | 
 
 ## Example
 

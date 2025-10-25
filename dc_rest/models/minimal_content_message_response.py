@@ -9,8 +9,8 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
-- **Generator Version**: 7.14.0
+- **Modified**: 2025-10-25T01:29:53.774185207Z[Etc/UTC]
+- **Generator Version**: 7.16.0
 
 <details>
 <summary><strong>⚠️ Important Disclaimer & Limitation of Liability</strong></summary>
@@ -45,7 +45,6 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 </details>
 """  # noqa: E501
 
-
 from __future__ import annotations
 import pprint
 import re  # noqa: F401
@@ -60,7 +59,6 @@ from dc_rest.models.get_sticker200_response import GetSticker200Response
 from dc_rest.models.message_attachment_response import MessageAttachmentResponse
 from dc_rest.models.message_embed_response import MessageEmbedResponse
 from dc_rest.models.message_sticker_item_response import MessageStickerItemResponse
-from dc_rest.models.resolved_objects_response import ResolvedObjectsResponse
 from dc_rest.models.user_response import UserResponse
 from typing import Optional, Set
 from typing_extensions import Self
@@ -79,10 +77,9 @@ class MinimalContentMessageResponse(BaseModel):
     edited_timestamp: Optional[datetime] = None
     flags: StrictInt
     components: List[BasicMessageResponseComponentsInner]
-    resolved: Optional[ResolvedObjectsResponse] = None
     stickers: Optional[List[GetSticker200Response]] = None
     sticker_items: Optional[List[MessageStickerItemResponse]] = None
-    __properties: ClassVar[List[str]] = ["type", "content", "mentions", "mention_roles", "attachments", "embeds", "timestamp", "edited_timestamp", "flags", "components", "resolved", "stickers", "sticker_items"]
+    __properties: ClassVar[List[str]] = ["type", "content", "mentions", "mention_roles", "attachments", "embeds", "timestamp", "edited_timestamp", "flags", "components", "stickers", "sticker_items"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -151,9 +148,6 @@ class MinimalContentMessageResponse(BaseModel):
                 if _item_components:
                     _items.append(_item_components.to_dict())
             _dict['components'] = _items
-        # override the default output from pydantic by calling `to_dict()` of resolved
-        if self.resolved:
-            _dict['resolved'] = self.resolved.to_dict()
         # override the default output from pydantic by calling `to_dict()` of each item in stickers (list)
         _items = []
         if self.stickers:
@@ -172,21 +166,6 @@ class MinimalContentMessageResponse(BaseModel):
         # and model_fields_set contains the field
         if self.edited_timestamp is None and "edited_timestamp" in self.model_fields_set:
             _dict['edited_timestamp'] = None
-
-        # set to None if resolved (nullable) is None
-        # and model_fields_set contains the field
-        if self.resolved is None and "resolved" in self.model_fields_set:
-            _dict['resolved'] = None
-
-        # set to None if stickers (nullable) is None
-        # and model_fields_set contains the field
-        if self.stickers is None and "stickers" in self.model_fields_set:
-            _dict['stickers'] = None
-
-        # set to None if sticker_items (nullable) is None
-        # and model_fields_set contains the field
-        if self.sticker_items is None and "sticker_items" in self.model_fields_set:
-            _dict['sticker_items'] = None
 
         return _dict
 
@@ -215,7 +194,6 @@ class MinimalContentMessageResponse(BaseModel):
             "edited_timestamp": obj.get("edited_timestamp"),
             "flags": obj.get("flags"),
             "components": [BasicMessageResponseComponentsInner.from_dict(_item) for _item in obj["components"]] if obj.get("components") is not None else None,
-            "resolved": ResolvedObjectsResponse.from_dict(obj["resolved"]) if obj.get("resolved") is not None else None,
             "stickers": [GetSticker200Response.from_dict(_item) for _item in obj["stickers"]] if obj.get("stickers") is not None else None,
             "sticker_items": [MessageStickerItemResponse.from_dict(_item) for _item in obj["sticker_items"]] if obj.get("sticker_items") is not None else None
         })

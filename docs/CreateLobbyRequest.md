@@ -8,6 +8,8 @@ Name | Type | Description | Notes
 **idle_timeout_seconds** | **int** |  | [optional] 
 **members** | [**List[LobbyMemberRequest]**](LobbyMemberRequest.md) |  | [optional] 
 **metadata** | **Dict[str, str]** |  | [optional] 
+**flags** | **int** |  | [optional] 
+**override_event_webhooks_url** | **str** |  | [optional] 
 
 ## Example
 
