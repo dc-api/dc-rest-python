@@ -9,8 +9,8 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
-- **Generator Version**: 7.14.0
+- **Modified**: 2025-10-25T01:29:53.774185207Z[Etc/UTC]
+- **Generator Version**: 7.16.0
 
 <details>
 <summary><strong>⚠️ Important Disclaimer & Limitation of Liability</strong></summary>
@@ -45,7 +45,6 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 </details>
 """  # noqa: E501
 
-
 from __future__ import annotations
 import pprint
 import re  # noqa: F401
@@ -67,8 +66,8 @@ class GuildHomeSettingsResponse(BaseModel):
     guild_id: Annotated[str, Field(strict=True)]
     enabled: StrictBool
     welcome_message: Optional[WelcomeMessageResponse] = None
-    new_member_actions: Optional[List[Optional[NewMemberActionResponse]]] = None
-    resource_channels: Optional[List[Optional[ResourceChannelResponse]]] = None
+    new_member_actions: List[Optional[NewMemberActionResponse]]
+    resource_channels: List[Optional[ResourceChannelResponse]]
     __properties: ClassVar[List[str]] = ["guild_id", "enabled", "welcome_message", "new_member_actions", "resource_channels"]
 
     @field_validator('guild_id')
@@ -134,21 +133,6 @@ class GuildHomeSettingsResponse(BaseModel):
                 if _item_resource_channels:
                     _items.append(_item_resource_channels.to_dict())
             _dict['resource_channels'] = _items
-        # set to None if welcome_message (nullable) is None
-        # and model_fields_set contains the field
-        if self.welcome_message is None and "welcome_message" in self.model_fields_set:
-            _dict['welcome_message'] = None
-
-        # set to None if new_member_actions (nullable) is None
-        # and model_fields_set contains the field
-        if self.new_member_actions is None and "new_member_actions" in self.model_fields_set:
-            _dict['new_member_actions'] = None
-
-        # set to None if resource_channels (nullable) is None
-        # and model_fields_set contains the field
-        if self.resource_channels is None and "resource_channels" in self.model_fields_set:
-            _dict['resource_channels'] = None
-
         return _dict
 
     @classmethod

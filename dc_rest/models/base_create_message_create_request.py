@@ -9,8 +9,8 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
-- **Generator Version**: 7.14.0
+- **Modified**: 2025-10-25T01:29:53.774185207Z[Etc/UTC]
+- **Generator Version**: 7.16.0
 
 <details>
 <summary><strong>⚠️ Important Disclaimer & Limitation of Liability</strong></summary>
@@ -45,7 +45,6 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 </details>
 """  # noqa: E501
 
-
 from __future__ import annotations
 import pprint
 import re  # noqa: F401
@@ -55,6 +54,7 @@ from pydantic import BaseModel, ConfigDict, Field, StrictInt, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
 from dc_rest.models.base_create_message_create_request_components_inner import BaseCreateMessageCreateRequestComponentsInner
+from dc_rest.models.custom_client_theme_share_request import CustomClientThemeShareRequest
 from dc_rest.models.message_allowed_mentions_request import MessageAllowedMentionsRequest
 from dc_rest.models.message_attachment_request import MessageAttachmentRequest
 from dc_rest.models.poll_create_request import PollCreateRequest
@@ -74,8 +74,9 @@ class BaseCreateMessageCreateRequest(BaseModel):
     flags: Optional[StrictInt] = None
     attachments: Optional[Annotated[List[MessageAttachmentRequest], Field(max_length=10)]] = None
     poll: Optional[PollCreateRequest] = None
+    shared_client_theme: Optional[CustomClientThemeShareRequest] = None
     confetti_potion: Optional[Dict[str, Any]] = None
-    __properties: ClassVar[List[str]] = ["content", "embeds", "allowed_mentions", "sticker_ids", "components", "flags", "attachments", "poll", "confetti_potion"]
+    __properties: ClassVar[List[str]] = ["content", "embeds", "allowed_mentions", "sticker_ids", "components", "flags", "attachments", "poll", "shared_client_theme", "confetti_potion"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -143,6 +144,9 @@ class BaseCreateMessageCreateRequest(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of poll
         if self.poll:
             _dict['poll'] = self.poll.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of shared_client_theme
+        if self.shared_client_theme:
+            _dict['shared_client_theme'] = self.shared_client_theme.to_dict()
         # set to None if content (nullable) is None
         # and model_fields_set contains the field
         if self.content is None and "content" in self.model_fields_set:
@@ -183,6 +187,11 @@ class BaseCreateMessageCreateRequest(BaseModel):
         if self.poll is None and "poll" in self.model_fields_set:
             _dict['poll'] = None
 
+        # set to None if shared_client_theme (nullable) is None
+        # and model_fields_set contains the field
+        if self.shared_client_theme is None and "shared_client_theme" in self.model_fields_set:
+            _dict['shared_client_theme'] = None
+
         return _dict
 
     @classmethod
@@ -208,6 +217,7 @@ class BaseCreateMessageCreateRequest(BaseModel):
             "flags": obj.get("flags"),
             "attachments": [MessageAttachmentRequest.from_dict(_item) for _item in obj["attachments"]] if obj.get("attachments") is not None else None,
             "poll": PollCreateRequest.from_dict(obj["poll"]) if obj.get("poll") is not None else None,
+            "shared_client_theme": CustomClientThemeShareRequest.from_dict(obj["shared_client_theme"]) if obj.get("shared_client_theme") is not None else None,
             "confetti_potion": obj.get("confetti_potion")
         })
         return _obj

@@ -9,8 +9,8 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
-- **Generator Version**: 7.14.0
+- **Modified**: 2025-10-25T01:29:53.774185207Z[Etc/UTC]
+- **Generator Version**: 7.16.0
 
 <details>
 <summary><strong>⚠️ Important Disclaimer & Limitation of Liability</strong></summary>
@@ -45,44 +45,38 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 </details>
 """  # noqa: E501
 
-
 from __future__ import annotations
-from inspect import getfullargspec
 import json
 import pprint
-import re  # noqa: F401
 from pydantic import BaseModel, ConfigDict, Field, StrictStr, ValidationError, field_validator
-from typing import Optional
+from typing import Any, List, Optional
 from dc_rest.models.friend_invite_response import FriendInviteResponse
 from dc_rest.models.group_dm_invite_response import GroupDMInviteResponse
 from dc_rest.models.guild_invite_response import GuildInviteResponse
-from typing import Union, Any, List, Set, TYPE_CHECKING, Optional, Dict
+from pydantic import StrictStr, Field
+from typing import Union, List, Set, Optional, Dict
 from typing_extensions import Literal, Self
-from pydantic import Field
 
-LISTCHANNELINVITES200RESPONSEINNER_ANY_OF_SCHEMAS = ["FriendInviteResponse", "GroupDMInviteResponse", "GuildInviteResponse"]
+LISTCHANNELINVITES200RESPONSEINNER_ONE_OF_SCHEMAS = ["FriendInviteResponse", "GroupDMInviteResponse", "GuildInviteResponse"]
 
 class ListChannelInvites200ResponseInner(BaseModel):
     """
     ListChannelInvites200ResponseInner
     """
-
     # data type: FriendInviteResponse
-    anyof_schema_1_validator: Optional[FriendInviteResponse] = None
+    oneof_schema_1_validator: Optional[FriendInviteResponse] = None
     # data type: GroupDMInviteResponse
-    anyof_schema_2_validator: Optional[GroupDMInviteResponse] = None
+    oneof_schema_2_validator: Optional[GroupDMInviteResponse] = None
     # data type: GuildInviteResponse
-    anyof_schema_3_validator: Optional[GuildInviteResponse] = None
-    if TYPE_CHECKING:
-        actual_instance: Optional[Union[FriendInviteResponse, GroupDMInviteResponse, GuildInviteResponse]] = None
-    else:
-        actual_instance: Any = None
-    any_of_schemas: Set[str] = { "FriendInviteResponse", "GroupDMInviteResponse", "GuildInviteResponse" }
+    oneof_schema_3_validator: Optional[GuildInviteResponse] = None
+    actual_instance: Optional[Union[FriendInviteResponse, GroupDMInviteResponse, GuildInviteResponse]] = None
+    one_of_schemas: Set[str] = { "FriendInviteResponse", "GroupDMInviteResponse", "GuildInviteResponse" }
 
-    model_config = {
-        "validate_assignment": True,
-        "protected_namespaces": (),
-    }
+    model_config = ConfigDict(
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
+
 
     def __init__(self, *args, **kwargs) -> None:
         if args:
@@ -95,64 +89,76 @@ class ListChannelInvites200ResponseInner(BaseModel):
             super().__init__(**kwargs)
 
     @field_validator('actual_instance')
-    def actual_instance_must_validate_anyof(cls, v):
+    def actual_instance_must_validate_oneof(cls, v):
+        if v is None:
+            return v
+
         instance = ListChannelInvites200ResponseInner.model_construct()
         error_messages = []
+        match = 0
         # validate data type: FriendInviteResponse
         if not isinstance(v, FriendInviteResponse):
             error_messages.append(f"Error! Input type `{type(v)}` is not `FriendInviteResponse`")
         else:
-            return v
-
+            match += 1
         # validate data type: GroupDMInviteResponse
         if not isinstance(v, GroupDMInviteResponse):
             error_messages.append(f"Error! Input type `{type(v)}` is not `GroupDMInviteResponse`")
         else:
-            return v
-
+            match += 1
         # validate data type: GuildInviteResponse
         if not isinstance(v, GuildInviteResponse):
             error_messages.append(f"Error! Input type `{type(v)}` is not `GuildInviteResponse`")
         else:
-            return v
-
-        if error_messages:
+            match += 1
+        if match > 1:
+            # more than 1 match
+            raise ValueError("Multiple matches found when setting `actual_instance` in ListChannelInvites200ResponseInner with oneOf schemas: FriendInviteResponse, GroupDMInviteResponse, GuildInviteResponse. Details: " + ", ".join(error_messages))
+        elif match == 0:
             # no match
-            raise ValueError("No match found when setting the actual_instance in ListChannelInvites200ResponseInner with anyOf schemas: FriendInviteResponse, GroupDMInviteResponse, GuildInviteResponse. Details: " + ", ".join(error_messages))
+            raise ValueError("No match found when setting `actual_instance` in ListChannelInvites200ResponseInner with oneOf schemas: FriendInviteResponse, GroupDMInviteResponse, GuildInviteResponse. Details: " + ", ".join(error_messages))
         else:
             return v
 
     @classmethod
-    def from_dict(cls, obj: Dict[str, Any]) -> Self:
+    def from_dict(cls, obj: Union[str, Dict[str, Any]]) -> Self:
         return cls.from_json(json.dumps(obj))
 
     @classmethod
-    def from_json(cls, json_str: str) -> Self:
+    def from_json(cls, json_str: Optional[str]) -> Self:
         """Returns the object represented by the json string"""
         instance = cls.model_construct()
+        if json_str is None:
+            return instance
+
         error_messages = []
-        # anyof_schema_1_validator: Optional[FriendInviteResponse] = None
+        match = 0
+
+        # deserialize data into FriendInviteResponse
         try:
             instance.actual_instance = FriendInviteResponse.from_json(json_str)
-            return instance
+            match += 1
         except (ValidationError, ValueError) as e:
-             error_messages.append(str(e))
-        # anyof_schema_2_validator: Optional[GroupDMInviteResponse] = None
+            error_messages.append(str(e))
+        # deserialize data into GroupDMInviteResponse
         try:
             instance.actual_instance = GroupDMInviteResponse.from_json(json_str)
-            return instance
+            match += 1
         except (ValidationError, ValueError) as e:
-             error_messages.append(str(e))
-        # anyof_schema_3_validator: Optional[GuildInviteResponse] = None
+            error_messages.append(str(e))
+        # deserialize data into GuildInviteResponse
         try:
             instance.actual_instance = GuildInviteResponse.from_json(json_str)
-            return instance
+            match += 1
         except (ValidationError, ValueError) as e:
-             error_messages.append(str(e))
+            error_messages.append(str(e))
 
-        if error_messages:
+        if match > 1:
+            # more than 1 match
+            raise ValueError("Multiple matches found when deserializing the JSON string into ListChannelInvites200ResponseInner with oneOf schemas: FriendInviteResponse, GroupDMInviteResponse, GuildInviteResponse. Details: " + ", ".join(error_messages))
+        elif match == 0:
             # no match
-            raise ValueError("No match found when deserializing the JSON string into ListChannelInvites200ResponseInner with anyOf schemas: FriendInviteResponse, GroupDMInviteResponse, GuildInviteResponse. Details: " + ", ".join(error_messages))
+            raise ValueError("No match found when deserializing the JSON string into ListChannelInvites200ResponseInner with oneOf schemas: FriendInviteResponse, GroupDMInviteResponse, GuildInviteResponse. Details: " + ", ".join(error_messages))
         else:
             return instance
 
@@ -174,6 +180,7 @@ class ListChannelInvites200ResponseInner(BaseModel):
         if hasattr(self.actual_instance, "to_dict") and callable(self.actual_instance.to_dict):
             return self.actual_instance.to_dict()
         else:
+            # primitive type
             return self.actual_instance
 
     def to_str(self) -> str:

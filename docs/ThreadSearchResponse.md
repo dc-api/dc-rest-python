@@ -7,9 +7,9 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **threads** | [**List[ThreadResponse]**](ThreadResponse.md) |  | 
 **members** | [**List[ThreadMemberResponse]**](ThreadMemberResponse.md) |  | 
-**has_more** | **bool** |  | [optional] 
+**has_more** | **bool** |  | 
 **first_messages** | [**List[MessageResponse]**](MessageResponse.md) |  | [optional] 
-**total_results** | **int** |  | [optional] 
+**total_results** | **int** |  | 
 
 ## Example
 

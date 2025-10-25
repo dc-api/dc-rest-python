@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**type** | **int** |  | [optional] 
+**type** | **int** |  | 
 **code** | **str** |  | 
 **inviter** | [**UserResponse**](UserResponse.md) |  | [optional] 
 **max_age** | **int** |  | [optional] 
@@ -13,9 +13,9 @@ Name | Type | Description | Notes
 **expires_at** | **datetime** |  | [optional] 
 **is_contact** | **bool** |  | [optional] 
 **flags** | **int** |  | [optional] 
-**guild** | [**InviteGuildResponse**](InviteGuildResponse.md) |  | [optional] 
-**guild_id** | **str** |  | [optional] 
-**channel** | [**InviteChannelResponse**](InviteChannelResponse.md) |  | [optional] 
+**guild** | [**InviteGuildResponse**](InviteGuildResponse.md) |  | 
+**guild_id** | **str** |  | 
+**channel** | [**InviteChannelResponse**](InviteChannelResponse.md) |  | 
 **target_type** | **int** |  | [optional] 
 **target_user** | [**UserResponse**](UserResponse.md) |  | [optional] 
 **target_application** | [**InviteApplicationResponse**](InviteApplicationResponse.md) |  | [optional] 

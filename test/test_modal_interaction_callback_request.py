@@ -9,8 +9,8 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
-- **Generator Version**: 7.14.0
+- **Modified**: 2025-10-25T01:29:53.774185207Z[Etc/UTC]
+- **Generator Version**: 7.16.0
 
 <details>
 <summary><strong>⚠️ Important Disclaimer & Limitation of Liability</strong></summary>
@@ -45,7 +45,6 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 </details>
 """  # noqa: E501
 
-
 import unittest
 
 from dc_rest.models.modal_interaction_callback_request import ModalInteractionCallbackRequest
@@ -71,46 +70,20 @@ class TestModalInteractionCallbackRequest(unittest.TestCase):
             return ModalInteractionCallbackRequest(
                 type = 56,
                 data = dc_rest.models.modal_interaction_callback_request_data.ModalInteractionCallbackRequestData(
-                    custom_id = '', 
-                    title = '', 
+                    custom_id = '0', 
+                    title = '0', 
                     components = [
-                        dc_rest.models.action_row_component_for_modal_request.ActionRowComponentForModalRequest(
-                            type = 1, 
-                            components = [
-                                dc_rest.models.text_input_component_for_modal_request.TextInputComponentForModalRequest(
-                                    type = 4, 
-                                    custom_id = '', 
-                                    style = 56, 
-                                    label = '', 
-                                    value = '', 
-                                    placeholder = '', 
-                                    required = True, 
-                                    min_length = 0, 
-                                    max_length = 1, )
-                                ], )
+                        null
                         ], )
             )
         else:
             return ModalInteractionCallbackRequest(
                 type = 56,
                 data = dc_rest.models.modal_interaction_callback_request_data.ModalInteractionCallbackRequestData(
-                    custom_id = '', 
-                    title = '', 
+                    custom_id = '0', 
+                    title = '0', 
                     components = [
-                        dc_rest.models.action_row_component_for_modal_request.ActionRowComponentForModalRequest(
-                            type = 1, 
-                            components = [
-                                dc_rest.models.text_input_component_for_modal_request.TextInputComponentForModalRequest(
-                                    type = 4, 
-                                    custom_id = '', 
-                                    style = 56, 
-                                    label = '', 
-                                    value = '', 
-                                    placeholder = '', 
-                                    required = True, 
-                                    min_length = 0, 
-                                    max_length = 1, )
-                                ], )
+                        null
                         ], ),
         )
         """

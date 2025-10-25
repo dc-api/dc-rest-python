@@ -9,8 +9,8 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
-- **Generator Version**: 7.14.0
+- **Modified**: 2025-10-25T01:29:53.774185207Z[Etc/UTC]
+- **Generator Version**: 7.16.0
 
 <details>
 <summary><strong>⚠️ Important Disclaimer & Limitation of Liability</strong></summary>
@@ -44,7 +44,6 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 
 </details>
 """  # noqa: E501
-
 
 from __future__ import annotations
 import pprint
@@ -140,16 +139,6 @@ class IntegrationApplicationResponse(BaseModel):
         # and model_fields_set contains the field
         if self.type is None and "type" in self.model_fields_set:
             _dict['type'] = None
-
-        # set to None if cover_image (nullable) is None
-        # and model_fields_set contains the field
-        if self.cover_image is None and "cover_image" in self.model_fields_set:
-            _dict['cover_image'] = None
-
-        # set to None if bot (nullable) is None
-        # and model_fields_set contains the field
-        if self.bot is None and "bot" in self.model_fields_set:
-            _dict['bot'] = None
 
         return _dict
 

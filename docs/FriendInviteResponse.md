@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**type** | **int** |  | [optional] 
+**type** | **int** |  | 
 **code** | **str** |  | 
 **inviter** | [**UserResponse**](UserResponse.md) |  | [optional] 
 **max_age** | **int** |  | [optional] 

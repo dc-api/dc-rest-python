@@ -37,7 +37,7 @@ Name | Type | Description | Notes
 **owner_id** | **str** |  | 
 **managed** | **bool** |  | [optional] 
 **application_id** | **str** |  | [optional] 
-**thread_metadata** | [**ThreadMetadataResponse**](ThreadMetadataResponse.md) |  | [optional] 
+**thread_metadata** | [**ThreadMetadataResponse**](ThreadMetadataResponse.md) |  | 
 **message_count** | **int** |  | 
 **member_count** | **int** |  | 
 **total_message_sent** | **int** |  | 

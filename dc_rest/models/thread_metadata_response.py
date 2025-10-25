@@ -9,8 +9,8 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
-- **Generator Version**: 7.14.0
+- **Modified**: 2025-10-25T01:29:53.774185207Z[Etc/UTC]
+- **Generator Version**: 7.16.0
 
 <details>
 <summary><strong>⚠️ Important Disclaimer & Limitation of Liability</strong></summary>
@@ -44,7 +44,6 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 
 </details>
 """  # noqa: E501
-
 
 from __future__ import annotations
 import pprint
@@ -112,16 +111,6 @@ class ThreadMetadataResponse(BaseModel):
         # and model_fields_set contains the field
         if self.archive_timestamp is None and "archive_timestamp" in self.model_fields_set:
             _dict['archive_timestamp'] = None
-
-        # set to None if create_timestamp (nullable) is None
-        # and model_fields_set contains the field
-        if self.create_timestamp is None and "create_timestamp" in self.model_fields_set:
-            _dict['create_timestamp'] = None
-
-        # set to None if invitable (nullable) is None
-        # and model_fields_set contains the field
-        if self.invitable is None and "invitable" in self.model_fields_set:
-            _dict['invitable'] = None
 
         return _dict
 

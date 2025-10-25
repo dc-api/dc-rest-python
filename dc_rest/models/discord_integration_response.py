@@ -9,8 +9,8 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
-- **Generator Version**: 7.14.0
+- **Modified**: 2025-10-25T01:29:53.774185207Z[Etc/UTC]
+- **Generator Version**: 7.16.0
 
 <details>
 <summary><strong>⚠️ Important Disclaimer & Limitation of Liability</strong></summary>
@@ -45,7 +45,6 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 </details>
 """  # noqa: E501
 
-
 from __future__ import annotations
 import pprint
 import re  # noqa: F401
@@ -66,8 +65,8 @@ class DiscordIntegrationResponse(BaseModel):
     """ # noqa: E501
     type: Optional[StrictStr]
     name: Optional[StrictStr] = None
-    account: Optional[AccountResponse] = None
-    enabled: Optional[StrictBool] = None
+    account: AccountResponse
+    enabled: StrictBool
     id: Annotated[str, Field(strict=True)]
     application: IntegrationApplicationResponse
     scopes: List[StrictStr]
@@ -138,21 +137,6 @@ class DiscordIntegrationResponse(BaseModel):
         # and model_fields_set contains the field
         if self.name is None and "name" in self.model_fields_set:
             _dict['name'] = None
-
-        # set to None if account (nullable) is None
-        # and model_fields_set contains the field
-        if self.account is None and "account" in self.model_fields_set:
-            _dict['account'] = None
-
-        # set to None if enabled (nullable) is None
-        # and model_fields_set contains the field
-        if self.enabled is None and "enabled" in self.model_fields_set:
-            _dict['enabled'] = None
-
-        # set to None if user (nullable) is None
-        # and model_fields_set contains the field
-        if self.user is None and "user" in self.model_fields_set:
-            _dict['user'] = None
 
         return _dict
 

@@ -9,8 +9,8 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
-- **Generator Version**: 7.14.0
+- **Modified**: 2025-10-25T01:29:53.774185207Z[Etc/UTC]
+- **Generator Version**: 7.16.0
 
 <details>
 <summary><strong>⚠️ Important Disclaimer & Limitation of Liability</strong></summary>
@@ -45,7 +45,6 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 </details>
 """  # noqa: E501
 
-
 from __future__ import annotations
 import pprint
 import re  # noqa: F401
@@ -62,7 +61,7 @@ class ApplicationOAuth2InstallParams(BaseModel):
     ApplicationOAuth2InstallParams
     """ # noqa: E501
     scopes: Optional[Annotated[List[StrictStr], Field(min_length=1)]] = None
-    permissions: Optional[Annotated[int, Field(le=4503599627370495, strict=True, ge=0)]] = None
+    permissions: Optional[Annotated[int, Field(le=9007199254740991, strict=True, ge=0)]] = None
     __properties: ClassVar[List[str]] = ["scopes", "permissions"]
 
     model_config = ConfigDict(

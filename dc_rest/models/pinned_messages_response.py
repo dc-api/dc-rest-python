@@ -9,8 +9,8 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
-- **Generator Version**: 7.14.0
+- **Modified**: 2025-10-25T01:29:53.774185207Z[Etc/UTC]
+- **Generator Version**: 7.16.0
 
 <details>
 <summary><strong>⚠️ Important Disclaimer & Limitation of Liability</strong></summary>
@@ -45,14 +45,13 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 </details>
 """  # noqa: E501
 
-
 from __future__ import annotations
 import pprint
 import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, StrictBool
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, List
 from dc_rest.models.pinned_message_response import PinnedMessageResponse
 from typing import Optional, Set
 from typing_extensions import Self
@@ -61,7 +60,7 @@ class PinnedMessagesResponse(BaseModel):
     """
     PinnedMessagesResponse
     """ # noqa: E501
-    items: Optional[List[PinnedMessageResponse]] = None
+    items: List[PinnedMessageResponse]
     has_more: StrictBool
     __properties: ClassVar[List[str]] = ["items", "has_more"]
 
@@ -111,11 +110,6 @@ class PinnedMessagesResponse(BaseModel):
                 if _item_items:
                     _items.append(_item_items.to_dict())
             _dict['items'] = _items
-        # set to None if items (nullable) is None
-        # and model_fields_set contains the field
-        if self.items is None and "items" in self.model_fields_set:
-            _dict['items'] = None
-
         return _dict
 
     @classmethod

@@ -9,8 +9,8 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
-- **Generator Version**: 7.14.0
+- **Modified**: 2025-10-25T01:29:53.774185207Z[Etc/UTC]
+- **Generator Version**: 7.16.0
 
 <details>
 <summary><strong>⚠️ Important Disclaimer & Limitation of Liability</strong></summary>
@@ -45,7 +45,6 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 </details>
 """  # noqa: E501
 
-
 from __future__ import annotations
 import pprint
 import re  # noqa: F401
@@ -63,10 +62,11 @@ class ThumbnailComponentForMessageRequest(BaseModel):
     ThumbnailComponentForMessageRequest
     """ # noqa: E501
     type: StrictInt
+    id: Optional[Annotated[int, Field(strict=True, ge=0)]] = None
     description: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=1024)]] = None
     spoiler: Optional[StrictBool] = None
     media: UnfurledMediaRequest
-    __properties: ClassVar[List[str]] = ["type", "description", "spoiler", "media"]
+    __properties: ClassVar[List[str]] = ["type", "id", "description", "spoiler", "media"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -110,6 +110,11 @@ class ThumbnailComponentForMessageRequest(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of media
         if self.media:
             _dict['media'] = self.media.to_dict()
+        # set to None if id (nullable) is None
+        # and model_fields_set contains the field
+        if self.id is None and "id" in self.model_fields_set:
+            _dict['id'] = None
+
         # set to None if description (nullable) is None
         # and model_fields_set contains the field
         if self.description is None and "description" in self.model_fields_set:
@@ -138,6 +143,7 @@ class ThumbnailComponentForMessageRequest(BaseModel):
 
         _obj = cls.model_validate({
             "type": obj.get("type"),
+            "id": obj.get("id"),
             "description": obj.get("description"),
             "spoiler": obj.get("spoiler"),
             "media": UnfurledMediaRequest.from_dict(obj["media"]) if obj.get("media") is not None else None

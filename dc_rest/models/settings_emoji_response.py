@@ -9,8 +9,8 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
-- **Generator Version**: 7.14.0
+- **Modified**: 2025-10-25T01:29:53.774185207Z[Etc/UTC]
+- **Generator Version**: 7.16.0
 
 <details>
 <summary><strong>⚠️ Important Disclaimer & Limitation of Liability</strong></summary>
@@ -45,7 +45,6 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 </details>
 """  # noqa: E501
 
-
 from __future__ import annotations
 import pprint
 import re  # noqa: F401
@@ -63,7 +62,7 @@ class SettingsEmojiResponse(BaseModel):
     """ # noqa: E501
     id: Optional[Annotated[str, Field(strict=True)]] = None
     name: Optional[StrictStr] = None
-    animated: Optional[StrictBool] = None
+    animated: StrictBool
     __properties: ClassVar[List[str]] = ["id", "name", "animated"]
 
     @field_validator('id')
@@ -119,11 +118,6 @@ class SettingsEmojiResponse(BaseModel):
         # and model_fields_set contains the field
         if self.name is None and "name" in self.model_fields_set:
             _dict['name'] = None
-
-        # set to None if animated (nullable) is None
-        # and model_fields_set contains the field
-        if self.animated is None and "animated" in self.model_fields_set:
-            _dict['animated'] = None
 
         return _dict
 

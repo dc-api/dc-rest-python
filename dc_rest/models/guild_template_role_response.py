@@ -9,8 +9,8 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
-- **Generator Version**: 7.14.0
+- **Modified**: 2025-10-25T01:29:53.774185207Z[Etc/UTC]
+- **Generator Version**: 7.16.0
 
 <details>
 <summary><strong>⚠️ Important Disclaimer & Limitation of Liability</strong></summary>
@@ -45,7 +45,6 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 </details>
 """  # noqa: E501
 
-
 from __future__ import annotations
 import pprint
 import re  # noqa: F401
@@ -53,6 +52,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, StrictBool, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from dc_rest.models.guild_template_role_colors_response import GuildTemplateRoleColorsResponse
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -64,11 +64,12 @@ class GuildTemplateRoleResponse(BaseModel):
     name: StrictStr
     permissions: StrictStr
     color: StrictInt
+    colors: Optional[GuildTemplateRoleColorsResponse] = None
     hoist: StrictBool
     mentionable: StrictBool
     icon: Optional[StrictStr] = None
     unicode_emoji: Optional[StrictStr] = None
-    __properties: ClassVar[List[str]] = ["id", "name", "permissions", "color", "hoist", "mentionable", "icon", "unicode_emoji"]
+    __properties: ClassVar[List[str]] = ["id", "name", "permissions", "color", "colors", "hoist", "mentionable", "icon", "unicode_emoji"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -109,6 +110,14 @@ class GuildTemplateRoleResponse(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of colors
+        if self.colors:
+            _dict['colors'] = self.colors.to_dict()
+        # set to None if colors (nullable) is None
+        # and model_fields_set contains the field
+        if self.colors is None and "colors" in self.model_fields_set:
+            _dict['colors'] = None
+
         # set to None if icon (nullable) is None
         # and model_fields_set contains the field
         if self.icon is None and "icon" in self.model_fields_set:
@@ -140,6 +149,7 @@ class GuildTemplateRoleResponse(BaseModel):
             "name": obj.get("name"),
             "permissions": obj.get("permissions"),
             "color": obj.get("color"),
+            "colors": GuildTemplateRoleColorsResponse.from_dict(obj["colors"]) if obj.get("colors") is not None else None,
             "hoist": obj.get("hoist"),
             "mentionable": obj.get("mentionable"),
             "icon": obj.get("icon"),

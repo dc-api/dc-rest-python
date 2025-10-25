@@ -9,8 +9,8 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 - **Copyright**: Copyright (c) 2025 Qntx
 - **Author**: ΣX <gitctrlx@gmail.com>
 - **Version**: 10
-- **Modified**: 2025-07-05T02:42:22.742560433Z[Etc/UTC]
-- **Generator Version**: 7.14.0
+- **Modified**: 2025-10-25T01:29:53.774185207Z[Etc/UTC]
+- **Generator Version**: 7.16.0
 
 <details>
 <summary><strong>⚠️ Important Disclaimer & Limitation of Liability</strong></summary>
@@ -45,7 +45,6 @@ Preview of the Discord v10 HTTP API specification. See https://discord.com/devel
 </details>
 """  # noqa: E501
 
-
 from __future__ import annotations
 import pprint
 import re  # noqa: F401
@@ -66,7 +65,7 @@ class StageInstanceResponse(BaseModel):
     topic: StrictStr
     privacy_level: StrictInt
     id: Annotated[str, Field(strict=True)]
-    discoverable_disabled: Optional[StrictBool] = None
+    discoverable_disabled: StrictBool
     guild_scheduled_event_id: Optional[Annotated[str, Field(strict=True)]] = None
     __properties: ClassVar[List[str]] = ["guild_id", "channel_id", "topic", "privacy_level", "id", "discoverable_disabled", "guild_scheduled_event_id"]
 
@@ -140,11 +139,6 @@ class StageInstanceResponse(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if discoverable_disabled (nullable) is None
-        # and model_fields_set contains the field
-        if self.discoverable_disabled is None and "discoverable_disabled" in self.model_fields_set:
-            _dict['discoverable_disabled'] = None
-
         return _dict
 
     @classmethod
